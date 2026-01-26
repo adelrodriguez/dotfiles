@@ -1,0 +1,9 @@
+config/fish/conf.d/99-local.fish
+config/fish/conf.d/bang-bang.fish
+config/fish/conf.d/done.fish
+config/fish/conf.d/fisher*.fish
+config/fish/conf.d/fzf.fish
+config/fish/conf.d/pisces.fish
+config/fish/completions/
+config/fish/functions/
+config/fish/fish_variables
