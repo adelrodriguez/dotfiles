@@ -1,6 +1,9 @@
-# Dotfiles
-
-Keep shell + tool config in one repo; symlink into $HOME.
+<div align="center">
+  <h1 align="center">🧰 dotfiles</h1>
+  <p align="center">
+    <strong>Shell + tool config, symlinked into $HOME.</strong>
+  </p>
+</div>
 
 ## Quick start
 ```sh
@@ -27,5 +30,5 @@ ln -s "$HOME/Developer/dotfiles/fd/ignore" "$HOME/.config/fd/ignore"
 Put machine-specific or sensitive items in `~/.zshrc.local`.
 `~/.zshrc` sources it if present.
 
-## Notes
-Install tools via Homebrew: atuin, fzf, rg, fd, bat, delta, jq, direnv.
+## Tools
+Install via Homebrew: atuin, fzf, rg, fd, bat, delta, jq, direnv.
