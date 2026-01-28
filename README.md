@@ -7,9 +7,16 @@
 
 ## Quick start
 ```sh
-brew bundle --file packages/bundle
-stow -t ~ home
+git clone <your-repo-url> ~/Developer/dotfiles
+cd ~/Developer/dotfiles
+./install.sh
+dot init
 ```
+
+## Commands
+- `dot init` installs brew deps, syncs dotfiles, sets fish as default, and updates fisher plugins
+- `dot sync` runs GNU Stow with backups
+- `dot package add|remove|update|list` manages `packages/bundle`
 
 ## Layout
 - `home/.zshrc`
