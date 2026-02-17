@@ -7,28 +7,33 @@
 
 ## Quick start
 ```sh
-ln -s "$HOME/Developer/dotfiles/zsh/.zshrc" "$HOME/.zshrc"
-ln -s "$HOME/Developer/dotfiles/git/.gitconfig" "$HOME/.gitconfig"
-ln -s "$HOME/Developer/dotfiles/config/atuin/config.toml" "$HOME/.config/atuin/config.toml"
-ln -s "$HOME/Developer/dotfiles/config/direnv/direnv.toml" "$HOME/.config/direnv/direnv.toml"
-ln -s "$HOME/Developer/dotfiles/config/bat/config" "$HOME/.config/bat/config"
-ln -s "$HOME/Developer/dotfiles/rg/ripgreprc" "$HOME/.ripgreprc"
-ln -s "$HOME/Developer/dotfiles/fd/ignore" "$HOME/.config/fd/ignore"
+git clone <your-repo-url> ~/Developer/dotfiles
+cd ~/Developer/dotfiles
+./install.sh
+dot init
 ```
 
+## Commands
+- `dot init` installs brew deps, syncs dotfiles, sets fish as default, and updates fisher plugins
+- `dot sync` runs GNU Stow with backups
+- `dot package add|remove|update|list` manages `packages/bundle`
+
 ## Layout
-- `zsh/.zshrc`
-- `zsh/bindings.zsh`
-- `git/.gitconfig`
-- `config/atuin/config.toml`
-- `config/direnv/direnv.toml`
-- `config/bat/config`
-- `rg/ripgreprc`
-- `fd/ignore`
+- `home/.zshrc`
+- `home/.config/zsh/bindings.zsh`
+- `home/.gitconfig`
+- `home/.ripgreprc`
+- `home/.config/atuin/config.toml`
+- `home/.config/direnv/direnv.toml`
+- `home/.config/bat/config`
+- `home/.config/fd/ignore`
+- `home/.config/fish/`
+- `home/.config/starship.toml`
+- `home/.local/bin/`
 
 ## Local-only overrides
 Put machine-specific or sensitive items in `~/.zshrc.local`.
 `~/.zshrc` sources it if present.
 
 ## Tools
-Install via Homebrew: atuin, fzf, rg, fd, bat, delta, jq, direnv.
+Install via Homebrew Brewfile: `packages/bundle`.
