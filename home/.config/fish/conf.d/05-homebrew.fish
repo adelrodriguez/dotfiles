@@ -1,3 +1,3 @@
-if not contains "/opt/homebrew/bin" $PATH
-  fish_add_path "/opt/homebrew/bin"
+if test -x /opt/homebrew/bin/brew
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 end
