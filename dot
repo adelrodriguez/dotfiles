@@ -248,6 +248,15 @@ cmd_init() {
   info "Done"
 }
 
+cmd_update() {
+  if ! git -C "$DOTFILES_DIR" diff-index --quiet HEAD --; then
+    die "You have uncommitted changes. Commit or stash them before updating"
+  fi
+  info "Pulling latest changes"
+  git -C "$DOTFILES_DIR" pull --ff-only || die "Failed to pull latest changes"
+  info "Run '${SCRIPT_NAME} sync' to apply changes to \$HOME"
+}
+
 cmd_sync() {
   sync_dotfiles
   info "Done"
@@ -390,6 +399,7 @@ ${SCRIPT_NAME} ${VERSION}
 
 Usage:
   ${SCRIPT_NAME} init
+  ${SCRIPT_NAME} update
   ${SCRIPT_NAME} sync
   ${SCRIPT_NAME} package <add|remove|update|list> [...]
   ${SCRIPT_NAME} -h|--help
@@ -397,6 +407,7 @@ Usage:
 
 Examples:
   ${SCRIPT_NAME} init
+  ${SCRIPT_NAME} update
   ${SCRIPT_NAME} sync
   ${SCRIPT_NAME} package add pnpm
   ${SCRIPT_NAME} package remove bun
@@ -408,6 +419,7 @@ EOF
 main() {
   case "${1:-}" in
     init) shift; cmd_init "$@" ;;
+    update) shift; cmd_update "$@" ;;
     sync) shift; cmd_sync "$@" ;;
     package) shift; cmd_package "$@" ;;
     -h|--help|help) usage ;;
