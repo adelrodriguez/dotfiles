@@ -56,17 +56,29 @@ confirm() {
 
 ensure_homebrew() {
   if command_exists brew; then
+    eval "$(brew shellenv)"
     return 0
   fi
 
   info "Installing Homebrew"
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  if [[ "$(uname -m)" == "arm64" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  else
-    eval "$(/usr/local/bin/brew shellenv)"
-  fi
+  local -a brew_bins=(
+    "/opt/homebrew/bin/brew"
+    "/usr/local/bin/brew"
+    "/home/linuxbrew/.linuxbrew/bin/brew"
+    "${HOME}/.linuxbrew/bin/brew"
+  )
+  local brew_bin=""
+
+  for brew_bin in "${brew_bins[@]}"; do
+    if [[ -x "$brew_bin" ]]; then
+      eval "$("$brew_bin" shellenv)"
+      return 0
+    fi
+  done
+
+  die "Homebrew installed but brew binary was not found in a supported path"
 }
 
 ensure_brewfile() {
