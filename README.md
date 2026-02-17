@@ -7,7 +7,7 @@
 
 ## Quick start
 ```sh
-git clone <your-repo-url> ~/Developer/dotfiles
+git clone https://github.com/adelrodriguez/dotfiles.git ~/Developer/dotfiles
 cd ~/Developer/dotfiles
 ./install.sh
 dot init
