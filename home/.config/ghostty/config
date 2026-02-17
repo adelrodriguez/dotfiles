@@ -1,4 +1,6 @@
 theme = Mathias
 macos-titlebar-style = hidden
+window-padding-x = 5
+window-padding-y = 5
 macos-option-as-alt = left
 confirm-close-surface = false
