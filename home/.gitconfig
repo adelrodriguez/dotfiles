@@ -1,6 +1,6 @@
 [core]
 	pager = delta
-	editor = cursor --wait
+	editor = nvim
 
 [delta]
 	side-by-side = true
