@@ -5,7 +5,14 @@ set -euo pipefail
 SCRIPT_NAME="dot"
 VERSION="0.1.0"
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE" ]]; do
+  SOURCE_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="${SOURCE_DIR}/${SOURCE}"
+done
+
+DOTFILES_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 PACKAGES_DIR="${DOTFILES_DIR}/packages"
 HOME_DIR="${DOTFILES_DIR}/home"
 BREWFILE="${PACKAGES_DIR}/bundle"
@@ -75,7 +82,7 @@ backup_conflicts() {
   add_conflict() {
     local rel="$1"
     local existing
-    for existing in "${conflicts[@]}"; do
+    for existing in "${conflicts[@]-}"; do
       [[ "$existing" == "$rel" ]] && return 0
     done
     conflicts+=("$rel")
@@ -88,8 +95,17 @@ backup_conflicts() {
   while IFS= read -r -d '' file; do
     local rel="${file#"${HOME_DIR}"/}"
     local target="${HOME}/${rel}"
+    local source_resolved
+    local target_resolved
 
     if [[ -e "$target" || -L "$target" ]]; then
+      source_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$file" 2>/dev/null || true)
+      target_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
+
+      if [[ -n "$source_resolved" && "$source_resolved" == "$target_resolved" ]]; then
+        continue
+      fi
+
       if [[ -L "$target" ]]; then
         local resolved
         resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
@@ -144,8 +160,14 @@ setup_fish() {
     chsh -s "$fish_path" || warn "Failed to change default shell"
   fi
 
+  info "Ensuring fisher is installed"
+  if ! fish -c "type -q fisher"; then
+    brew install fisher >/dev/null 2>&1 || warn "Failed to install fisher with Homebrew"
+  fi
+
   info "Updating fisher plugins"
-  fish -c "if type -q fisher; fisher update; else echo 'fisher not found'; end" || warn "Failed to update fisher plugins"
+  fish -c "if type -q fisher; fisher update; if test -f ~/.config/fish/fish_plugins; fisher install (cat ~/.config/fish/fish_plugins); end; else echo 'fisher not found'; end" \
+    || warn "Failed to update fisher plugins"
 }
 
 parse_brewfile() {
