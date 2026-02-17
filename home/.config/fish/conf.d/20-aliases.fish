@@ -23,3 +23,12 @@ if status is-interactive
     abbr -a z zed
     abbr -a zshrc "c ~/.zshrc"
 end
+
+# Ubuntu-specific aliases (bat -> batcat, fd -> fdfind)
+if type -q batcat
+    alias bat "batcat"
+end
+
+if type -q fdfind
+    alias fd "fdfind"
+end
