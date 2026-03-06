@@ -20,6 +20,15 @@
 	undo = reset --soft HEAD~
 	s = status -s
 	attach = commit --amend --no-edit
+	trash = !git reset --hard HEAD && git clean -fd
+	discard = restore .
+	unstage = reset HEAD --
+	d = diff
+	ds = diff --staged
+	reword = commit --amend
+	aliases = config --get-regexp alias
+	stsh = stash --include-untracked
+	pop = stash pop
 
 [push]
 	autoSetupRemote = true
