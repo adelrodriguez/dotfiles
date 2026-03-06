@@ -23,11 +23,13 @@ dot init
 - `home/.config/zsh/bindings.zsh`
 - `home/.gitconfig`
 - `home/.ripgreprc`
+- `home/.tmux.conf`
 - `home/.config/atuin/config.toml`
 - `home/.config/direnv/direnv.toml`
 - `home/.config/bat/config`
 - `home/.config/fd/ignore`
 - `home/.config/fish/`
+- `home/.config/ghostty/config`
 - `home/.config/starship.toml`
 - `home/.local/bin/`
 
