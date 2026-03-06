@@ -1,6 +1,11 @@
-set -l brew_completions /opt/homebrew/share/fish/vendor_completions.d
-if test -d $brew_completions
-    if not contains -- $brew_completions $fish_complete_path
-        set -gx fish_complete_path $fish_complete_path $brew_completions
+for brew_completions in \
+    /opt/homebrew/share/fish/vendor_completions.d \
+    /usr/local/share/fish/vendor_completions.d \
+    /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d \
+    $HOME/.linuxbrew/share/fish/vendor_completions.d
+    if test -d $brew_completions
+        if not contains -- $brew_completions $fish_complete_path
+            set -gx fish_complete_path $fish_complete_path $brew_completions
+        end
     end
 end
