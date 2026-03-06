@@ -33,7 +33,7 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 #   tmux attach -t default || tmux new -s default
 # fi
 
-source "$HOME/Developer/dotfiles/zsh/bindings.zsh"
+source "$HOME/.config/zsh/bindings.zsh"
 
 # Starship
 eval "$(starship init zsh)"

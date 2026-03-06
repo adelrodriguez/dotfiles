@@ -1,0 +1,377 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_NAME="dot"
+VERSION="0.1.0"
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PACKAGES_DIR="${DOTFILES_DIR}/packages"
+HOME_DIR="${DOTFILES_DIR}/home"
+BREWFILE="${PACKAGES_DIR}/bundle"
+
+info() {
+  printf "%s\n" "$1"
+}
+
+warn() {
+  printf "warn: %s\n" "$1" >&2
+}
+
+die() {
+  printf "error: %s\n" "$1" >&2
+  exit 1
+}
+
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+confirm() {
+  local prompt="${1:-Continue?}"
+  local default="${2:-n}"
+  local reply=""
+
+  if [[ "$default" == "y" ]]; then
+    prompt="$prompt [Y/n]: "
+  else
+    prompt="$prompt [y/N]: "
+  fi
+
+  read -r -p "$prompt" reply
+  case "$reply" in
+    [yY]|[yY][eE][sS]) return 0 ;;
+    [nN]|[nN][oO]) return 1 ;;
+    "") [[ "$default" == "y" ]] && return 0 || return 1 ;;
+    *) return 1 ;;
+  esac
+}
+
+ensure_homebrew() {
+  if command_exists brew; then
+    return 0
+  fi
+
+  info "Installing Homebrew"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  if [[ "$(uname -m)" == "arm64" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+}
+
+ensure_brewfile() {
+  if [[ ! -f "$BREWFILE" ]]; then
+    die "Missing Brewfile at ${BREWFILE}"
+  fi
+}
+
+backup_conflicts() {
+  local backup_dir="${DOTFILES_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
+  local -a conflicts=()
+
+  add_conflict() {
+    local rel="$1"
+    local existing
+    for existing in "${conflicts[@]}"; do
+      [[ "$existing" == "$rel" ]] && return 0
+    done
+    conflicts+=("$rel")
+  }
+
+  if [[ ! -d "$HOME_DIR" ]]; then
+    die "Missing home directory at ${HOME_DIR}"
+  fi
+
+  while IFS= read -r -d '' file; do
+    local rel="${file#"${HOME_DIR}"/}"
+    local target="${HOME}/${rel}"
+
+    if [[ -e "$target" || -L "$target" ]]; then
+      if [[ -L "$target" ]]; then
+        local resolved
+        resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
+        if [[ "$resolved" == "${HOME_DIR}"/* ]]; then
+          continue
+        fi
+      fi
+
+      add_conflict "$rel"
+    fi
+  done < <(find "$HOME_DIR" -type f -print0)
+
+  if [[ ${#conflicts[@]} -eq 0 ]]; then
+    return 0
+  fi
+
+  info "Backing up existing files to ${backup_dir}"
+  for rel in "${conflicts[@]}"; do
+    local src="${HOME}/${rel}"
+    local dst="${backup_dir}/${rel}"
+
+    mkdir -p "$(dirname "$dst")"
+    mv "$src" "$dst"
+  done
+}
+
+sync_dotfiles() {
+  if ! command_exists stow; then
+    die "GNU Stow is not installed. Run: brew install stow"
+  fi
+
+  backup_conflicts
+  stow -R -d "$DOTFILES_DIR" -t "$HOME" home
+}
+
+setup_fish() {
+  if ! command_exists fish; then
+    warn "Fish is not installed"
+    return 0
+  fi
+
+  local fish_path
+  fish_path="$(command -v fish)"
+
+  if ! grep -q "$fish_path" /etc/shells; then
+    info "Adding fish to /etc/shells"
+    echo "$fish_path" | sudo tee -a /etc/shells >/dev/null || warn "Failed to update /etc/shells"
+  fi
+
+  if [[ "${SHELL:-}" != "$fish_path" ]]; then
+    info "Setting fish as default shell"
+    chsh -s "$fish_path" || warn "Failed to change default shell"
+  fi
+
+  info "Updating fisher plugins"
+  fish -c "if type -q fisher; fisher update; else echo 'fisher not found'; end" || warn "Failed to update fisher plugins"
+}
+
+parse_brewfile() {
+  TAPS=()
+  BREWS=()
+  CASKS=()
+  OTHERS=()
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    case "$line" in
+      tap\ "*") TAPS+=("$line") ;;
+      brew\ "*") BREWS+=("$line") ;;
+      cask\ "*") CASKS+=("$line") ;;
+      *) OTHERS+=("$line") ;;
+    esac
+  done < "$BREWFILE"
+}
+
+sort_unique_lines() {
+  if [[ $# -eq 0 ]]; then
+    return 0
+  fi
+  printf "%s\n" "$@" | awk 'NF' | sort -u
+}
+
+write_brewfile() {
+  {
+    if [[ ${#TAPS[@]} -gt 0 ]]; then
+      sort_unique_lines "${TAPS[@]}"
+      printf "\n"
+    fi
+    if [[ ${#BREWS[@]} -gt 0 ]]; then
+      sort_unique_lines "${BREWS[@]}"
+      printf "\n"
+    fi
+    if [[ ${#CASKS[@]} -gt 0 ]]; then
+      sort_unique_lines "${CASKS[@]}"
+      printf "\n"
+    fi
+    if [[ ${#OTHERS[@]} -gt 0 ]]; then
+      printf "%s\n" "${OTHERS[@]}"
+    fi
+  } > "$BREWFILE"
+}
+
+brewfile_has_line() {
+  local needle="$1"
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ "$line" == "$needle" ]] && return 0
+  done < "$BREWFILE"
+  return 1
+}
+
+cmd_init() {
+  ensure_homebrew
+  ensure_brewfile
+
+  info "Installing packages"
+  brew bundle --file "$BREWFILE"
+
+  info "Syncing dotfiles"
+  sync_dotfiles
+
+  setup_fish
+
+  info "Done"
+}
+
+cmd_sync() {
+  sync_dotfiles
+  info "Done"
+}
+
+cmd_package_add() {
+  local name="${1:-}"
+  local type="${2:-brew}"
+
+  [[ -z "$name" ]] && die "Usage: ${SCRIPT_NAME} package add <name> [brew|cask]"
+  [[ "$type" != "brew" && "$type" != "cask" ]] && die "Invalid type: $type"
+
+  ensure_homebrew
+  ensure_brewfile
+  parse_brewfile
+
+  local line="${type} \"${name}\""
+  if brewfile_has_line "$line"; then
+    warn "Already in Brewfile: ${line}"
+  else
+    if [[ "$type" == "brew" ]]; then
+      BREWS+=("$line")
+    else
+      CASKS+=("$line")
+    fi
+    write_brewfile
+    info "Added ${line}"
+  fi
+
+  if [[ "$type" == "brew" ]]; then
+    brew install "$name"
+  else
+    brew install --cask "$name"
+  fi
+}
+
+cmd_package_remove() {
+  local name="${1:-}"
+  [[ -z "$name" ]] && die "Usage: ${SCRIPT_NAME} package remove <name>"
+
+  ensure_homebrew
+  ensure_brewfile
+  parse_brewfile
+
+  local brew_line="brew \"${name}\""
+  local cask_line="cask \"${name}\""
+  local found="false"
+
+  if brewfile_has_line "$brew_line"; then
+    found="true"
+  fi
+  if brewfile_has_line "$cask_line"; then
+    found="true"
+  fi
+  [[ "$found" == "false" ]] && die "Package not found in Brewfile: ${name}"
+
+  local -a new_brews=()
+  for line in "${BREWS[@]}"; do
+    [[ "$line" == "$brew_line" ]] || new_brews+=("$line")
+  done
+  BREWS=("${new_brews[@]}")
+
+  local -a new_casks=()
+  for line in "${CASKS[@]}"; do
+    [[ "$line" == "$cask_line" ]] || new_casks+=("$line")
+  done
+  CASKS=("${new_casks[@]}")
+
+  write_brewfile
+  info "Removed ${name} from Brewfile"
+
+  if confirm "Uninstall ${name} from system?" "n"; then
+    if brew list --formula 2>/dev/null | grep -qx "$name"; then
+      brew uninstall "$name" || true
+    fi
+    if brew list --cask 2>/dev/null | grep -qx "$name"; then
+      brew uninstall --cask "$name" || true
+    fi
+  fi
+}
+
+cmd_package_update() {
+  local name="${1:-}"
+  ensure_homebrew
+  ensure_brewfile
+
+  if [[ -z "$name" ]]; then
+    brew update
+    brew upgrade
+    return 0
+  fi
+
+  brew upgrade "$name" || brew install "$name"
+}
+
+cmd_package_list() {
+  ensure_brewfile
+  parse_brewfile
+
+  if [[ ${#TAPS[@]} -gt 0 ]]; then
+    info "taps:"
+    printf "%s\n" "${TAPS[@]}" | sed 's/^tap "\(.*\)"$/  \1/'
+  fi
+
+  if [[ ${#BREWS[@]} -gt 0 ]]; then
+    info "brew:"
+    printf "%s\n" "${BREWS[@]}" | sed 's/^brew "\(.*\)"$/  \1/'
+  fi
+
+  if [[ ${#CASKS[@]} -gt 0 ]]; then
+    info "cask:"
+    printf "%s\n" "${CASKS[@]}" | sed 's/^cask "\(.*\)"$/  \1/'
+  fi
+}
+
+cmd_package() {
+  local sub="${1:-}"
+  shift || true
+
+  case "$sub" in
+    add) cmd_package_add "$@" ;;
+    remove) cmd_package_remove "$@" ;;
+    update) cmd_package_update "$@" ;;
+    list) cmd_package_list "$@" ;;
+    *) die "Usage: ${SCRIPT_NAME} package <add|remove|update|list>" ;;
+  esac
+}
+
+usage() {
+  cat << EOF
+${SCRIPT_NAME} ${VERSION}
+
+Usage:
+  ${SCRIPT_NAME} init
+  ${SCRIPT_NAME} sync
+  ${SCRIPT_NAME} package <add|remove|update|list> [...]
+  ${SCRIPT_NAME} -h|--help
+  ${SCRIPT_NAME} --version
+
+Examples:
+  ${SCRIPT_NAME} init
+  ${SCRIPT_NAME} sync
+  ${SCRIPT_NAME} package add pnpm
+  ${SCRIPT_NAME} package remove bun
+  ${SCRIPT_NAME} package update
+  ${SCRIPT_NAME} package list
+EOF
+}
+
+main() {
+  case "${1:-}" in
+    init) shift; cmd_init "$@" ;;
+    sync) shift; cmd_sync "$@" ;;
+    package) shift; cmd_package "$@" ;;
+    -h|--help|help) usage ;;
+    --version) printf "%s\n" "$VERSION" ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+main "$@"

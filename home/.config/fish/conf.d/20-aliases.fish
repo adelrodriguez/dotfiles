@@ -2,6 +2,14 @@ function c
   open -a "Cursor" $argv
 end
 
+function jqc
+  jq -C $argv
+end
+
+function jqf
+  jq -C . "$argv[1]" | less -R
+end
+
 if status is-interactive
   abbr -a pn pnpm
   abbr -a l "ls -l"
