@@ -1,0 +1,38 @@
+[core]
+	pager = delta
+	editor = cursor --wait
+
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	dark = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	lgr = log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --reverse --
+	new = checkout -b
+	co = checkout
+	upstream = push --set-upstream origin
+	undo = reset --soft HEAD~
+	s = status -s
+	attach = commit --amend --no-edit
+
+[push]
+	autoSetupRemote = true
+
+[init]
+	defaultBranch = main
+
+[user]
+	email = hello@adelrodriguez.com
+	name = Adel Rodríguez
+
+[difftool "vscode"]
+	cmd = c --wait --diff $LOCAL $REMOTE
+
+[merge]
+	conflictStyle = zdiff3
