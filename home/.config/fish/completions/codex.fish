@@ -1,3 +1,6 @@
+# Disable file completions by default
+complete -c codex -f
+
 # Print an optspec for argparse to handle cmd's options that are independent of any subcommand.
 function __fish_codex_global_optspecs
 	string join \n c/config= enable= disable= i/image= m/model= oss local-provider= p/profile= s/sandbox= a/ask-for-approval= full-auto dangerously-bypass-approvals-and-sandbox C/cd= search add-dir= no-alt-screen h/help V/version
