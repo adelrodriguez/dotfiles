@@ -6,6 +6,9 @@ home/.config/fish/conf.d/fzf.fish
 home/.config/fish/conf.d/pisces.fish
 home/.config/fish/functions/
 
+# TPM-managed plugins (installed at runtime via `dot init`)
+home/.config/tmux/plugins/
+
 # Private / local
 home/.config/fish/conf.d/99-local.private.fish
 home/.config/fish/fish_variables

@@ -87,6 +87,16 @@ ensure_brewfile() {
   fi
 }
 
+ensure_tpm() {
+  local tpm_dir="${HOME}/.tmux/plugins/tpm"
+  if [[ -d "$tpm_dir" ]]; then
+    info "TPM already installed"
+    return 0
+  fi
+  info "Installing TPM (Tmux Plugin Manager)"
+  git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
+}
+
 backup_conflicts() {
   local backup_dir="${DOTFILES_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
   local -a conflicts=()
@@ -242,6 +252,8 @@ cmd_init() {
 
   info "Syncing dotfiles"
   sync_dotfiles
+
+  ensure_tpm
 
   setup_fish
 
