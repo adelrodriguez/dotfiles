@@ -1,5 +1,7 @@
 set -l normalized_completion_paths
 
+# fish_complete_path must stay unexported; exported list variables are inherited
+# by child shells as a single space-delimited string, which breaks autoloading.
 for completion_path in $fish_complete_path
     if test -d "$completion_path"
         set -a normalized_completion_paths $completion_path
