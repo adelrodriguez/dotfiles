@@ -29,6 +29,7 @@
 	aliases = config --get-regexp alias
 	stsh = stash --include-untracked
 	pop = stash pop
+	pushf = push --force-with-lease
 
 [push]
 	autoSetupRemote = true
