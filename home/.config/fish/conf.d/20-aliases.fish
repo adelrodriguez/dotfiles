@@ -2,6 +2,10 @@ function c
     opencode $argv
 end
 
+function code
+    opencode $argv
+end
+
 function t
     tmux attach
     or tmux new -s Work
