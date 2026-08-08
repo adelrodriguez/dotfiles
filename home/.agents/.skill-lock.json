@@ -350,6 +350,15 @@
       "skillFolderHash": "7eee4be8cb4fe4c6a93709c2f81ee74c00e35e5e",
       "installedAt": "2026-08-06T03:04:03.512Z",
       "updatedAt": "2026-08-06T03:04:03.512Z"
+    },
+    "graphite": {
+      "source": "withgraphite/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/withgraphite/agent-skills.git",
+      "skillPath": "skills/graphite/SKILL.md",
+      "skillFolderHash": "404bf8d36e67273abeb7fbbf66efb2ba3ef15375",
+      "installedAt": "2026-08-08T13:51:35.937Z",
+      "updatedAt": "2026-08-08T13:51:35.937Z"
     }
   },
   "dismissed": {
