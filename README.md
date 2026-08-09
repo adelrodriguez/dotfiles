@@ -14,12 +14,13 @@ dot init
 ```
 
 ## Commands
-- `dot init` installs brew deps, syncs dotfiles, sets fish as default, and updates fisher plugins
-- `dot sync` runs GNU Stow with backups
+- `dot init` installs brew deps, syncs dotfiles and Claude skills, sets fish as default, and updates fisher plugins
+- `dot sync` runs GNU Stow with backups, then exposes `~/.agents/skills` to Claude through the Skills CLI
 - `dot package add|remove|update|list` manages `packages/bundle`
 
 ## Layout
 - `home/.zshrc`
+- `home/.agents/skills/`
 - `home/.config/zsh/bindings.zsh`
 - `home/.gitconfig`
 - `home/.ripgreprc`

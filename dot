@@ -161,6 +161,13 @@ sync_dotfiles() {
 
   backup_conflicts
   stow -R -d "$DOTFILES_DIR" -t "$HOME" home
+
+  if ! command_exists npx; then
+    die "npx is not installed. Install Node.js before syncing skills"
+  fi
+
+  info "Making agent skills discoverable by Claude"
+  npx --yes skills add "${HOME}/.agents/skills" -g -a claude-code -s '*' -y
 }
 
 setup_fish() {
