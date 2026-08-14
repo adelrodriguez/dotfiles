@@ -14,13 +14,13 @@ dot init
 ```
 
 ## Commands
-- `dot init` installs brew deps, syncs dotfiles and Claude skills, sets fish as default, and updates fisher plugins
-- `dot sync` runs GNU Stow with backups, then exposes `~/.agents/skills` to Claude through the Skills CLI
+- `dot init` installs brew deps, syncs dotfiles and global agent skills, sets fish as default, and updates fisher plugins
+- `dot sync` runs GNU Stow with backups, exposes `agents/skills/` as the global OpenCode and Codex skill store, and links those skills into Claude Code
 - `dot package add|remove|update|list` manages `packages/bundle`
 
 ## Layout
 - `home/.zshrc`
-- `home/.agents/skills/`
+- `agents/skills/`
 - `home/.config/zsh/bindings.zsh`
 - `home/.gitconfig`
 - `home/.ripgreprc`
@@ -37,6 +37,15 @@ dot init
 ## Local-only overrides
 Put machine-specific or sensitive items in `~/.zshrc.local`.
 `~/.zshrc` sources it if present.
+
+## Agent skills
+GNU Stow folds `agents/skills/` onto `~/.agents/skills`, so global Skills CLI installs and updates are written directly into this repository. Add skills from their remote source, then review and commit the resulting changes:
+
+```sh
+npx skills add owner/repo -g -a opencode codex claude-code -s skill-name -y
+```
+
+Do not install from the local `agents/skills/` path because it is the canonical global destination.
 
 ## Tools
 Install via Homebrew Brewfile: `packages/bundle`.
