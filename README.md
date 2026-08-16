@@ -15,7 +15,7 @@ dot init
 
 ## Commands
 - `dot init` installs brew deps, syncs dotfiles and global agent skills, sets fish as default, and updates fisher plugins
-- `dot sync` runs GNU Stow with backups, exposes `agents/skills/` as the global OpenCode and Codex skill store, and links those skills into Claude Code
+- `dot sync` runs GNU Stow with backups, exposes `agents/skills/` as the global skill store, and links those skills into detected agent harnesses
 - `dot package add|remove|update|list` manages `packages/bundle`
 
 ## Layout
@@ -46,6 +46,16 @@ npx skills add owner/repo -g -a opencode codex claude-code -s skill-name -y
 ```
 
 Do not install from the local `agents/skills/` path because it is the canonical global destination.
+
+Create a personal skill directly in the canonical store:
+
+```sh
+mkdir -p ~/dotfiles/agents/skills/my-skill
+$EDITOR ~/dotfiles/agents/skills/my-skill/SKILL.md
+dot sync
+```
+
+Each skill needs YAML frontmatter with at least `name` and `description`. Commit the new directory to share it across machines.
 
 ## Tools
 Install via Homebrew Brewfile: `packages/bundle`.
