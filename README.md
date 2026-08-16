@@ -17,6 +17,7 @@ dot init
 - `dot init` installs brew deps, syncs dotfiles and global agent skills, sets fish as default, and updates fisher plugins
 - `dot sync` runs GNU Stow with backups, exposes `agents/skills/` as the global skill store, and links those skills into detected agent harnesses
 - `dot package add|remove|update|list` manages `packages/bundle`
+- `pc` attaches to the Process Compose TUI for scheduled tasks
 
 ## Layout
 - `home/.zshrc`
@@ -32,6 +33,8 @@ dot init
 - `home/.config/fish/`
 - `home/.config/ghostty/config`
 - `home/.config/starship.toml`
+- `home/.config/process-compose/process-compose.yaml`
+- `home/.config/systemd/user/process-compose.service`
 - `home/.local/bin/`
 
 ## Local-only overrides
@@ -59,3 +62,9 @@ Each skill needs YAML frontmatter with at least `name` and `description`. Commit
 
 ## Tools
 Install via Homebrew Brewfile: `packages/bundle`.
+
+## Scheduled tasks
+Process Compose runs reusable scheduled tasks from `~/.config/process-compose/process-compose.yaml`.
+On Linux, `dot init` enables its user service on localhost port 10080; use `pc` to attach to the TUI. The
+dotfiles sync runs every 15 minutes, prevents overlapping runs, and can be paused
+or resumed from the TUI with `F9` and `F7`.

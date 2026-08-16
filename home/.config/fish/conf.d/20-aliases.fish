@@ -40,6 +40,7 @@ if status is-interactive
     end
 
     abbr -a pn pnpm
+    abbr -a pc "process-compose --port 10080 attach"
     abbr -a .. "cd .."
     abbr -a ... "cd ../.."
     abbr -a .... "cd ../../.."

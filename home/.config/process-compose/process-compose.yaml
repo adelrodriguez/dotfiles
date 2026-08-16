@@ -1,0 +1,10 @@
+version: "0.5"
+is_strict: true
+
+processes:
+  dotfiles-sync:
+    description: Pull and apply the latest dotfiles
+    command: "$HOME/.local/bin/dotfiles-sync"
+    schedule:
+      cron: "*/15 * * * *"
+      max_concurrent: 1

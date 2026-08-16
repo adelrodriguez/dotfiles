@@ -1,6 +1,7 @@
 # Aliases
 alias c="opencode"
 alias pn="pnpm"
+alias pc="process-compose --port 10080 attach"
 alias t='tmux attach || tmux new -s Work'
 alias z="zed"
 alias zshrc="c ~/.zshrc"

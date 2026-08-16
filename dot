@@ -248,6 +248,19 @@ setup_fish() {
     || warn "Failed to update fisher plugins"
 }
 
+setup_process_compose() {
+  if ! command_exists process-compose || ! command_exists systemctl; then
+    return 0
+  fi
+  if ! systemctl --user show-environment >/dev/null 2>&1; then
+    return 0
+  fi
+
+  info "Enabling Process Compose scheduler"
+  systemctl --user daemon-reload
+  systemctl --user enable --now process-compose.service
+}
+
 parse_brewfile() {
   TAPS=()
   BREWS=()
@@ -312,6 +325,8 @@ cmd_init() {
   ensure_tpm
 
   setup_fish
+
+  setup_process_compose
 
   info "Done"
 }
