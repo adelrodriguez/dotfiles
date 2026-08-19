@@ -28,13 +28,19 @@ npx adamantite init --non-interactive --script check --script fix --script forma
 Repeat `--script`, `--preset`, and `--editor` for multiple values. Available values are:
 
 - Scripts: `check`, `fix`, `format`, `analyze`, `check:monorepo`, `fix:monorepo`
-- Presets: `react`, `nextjs`, `vue`, `jest`, `vitest`, `node`; editors: `vscode`, `zed`
-- Optional flags: `--typescript`, `--install-extensions`, `--github-actions`, `--agents`
+- Presets: `react`, `nextjs`, `vue`, `jest`, `vitest`, `node`, `antislop`; editors:
+  `vscode`, `zed`
+- Optional flags: `--typescript`, `--install-extensions`, `--github-actions`, `--agents`,
+  `--overwrite-scripts`
 
 Only select options supported by the project. Presets and TypeScript require `check` or
 `fix`; extension installation requires an editor; monorepo scripts require a detected
 monorepo; `--github-actions` requires a CI-compatible script and a supported package
 manager (bun, deno, npm, pnpm, or yarn). Omitted boolean flags are disabled.
+
+Existing package scripts whose commands differ from Adamantite's are kept and reported,
+not replaced; pass `--overwrite-scripts` to replace them. Custom flags can be forwarded
+to the Adamantite command after `--`, e.g. `adamantite monorepo -- --ignore-dependency tailwindcss`.
 
 ## Daily workflow
 
