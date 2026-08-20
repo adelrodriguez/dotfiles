@@ -38,7 +38,9 @@ The main paths are:
 
 ## Local configuration
 
-`home/.zshrc` loads `~/.zshrc.local` when the file exists. The repository does not track `~/.zshrc.local`.
+Fish is the default interactive shell. `dot init` installs fish, registers it in `/etc/shells`, and selects it as the account's login shell. New tmux panes also start fish.
+
+`home/.config/fish/conf.d/99-local.fish` loads `~/.config/fish/conf.d/99-local.private.fish` when the file exists. The repository does not track `99-local.private.fish`.
 
 ## Agent skills
 

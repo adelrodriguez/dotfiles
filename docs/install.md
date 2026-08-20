@@ -34,4 +34,4 @@ These steps install the repository at `~/Developer/dotfiles` and link its config
 	"$HOME/.local/bin/dot" init
 	```
 
-	`dot init` installs Homebrew when needed. It then installs `packages/bundle`, links the dotfiles, and configures the shell and scheduled tasks. A successful run ends with `Done`.
+	`dot init` installs Homebrew when needed. It then installs `packages/bundle`, links the dotfiles, sets fish as the account's default shell, and configures scheduled tasks. A successful run ends with `Done`. Start a new terminal session to use fish after the default shell changes.

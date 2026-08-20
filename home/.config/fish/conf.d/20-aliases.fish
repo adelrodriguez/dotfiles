@@ -51,7 +51,7 @@ if status is-interactive
     abbr -a gcam "git commit -a -m"
     abbr -a gcad "git commit -a --amend"
     abbr -a z zed
-    abbr -a zshrc "c ~/.zshrc"
+    abbr -a fishrc "c ~/.config/fish/config.fish"
 end
 
 # Ubuntu-specific aliases (bat -> batcat, fd -> fdfind)
