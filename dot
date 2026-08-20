@@ -336,11 +336,13 @@ cmd_update() {
     die "You have uncommitted changes. Commit or stash them before updating"
   fi
   info "Pulling latest changes"
-  git -C "$DOTFILES_DIR" pull --ff-only || die "Failed to pull latest changes"
+  git -C "$DOTFILES_DIR" pull --no-rebase --ff-only || die "Failed to pull latest changes"
   info "Run '${SCRIPT_NAME} sync' to apply changes to \$HOME"
 }
 
 cmd_sync() {
+  info "Pulling latest changes"
+  git -C "$DOTFILES_DIR" pull --no-rebase --ff-only || die "Failed to pull latest changes"
   sync_dotfiles
   info "Done"
 }
