@@ -12,7 +12,7 @@ See [Install the dotfiles](docs/install.md) to set up a machine.
 | --- | --- |
 | `dot init` | Installs Homebrew packages, links the dotfiles, installs TPM, configures fish, and starts the Process Compose service on Linux. |
 | `dot update` | Fast-forwards the current branch. The command rejects changes to tracked files. |
-| `dot sync` | Fast-forwards the current branch, backs up existing target files, and links the dotfiles and agent skills. |
+| `dot sync` | Fast-forwards the current branch, backs up existing target files, and links the dotfiles. |
 | `dot package add <name> [brew\|cask]` | Adds and installs a Homebrew formula or cask. |
 | `dot package remove <name>` | Removes a formula or cask from `packages/bundle`, then offers to uninstall it. |
 | `dot package update [name]` | Updates one package or all Homebrew packages. |
@@ -31,7 +31,6 @@ The main paths are:
 | `dot` | The command-line interface. |
 | `install.sh` | The script that links `dot` into `~/.local/bin`. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
-| `agents/skills/` | The agent skills that GNU Stow exposes at `~/.agents/skills`. |
 | `packages/bundle` | The Homebrew Brewfile. |
 | `backups/` | Files moved out of the way during a sync. |
 | `docs/` | Setup and maintenance guides. |
@@ -41,12 +40,6 @@ The main paths are:
 Fish is the default interactive shell. `dot init` installs fish, registers it in `/etc/shells`, and selects it as the account's login shell. New tmux panes also start fish.
 
 `home/.config/fish/conf.d/99-local.fish` loads `~/.config/fish/conf.d/99-local.private.fish` when the file exists. The repository does not track `99-local.private.fish`.
-
-## Agent skills
-
-`~/.agents/skills` points to `agents/skills/`. Changes made by a global Skills CLI command therefore appear in this repository.
-
-See [Manage agent skills](docs/manage-agent-skills.md) to add or create a skill.
 
 ## Scheduled sync
 

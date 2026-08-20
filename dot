@@ -154,53 +154,6 @@ backup_conflicts() {
   done
 }
 
-link_agent_skills() {
-  local -a harnesses=(
-    "${HOME}/.claude|${HOME}/.claude/skills"
-    "${HOME}/.codex|${HOME}/.codex/skills"
-    "${HOME}/.config/opencode|${HOME}/.config/opencode/skills"
-    "${HOME}/.cursor|${HOME}/.cursor/skills"
-    "${HOME}/.gemini|${HOME}/.gemini/skills"
-    "${HOME}/.gemini/antigravity|${HOME}/.gemini/antigravity/skills"
-    "${HOME}/.pi/agent|${HOME}/.pi/agent/skills"
-  )
-  local backup_dir=""
-  local harness=""
-  local harness_root=""
-  local skills_dir=""
-  local skill=""
-  local destination=""
-  local backup=""
-
-  for harness in "${harnesses[@]}"; do
-    IFS='|' read -r harness_root skills_dir <<< "$harness"
-    [[ -d "$harness_root" ]] || continue
-    mkdir -p "$skills_dir"
-
-    for skill in "${HOME}/.agents/skills"/*; do
-      [[ -d "$skill" ]] || continue
-      destination="${skills_dir}/${skill##*/}"
-
-      if [[ -L "$destination" ]] && \
-        [[ "$(readlink -f "$destination")" == "$(readlink -f "$skill")" ]]; then
-        continue
-      fi
-
-      if [[ -e "$destination" || -L "$destination" ]]; then
-        if [[ -z "$backup_dir" ]]; then
-          backup_dir="${DOTFILES_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
-          info "Backing up conflicting agent skills to ${backup_dir}"
-        fi
-        backup="${backup_dir}/${destination#"${HOME}/"}"
-        mkdir -p "$(dirname "$backup")"
-        mv "$destination" "$backup"
-      fi
-
-      ln -s "$skill" "$destination"
-    done
-  done
-}
-
 sync_dotfiles() {
   if ! command_exists stow; then
     die "GNU Stow is not installed. Run: brew install stow"
@@ -208,15 +161,6 @@ sync_dotfiles() {
 
   backup_conflicts
   stow -R -d "$DOTFILES_DIR" -t "$HOME" home
-
-  mkdir -p "${HOME}/.agents"
-  if [[ -e "${HOME}/.agents/skills" && ! -L "${HOME}/.agents/skills" ]]; then
-    die "${HOME}/.agents/skills must be reconciled before Stow can manage it"
-  fi
-  stow -R -d "$DOTFILES_DIR" -t "${HOME}/.agents" agents
-
-  info "Linking global skills into detected agent harnesses"
-  link_agent_skills
 }
 
 setup_fish() {
