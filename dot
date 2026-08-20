@@ -250,8 +250,9 @@ write_brewfile() {
 
 brewfile_has_line() {
   local needle="$1"
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    [[ "$line" == "$needle" ]] && return 0
+  local current_line
+  while IFS= read -r current_line || [[ -n "$current_line" ]]; do
+    [[ "$current_line" == "$needle" ]] && return 0
   done < "$BREWFILE"
   return 1
 }
