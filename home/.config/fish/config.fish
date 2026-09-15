@@ -6,7 +6,13 @@ if status is-interactive
 end
 
 # pnpm
-set -gx PNPM_HOME '/Users/adelrodriguez/Library/pnpm'
+if test (uname) = Darwin
+  set -gx PNPM_HOME "$HOME/Library/pnpm"
+else if set -q XDG_DATA_HOME; and test -n "$XDG_DATA_HOME"
+  set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
+else
+  set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+end
 if not string match -q -- "$PNPM_HOME/bin" $PATH
   set -gx PATH "$PNPM_HOME/bin" $PATH
 end
