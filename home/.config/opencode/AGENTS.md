@@ -1,1 +1,1 @@
-../../../AGENTS.md
+../../../../dotagents/AGENTS.md

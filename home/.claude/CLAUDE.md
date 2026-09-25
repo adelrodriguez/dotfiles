@@ -1,1 +1,1 @@
-../../AGENTS.md
+../../../dotagents/CLAUDE.md
