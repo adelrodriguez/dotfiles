@@ -1,4 +1,5 @@
 # Aliases
+export OPENCODE_LOG_LEVEL=warn
 alias c="opencode"
 alias pn="pnpm"
 alias pc="process-compose --port 10080 attach"

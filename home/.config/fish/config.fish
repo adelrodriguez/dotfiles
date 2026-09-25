@@ -1,4 +1,5 @@
 set -gx CODEX_HOME ~/.config/codex
+set -gx OPENCODE_LOG_LEVEL warn
 set -gx pnpm_config_pm_on_fail download
 
 if status is-interactive
