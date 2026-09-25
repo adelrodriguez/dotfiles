@@ -15,7 +15,13 @@ done
 DOTFILES_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 PACKAGES_DIR="${DOTFILES_DIR}/packages"
 HOME_DIR="${DOTFILES_DIR}/home"
-BREWFILE="${PACKAGES_DIR}/bundle"
+BREWFILE="${PACKAGES_DIR}/macos/Brewfile"
+PLATFORM="$(uname -s)"
+if [[ "$PLATFORM" == Linux ]]; then
+  # Do not let an inherited Linuxbrew PATH satisfy installation checks.
+  export PATH="$HOME/.local/bin:$HOME/.local/share/fnm:$HOME/.bun/bin:$HOME/.atuin/bin:$HOME/.opencode/bin:/usr/local/bin:/usr/bin:/bin"
+  source "$PACKAGES_DIR/linux/manage.sh"
+fi
 
 info() {
   printf "%s\n" "$1"
@@ -55,6 +61,7 @@ confirm() {
 }
 
 ensure_homebrew() {
+  [[ "$PLATFORM" == Darwin ]] || die "Homebrew is only used on macOS"
   if command_exists brew; then
     eval "$(brew shellenv)"
     return 0
@@ -66,8 +73,6 @@ ensure_homebrew() {
   local -a brew_bins=(
     "/opt/homebrew/bin/brew"
     "/usr/local/bin/brew"
-    "/home/linuxbrew/.linuxbrew/bin/brew"
-    "${HOME}/.linuxbrew/bin/brew"
   )
   local brew_bin=""
 
@@ -156,7 +161,7 @@ backup_conflicts() {
 
 sync_dotfiles() {
   if ! command_exists stow; then
-    die "GNU Stow is not installed. Run: brew install stow"
+    die "GNU Stow is not installed. Run: dot init"
   fi
 
   backup_conflicts
@@ -179,16 +184,24 @@ setup_fish() {
 
   if [[ "${SHELL:-}" != "$fish_path" ]]; then
     info "Setting fish as default shell"
-    chsh -s "$fish_path" || warn "Failed to change default shell"
+    if [[ "$PLATFORM" == Linux ]]; then
+      sudo chsh -s "$fish_path" "$(id -un)"
+    else
+      chsh -s "$fish_path" || warn "Failed to change default shell"
+    fi
   fi
 
   info "Ensuring fisher is installed"
   if ! fish -c "type -q fisher"; then
-    brew install fisher >/dev/null 2>&1 || warn "Failed to install fisher with Homebrew"
+    local installer
+    installer="$(mktemp)"
+    curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish -o "$installer"
+    fish -c 'source $argv[1]; fisher install jorgebucaran/fisher' -- "$installer"
+    rm -f "$installer"
   fi
 
   info "Updating fisher plugins"
-  fish -c "if type -q fisher; fisher update; if test -f ~/.config/fish/fish_plugins; fisher install (cat ~/.config/fish/fish_plugins); end; else echo 'fisher not found'; end" \
+  fish -c "if type -q fisher; fisher update; if test -f ~/.config/fish/fish_plugins; fisher install (cat ~/.config/fish/fish_plugins); end; else; echo 'fisher not found'; end" \
     || warn "Failed to update fisher plugins"
 }
 
@@ -258,11 +271,14 @@ brewfile_has_line() {
 }
 
 cmd_init() {
-  ensure_homebrew
-  ensure_brewfile
-
   info "Installing packages"
-  brew bundle --file "$BREWFILE"
+  if [[ "$PLATFORM" == Linux ]]; then
+    linux_packages install
+  else
+    ensure_homebrew
+    ensure_brewfile
+    brew bundle --file "$BREWFILE"
+  fi
 
   info "Syncing dotfiles"
   sync_dotfiles
@@ -413,6 +429,11 @@ cmd_package_list() {
 cmd_package() {
   local sub="${1:-}"
   shift || true
+
+  if [[ "$PLATFORM" == Linux ]]; then
+    linux_packages "$sub" "$@"
+    return
+  fi
 
   case "$sub" in
     add) cmd_package_add "$@" ;;

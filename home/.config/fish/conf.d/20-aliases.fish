@@ -55,10 +55,10 @@ if status is-interactive
 end
 
 # Ubuntu-specific aliases (bat -> batcat, fd -> fdfind)
-if type -q batcat
+if not command -q bat; and command -q batcat
     alias bat "batcat"
 end
 
-if type -q fdfind
+if not command -q fd; and command -q fdfind
     alias fd "fdfind"
 end

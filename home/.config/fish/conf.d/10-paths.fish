@@ -1,3 +1,15 @@
+if test -d "$HOME/.local/share/fnm"
+    fish_add_path "$HOME/.local/share/fnm"
+end
+
+if test -d "$HOME/.opencode/bin"
+    fish_add_path "$HOME/.opencode/bin"
+end
+
+if test -d "$HOME/.npm-global/bin"
+    fish_add_path "$HOME/.npm-global/bin"
+end
+
 if test -d "$HOME/.bun/bin"
     fish_add_path "$HOME/.bun/bin"
 end
