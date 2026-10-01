@@ -40,7 +40,7 @@ The main paths are:
 
 ## Local configuration
 
-Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm, Graphite, Pi, Vercel, and Codex. Ghostty remains macOS-only in the manifests.
+Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm, Graphite, Pi, and Vercel. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
 
 `dot package update` updates every tracked tool to the latest stable release from its configured source. Node uses the latest Current release, not just LTS, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `dot init` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
 

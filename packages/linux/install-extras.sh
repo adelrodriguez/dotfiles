@@ -82,7 +82,7 @@ install_extra() {
       return ;;
   esac
   case "$name" in
-    node|pnpm|graphite|pi|vercel|codex) use_node ;;
+    node|pnpm|graphite|pi|vercel) use_node ;;
   esac
   if [[ "${UPDATE:-0}" != 1 ]] && command -v "$binary" >/dev/null &&
     { [[ "$name" != fzf ]] || [[ "$(command -v fzf)" == "$HOME/.local/bin/fzf" ]]; } &&
@@ -95,7 +95,7 @@ install_extra() {
     node) install_node ;;
     bun) run_installer https://bun.sh/install ;;
     claude) run_installer https://claude.ai/install.sh latest ;;
-    codex) npm install --global @openai/codex ;;
+    codex) CODEX_NON_INTERACTIVE=1 INSTALLER_SHELL=sh run_installer https://chatgpt.com/codex/install.sh ;;
     grok) SHELL=/bin/sh run_installer https://x.ai/cli/install.sh ;;
     atuin) ATUIN_NO_MODIFY_PATH=1 ATUIN_INSTALL_DIR="$HOME/.atuin/bin" run_installer https://github.com/atuinsh/atuin/releases/latest/download/atuin-installer.sh ;;
     starship) INSTALLER_SHELL=sh run_installer https://starship.rs/install.sh --yes --bin-dir "$HOME/.local/bin" ;;
