@@ -1,0 +1,22 @@
+[Unit]
+Description=OpenCode V2 web server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h
+Environment=HOME=%h
+Environment=SHELL=/bin/bash
+Environment=PATH=%h/services/opencode/bin:%h/.opencode/bin:%h/.bun/bin:%h/.local/bin:%h/.npm-global/bin:/usr/local/bin:/usr/bin:/bin
+Environment=XDG_DATA_HOME=%h/services/opencode/runtime/xdg-data
+Environment=XDG_STATE_HOME=%h/services/opencode/runtime/xdg-state
+Environment=XDG_CACHE_HOME=%h/services/opencode/runtime/xdg-cache
+Environment=XDG_RUNTIME_DIR=%t
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus
+ExecStart=%h/services/opencode/bin/opencode serve --service --hostname 127.0.0.1 --port 4096
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

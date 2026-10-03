@@ -4,6 +4,9 @@ Personal shell, tool, and agent configuration. GNU Stow links the files in this 
 
 See [Install the dotfiles](docs/install.md) to set up a machine.
 
+See [Host OpenCode and T3 services](docs/agent-services.md) to restore the native
+web servers, their systemd services, and the OpenCode homelab proxy route.
+
 ## Commands
 
 `dot` provides these commands:
