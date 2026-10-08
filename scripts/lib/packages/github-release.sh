@@ -24,7 +24,6 @@ install_github_release() (
     jq) repo=jqlang/jq; pattern="^jq-linux-$cpu$"; mode=binary ;;
     neovim) repo=neovim/neovim; pattern="^nvim-linux-${arch/aarch64/arm64}.tar.gz$"; binary=nvim ;;
     ripgrep) repo=BurntSushi/ripgrep; pattern="^ripgrep-.*-$arch-unknown-linux-musl.tar.gz$"; binary=rg ;;
-    tmux) repo=tmux/tmux; pattern='^tmux-.*\.tar\.gz$'; mode=configure ;;
     zoxide) repo=ajeetdsouza/zoxide; pattern="^zoxide-.*-$arch-unknown-linux-musl.tar.gz$" ;;
     *) echo "Unknown GitHub tool: $name" >&2; exit 1 ;;
   esac
@@ -44,15 +43,11 @@ install_github_release() (
     else
       tar -xf "$tmp/download" -C "$tmp/unpacked"
     fi
-    if [[ "$mode" == configure || "$mode" == meson ]]; then
+    if [[ "$mode" == meson ]]; then
       root="$(find "$tmp/unpacked" -mindepth 1 -maxdepth 1 -type d)"
-      if [[ "$mode" == configure ]]; then
-        (cd "$root"; ./configure --prefix="$dest"; make -j2; make install)
-      else
-        meson setup "$root/build" "$root" --prefix="$dest" -Dman=disabled
-        ninja -C "$root/build" -j2
-        ninja -C "$root/build" install
-      fi
+      meson setup "$root/build" "$root" --prefix="$dest" -Dman=disabled
+      ninja -C "$root/build" -j2
+      ninja -C "$root/build" install
       ln -s "bin/$binary" "$dest/$binary"
     else
       # Preserve runtime files (especially Neovim's share/nvim) beside the binary.

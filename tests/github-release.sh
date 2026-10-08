@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+# Install a fake GitHub release twice and check the version layout and links.
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/github-release.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../scripts/lib/packages/github-release.sh"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 export HOME="$tmp/home"

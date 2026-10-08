@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# OpenCode V2 from the release published in its official Homebrew formula.
 
 install_opencode_v2() (
   set -euo pipefail

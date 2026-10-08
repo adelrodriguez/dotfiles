@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# Upstream tools outside APT, listed in packages/linux/extras.txt.
+source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/github-release.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/opencode.sh"
 
-PACKAGES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export PATH="$HOME/.local/bin:$HOME/.local/share/fnm:$HOME/.bun/bin:$HOME/.atuin/bin:$HOME/.opencode/bin:/usr/local/bin:/usr/bin:/bin"
-mkdir -p "$HOME/.local/bin"
-source "$PACKAGES_DIR/github-release.sh"
-source "$PACKAGES_DIR/opencode-v2.sh"
+EXTRASFILE="$PACKAGES_DIR/linux/extras.txt"
 
 run_installer() {
   local url="$1"
@@ -69,7 +68,7 @@ install_extra() {
     ripgrep) binary=rg ;;
   esac
   case "$name" in
-    bat|btop|bubblewrap|delta|direnv|eza|fd|fish|gh|jq|neovim|ripgrep|tmux|zoxide)
+    bat|btop|bubblewrap|delta|direnv|eza|fd|fish|gh|jq|neovim|ripgrep|zoxide)
       install_github_release "$name"
       return ;;
     stow) install_stow; return ;;
@@ -116,13 +115,19 @@ install_extra() {
   esac
 }
 
-if [[ $# -gt 0 ]]; then
-  for name in "$@"; do install_extra "$name"; done
-else
+# Installs the named extras, or every extra in the manifest. Set UPDATE=1 to reinstall present tools.
+install_extras() {
+  local name
+  local -a names=()
+  mkdir -p "$HOME/.local/bin"
+  if [[ $# -gt 0 ]]; then
+    for name in "$@"; do install_extra "$name"; done
+    return
+  fi
   # Child installers must not consume the remaining manifest through stdin.
-  mapfile -t names < "$PACKAGES_DIR/extras.txt"
+  mapfile -t names < "$EXTRASFILE"
   for name in "${names[@]}"; do
     [[ -z "$name" || "$name" == \#* ]] && continue
     install_extra "$name" </dev/null
   done
-fi
+}

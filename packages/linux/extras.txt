@@ -25,7 +25,6 @@ pnpm
 process-compose
 starship
 stow
-tmux
 vercel
 1password-cli
 ripgrep

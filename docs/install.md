@@ -20,20 +20,12 @@ These steps install the repository at `~/Developer/dotfiles` and link its config
 	cd "$HOME/Developer/dotfiles"
 	```
 
-4. Install `dot`.
+4. Set up the machine.
 
 	```sh
-	./install.sh
+	scripts/install.sh
 	```
 
-	The script prints the path to `dot`. If `~/.local/bin` is not in `PATH`, the script tells you to add it.
-
-5. Initialize the machine.
-
-	```sh
-	"$HOME/.local/bin/dot" init
-	```
-
-	On macOS, `dot init` installs Homebrew when needed and installs `packages/macos/Brewfile`. On Ubuntu, it installs `packages/linux/apt.txt` with APT and runs the upstream installers listed in `packages/linux/extras.txt`. Ubuntu installation requires sudo access. fnm manages Node; no Linuxbrew or mise installation is needed.
+	On macOS, `scripts/install.sh` installs Homebrew when needed and installs `packages/macos/Brewfile`. On Ubuntu, it installs `packages/linux/apt.txt` with APT and runs the upstream installers listed in `packages/linux/extras.txt`. Ubuntu installation requires sudo access. fnm manages Node; no Linuxbrew or mise installation is needed.
 
 	It then links the dotfiles, sets fish as the account's default shell, and configures scheduled tasks. A successful run ends with `Done`. Start a new terminal session to use fish after the default shell changes.

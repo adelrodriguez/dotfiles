@@ -1,6 +1,5 @@
 autoconf
 automake
-bison
 build-essential
 ca-certificates
 curl
@@ -8,8 +7,6 @@ gettext
 git
 jq
 libcap-dev
-libevent-dev
-libncurses-dev
 libseccomp-dev
 meson
 ninja-build

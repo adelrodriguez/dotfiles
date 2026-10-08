@@ -5,11 +5,10 @@ set -euo pipefail
 case ":$PATH:" in *linuxbrew*) echo 'Linuxbrew remains on PATH' >&2; exit 1 ;; esac
 if command -v brew >/dev/null; then echo 'brew remains available' >&2; exit 1; fi
 
-for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git gt grok jq nvim node opencode pi pnpm process-compose rg starship stow tmux vercel op zoxide; do
+for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git gt grok jq nvim node opencode pi pnpm process-compose rg starship stow vercel op zoxide; do
   binary="$(command -v "$tool")"
   printf '\n%s (%s)\n' "$tool" "$binary"
   case "$tool" in
-    tmux) "$binary" -V ;;
     process-compose) "$binary" version ;;
     *) "$binary" --version ;;
   esac

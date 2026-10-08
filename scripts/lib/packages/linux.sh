@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
+# Ubuntu packages: APT from packages/linux/apt.txt, upstream tools through extras.sh.
+source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/extras.sh"
 
 APTFILE="$PACKAGES_DIR/linux/apt.txt"
-EXTRASFILE="$PACKAGES_DIR/linux/extras.txt"
 
 linux_packages() {
   [[ -f /etc/os-release ]] || die "Linux package installation requires Ubuntu"
@@ -18,15 +20,15 @@ linux_packages() {
     install)
       sudo apt-get update
       sudo apt-get install -y "${packages[@]}"
-      bash "$PACKAGES_DIR/linux/install-extras.sh"
+      install_extras
       ;;
     list)
       printf 'apt:\n'; sed 's/^/  /' "$APTFILE"
       printf 'upstream:\n'; sed 's/^/  /' "$EXTRASFILE"
       ;;
     add)
-      [[ "$name" =~ ^[a-z0-9][a-z0-9+.-]*$ ]] || die "Usage: dot package add <package> [apt]"
-      [[ "$type" == apt ]] || die "Add upstream installers to packages/linux/install-extras.sh and extras.txt"
+      [[ "$name" =~ ^[a-z0-9][a-z0-9+.-]*$ ]] || die "Usage: scripts/package.sh add <package> [apt]"
+      [[ "$type" == apt ]] || die "Add upstream installers to scripts/lib/packages/extras.sh and packages/linux/extras.txt"
       sudo apt-get update
       sudo apt-get install -y "$name"
       if ! grep -qxF "$name" "$APTFILE"; then
@@ -35,7 +37,7 @@ linux_packages() {
       fi
       ;;
     remove)
-      [[ -n "$name" ]] || die "Usage: dot package remove <package>"
+      [[ -n "$name" ]] || die "Usage: scripts/package.sh remove <package>"
       if grep -qxF "$name" "$EXTRASFILE"; then
         sed -i "/^${name//./\\.}$/d" "$EXTRASFILE"
         info "Removed $name from extras.txt. Uninstall it using its upstream tool if needed."
@@ -47,7 +49,7 @@ linux_packages() {
       ;;
     update)
       if [[ -n "$name" ]] && grep -qxF "$name" "$EXTRASFILE"; then
-        UPDATE=1 bash "$PACKAGES_DIR/linux/install-extras.sh" "$name"
+        UPDATE=1 install_extras "$name"
       else
         if [[ -n "$name" ]]; then
           grep -qxF "$name" "$APTFILE" || die "Package not tracked: $name"
@@ -55,9 +57,9 @@ linux_packages() {
         fi
         sudo apt-get update
         sudo apt-get install -y "${packages[@]}"
-        if [[ -z "$name" ]]; then UPDATE=1 bash "$PACKAGES_DIR/linux/install-extras.sh"; fi
+        if [[ -z "$name" ]]; then UPDATE=1 install_extras; fi
       fi
       ;;
-    *) die "Usage: dot package <add|remove|update|list>" ;;
+    *) die "Usage: scripts/package.sh <install|add|remove|update|list>" ;;
   esac
 }

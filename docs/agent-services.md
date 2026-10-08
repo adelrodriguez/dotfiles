@@ -1,7 +1,7 @@
 # Host OpenCode and T3 services
 
 Both web servers run as user systemd services on Ubuntu. Run the commands below
-as the account that owns the services. This setup is opt-in, separate from `dot init`.
+as the account that owns the services. This setup is opt-in, separate from `scripts/install.sh`.
 
 ## OpenCode
 
