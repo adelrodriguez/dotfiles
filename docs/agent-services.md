@@ -10,9 +10,14 @@ bash services/opencode/setup.sh
 python3 services/opencode/verify.py
 ```
 
-The setup script installs OpenCode V2.0.22, links the tracked systemd unit, prepares
-the runtime directories, and enables `opencode-web.service`. Stop any Docker
-deployment using port 4096 or this database before running it.
+The setup script installs the latest stable OpenCode V2 published in the official
+Homebrew formula, verifies its checksum, links the tracked systemd unit, prepares
+the runtime directories, and enables and restarts `opencode-web.service`. Stop any
+Docker deployment using port 4096 or this database before running it.
+
+Rerun the setup script to update the service. `scripts/package.sh update opencode`
+updates the host CLI separately. The verifier checks that the running service
+matches its installed binary rather than requiring a fixed release.
 
 The service binds to `127.0.0.1:4096`. Its executable lives in
 `~/services/opencode/bin`, with data, state, and cache in `~/services/opencode/runtime`.

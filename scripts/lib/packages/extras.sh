@@ -27,7 +27,7 @@ use_node() {
 
 install_node() {
   local version
-  version="$(curl -fsSL https://nodejs.org/dist/index.json | jq -er '.[0].version')"
+  version="$(curl -fsSL https://nodejs.org/dist/index.json | jq -er 'first(.[] | select(.version | test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))).version')"
   fnm install "$version"
   fnm use "$version"
   fnm default "$version"

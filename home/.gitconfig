@@ -41,9 +41,6 @@
 	email = hello@adelrodriguez.com
 	name = Adel Rodríguez
 
-[difftool "vscode"]
-	cmd = c --wait --diff $LOCAL $REMOTE
-
 [merge]
 	conflictStyle = zdiff3
 [credential "https://github.com"]

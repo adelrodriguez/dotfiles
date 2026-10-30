@@ -10,6 +10,9 @@ import urllib.request
 
 
 ROOT = Path.home() / "services/opencode"
+VERSION = subprocess.check_output(
+    [str(ROOT / "bin/opencode"), "--version"], text=True
+).strip().removeprefix("opencode v")
 CONFIG = Path.home() / ".config/opencode/service.json"
 PASSWORD = json.loads(CONFIG.read_text())["password"]
 AUTH = "Basic " + base64.b64encode(f"opencode:{PASSWORD}".encode()).decode()
@@ -41,7 +44,7 @@ for base in URLS:
             raise AssertionError(f"{base}: backend accepted an unauthenticated request")
         info = json.loads(get(base, "/api/info"))
         access = "backend API authentication"
-    assert info["version"] == "2.0.22", info
+    assert info["version"] == VERSION, info
     print(f"PASS {base}: web UI, {access}, version {info['version']}")
 
 config = json.loads(get(URLS[0], "/api/config"))
