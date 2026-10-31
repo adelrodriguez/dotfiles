@@ -38,7 +38,7 @@ The main paths are:
 | `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh` and `opencode.sh`. |
 | `tests/` | Checks for the scripts and the installed tools. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
-| `packages/macos/Brewfile` | Homebrew formulae and casks for macOS. |
+| `packages/macos/Brewfile` | Homebrew formulae, casks, and npm packages for macOS. |
 | `packages/linux/apt.txt` | Ubuntu APT packages, one per line. |
 | `packages/linux/extras.txt` | Enabled upstream tools, one per line. |
 | `backups/` | Files moved out of the way during a sync. |

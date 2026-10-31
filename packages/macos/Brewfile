@@ -30,3 +30,5 @@ brew "zoxide"
 
 cask "1password-cli"
 cask "ghostty"
+
+npm "agent-desktop"
