@@ -3,6 +3,7 @@ tap "withgraphite/tap"
 tap "oven-sh/bun"
 tap "f1bonacc1/tap"
 
+brew "agent-browser"
 brew "atuin"
 brew "bat"
 brew "btop"
