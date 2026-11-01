@@ -6,11 +6,6 @@ function code
     opencode $argv
 end
 
-function t
-    tmux attach
-    or tmux new -s Work
-end
-
 function jqc
     jq -C $argv
 end

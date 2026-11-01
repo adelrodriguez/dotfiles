@@ -1,5 +1,5 @@
 if test (uname) != Darwin
-    # Clean inherited paths in existing tmux sessions as well as new logins.
+    # Clean inherited paths in existing shells as well as new logins.
     set -gx PATH (string match -rv '(^/home/linuxbrew/|/\.linuxbrew/)' -- $PATH)
     return
 end

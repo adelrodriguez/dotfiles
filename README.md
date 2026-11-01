@@ -50,13 +50,20 @@ Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modul
 
 Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm, Graphite, Pi, and Vercel. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
 
-`scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. Node uses the latest Current release, not just LTS, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
+`scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
 
-GitHub release binaries live under `~/.local/share/dot-tools/<tool>/<version>` and are linked into `~/.local/bin`. Neovim's runtime files stay alongside its binary. Bubblewrap is built from its upstream release; GNU Stow is built from its latest published tarball. Updates preserve prior version directories. Run `bash tests/packages.sh` to check package-command behavior without changing installed packages, and `bash tests/installed-tools.sh` from a fresh fish session to check the installed tools.
+GitHub release binaries live under `~/.local/share/dot-tools/<tool>/<version>` and are linked into `~/.local/bin`. Neovim's runtime files stay alongside its binary. Bubblewrap is built from its upstream release; GNU Stow is built from its latest published tarball. Updates preserve prior version directories. Run `bash tests/packages.sh` and `bash tests/upstream-packages.sh` to check package-command behavior and upstream updates without changing installed packages, and `bash tests/installed-tools.sh` from a fresh fish session to check the installed tools.
 
 To track another upstream tool, add its installer to `scripts/lib/packages/extras.sh` and its name to `packages/linux/extras.txt`. `scripts/package.sh add` on Linux handles APT packages only. The manifests track intended packages, not their transitive dependencies or exact versions.
 
 Fish is the default interactive shell. `scripts/install.sh` installs fish, registers it in `/etc/shells`, and selects it as the account's login shell.
+
+Codex completions are generated from the installed CLI when fish loads them, so
+they follow CLI updates automatically.
+
+Tmux and its plugins are no longer configured by this repository. After syncing
+an existing installation, remove dangling `~/.tmux.conf` and
+`~/.config/tmux/tmux.conf` symlinks left by the previous configuration.
 
 `home/.config/fish/conf.d/99-local.fish` loads `~/.config/fish/conf.d/99-local.private.fish` when the file exists. The repository does not track `99-local.private.fish`.
 
