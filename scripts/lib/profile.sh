@@ -71,13 +71,14 @@ role_manifests() {
 }
 
 # Print the manifest that `package add --role` writes the entry to, creating it when the role has none yet.
-# Each package belongs to one role, so remove and update find the only manifest that tracks it.
+# Each package belongs to one role, including roles outside this profile, so remove and update find the only manifest that tracks it.
 role_manifest() {
   local role="$1" file="$2" entry="$3" tracked
   has_role "$role" || die "Role ${role} is not in the ${PROFILE} profile"
-  if tracked="$(manifest_tracking "$file" "$entry")" && [[ "$tracked" != "${ROLES_DIR}/${role}/packages/${file}" ]]; then
-    die "${entry} is already tracked in ${tracked#"$DOTFILES_DIR"/}"
-  fi
+  for tracked in "$ROLES_DIR"/*/packages/"$file"; do
+    [[ -f "$tracked" && "$tracked" != "${ROLES_DIR}/${role}/packages/${file}" ]] || continue
+    grep -qxF "$entry" "$tracked" && die "${entry} is already tracked in ${tracked#"$DOTFILES_DIR"/}"
+  done
   mkdir -p "${ROLES_DIR}/${role}/packages"
   touch "${ROLES_DIR}/${role}/packages/${file}"
   printf '%s\n' "${ROLES_DIR}/${role}/packages/${file}"
