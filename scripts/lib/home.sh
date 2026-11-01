@@ -62,5 +62,7 @@ backup_conflicts() {
 link_home() {
   command_exists stow || die "GNU Stow is not installed. Run: scripts/install.sh"
   backup_conflicts
+  # Keep ~/.config/agents a real directory so the generated env file and token stay out of the repository.
+  mkdir -p "$HOME/.config/agents"
   stow -R -d "$DOTFILES_DIR" -t "$HOME" home
 }

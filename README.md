@@ -15,6 +15,7 @@ Each task is a script in the repository. Run them from any directory.
 | --- | --- |
 | `scripts/install.sh` | Installs platform packages, links the dotfiles, configures fish, and starts the Process Compose service on Linux. Safe to rerun. |
 | `scripts/sync.sh` | Fast-forwards the current branch, then links the dotfiles. |
+| `scripts/agents-env.sh` | Fills `~/.config/agents/env` from 1Password. Rerun it to pick up rotated keys. |
 | `scripts/link.sh` | Backs up existing target files and links `home/` into `$HOME` with GNU Stow. |
 | `scripts/package.sh install` | Installs every tracked package for the current platform. |
 | `scripts/package.sh add <name> [apt\|brew\|cask\|npm]` | Installs and records a package. Defaults to APT on Ubuntu and a Homebrew formula on macOS. `npm` records a global npm tool for both platforms. |
@@ -34,7 +35,7 @@ The main paths are:
 | `scripts/lib/` | Modules: files that define functions and run nothing when loaded. |
 | `scripts/lib/core.sh` | Repository paths, `PATH`, and output helpers. Every module loads it. |
 | `scripts/lib/home.sh` | Backs up conflicts and links `home/` with GNU Stow. |
-| `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh` | Machine setup steps. |
+| `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh`, `scripts/lib/agents-env.sh` | Machine setup steps. |
 | `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh`, `opencode.sh`, and `node.sh`. `macos.sh` also uses `node.sh`, which installs Node through fnm. |
 | `tests/` | Checks for the scripts and the installed tools. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
@@ -67,6 +68,18 @@ an existing installation, remove dangling `~/.tmux.conf` and
 `~/.config/tmux/tmux.conf` symlinks left by the previous configuration.
 
 `home/.config/fish/conf.d/99-local.fish` loads `~/.config/fish/conf.d/99-local.private.fish` when the file exists. The repository does not track `99-local.private.fish`.
+
+## Agent environment
+
+Agents don't load interactive shell config, so variables they need, such as the `upload` skill's `FILE_UPLOAD_*` settings, live in `~/.config/agents/env`. Every reader loads that file:
+
+- `~/.zshenv` loads it for every zsh, including the non-interactive shells that agents run on macOS.
+- `home/.config/fish/conf.d/00-env.fish` loads it for fish.
+- Drop-ins in `home/.config/systemd/user/` load it into `t3code.service` and `opencode-web.service` on Linux.
+
+`home/.config/agents/env.tpl` holds only `op://` references. `scripts/agents-env.sh` fills it with the machine's read-only 1Password service account, whose token lives at `~/.config/agents/1password-token` with mode `600`. The script passes the token to that one `op` call, never exports it, and writes the env file with mode `600`. If 1Password fails or a value contains characters that systemd and the shells would read differently, the script keeps the existing file. `scripts/install.sh` runs this step when the token file exists.
+
+To add a variable, add a line to the template and its value to the `Agents` vault, then rerun `scripts/agents-env.sh`. The script restarts `opencode-web.service` when the file changes. Restart `t3code.service` and start new agent sessions yourself, because restarting T3 ends the sessions it runs. Run `bash tests/agents-env.sh` to check the setup and loaders without 1Password.
 
 ## Scheduled sync
 
