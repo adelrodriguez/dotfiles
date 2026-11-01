@@ -90,9 +90,16 @@ mv "$tmp/agents" "$HOME/.config/agents"
 # Each loader exports every value and never the 1Password token.
 printf 'AGENTS_DASH=-dash\n' >> "$env_file"
 check='[[ "$FILE_UPLOAD_SECRET_ACCESS_KEY" == value-secret_access_key && "$AGENTS_DASH" == -dash && -z "${OP_SERVICE_ACCOUNT_TOKEN:-}" ]]'
-bash -c "source \"\$HOME/.zshenv\" && bash -c '$check'"
 if command -v zsh >/dev/null; then
   zsh -c "bash -c '$check'"
+  # ~/.zshenv also sets up the PATH that agent shells need, and ~/.zprofile calls use_node_version.
+  [[ -z "$(zsh -c 'typeset -f use_node_version >/dev/null && [[ ":$PATH:" == *":$HOME/.npm-global/bin:"* ]] || echo missing' 2>&1)" ]]
+  # A partial .node-version picks the newest installed match from fnm's directory, as fnm does.
+  project="$tmp/project/src"
+  mkdir -p "$project" "$tmp/fnm/node-versions/"{v22.9.0,v22.10.0,v220.0.0}/installation/bin
+  printf '22\n' > "$tmp/project/.node-version"
+  first_path="$(cd "$project" && FNM_DIR="$tmp/fnm" zsh -c 'print -r -- ${path[1]}')"
+  [[ "$first_path" == "$tmp/fnm/node-versions/v22.10.0/installation/bin" ]]
 fi
 if command -v fish >/dev/null; then
   fish --no-config -c "source '$repo/home/.config/fish/conf.d/00-env.fish'; bash -c '$check'"

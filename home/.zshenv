@@ -4,3 +4,5 @@ if [[ -r "$HOME/.config/agents/env" ]]; then
   source "$HOME/.config/agents/env"
   set +a
 fi
+
+source "$HOME/.config/zsh/env.zsh"
