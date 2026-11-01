@@ -70,6 +70,7 @@ install_extra() {
   esac
   if [[ "${UPDATE:-0}" != 1 ]] && command -v "$binary" >/dev/null &&
     { [[ "$name" != fzf ]] || [[ "$(command -v fzf)" == "$HOME/.local/bin/fzf" ]]; } &&
+    { [[ "$name" != t3 ]] || [[ "$(command -v t3)" == "${T3CODE_INSTALL_BIN_DIR:-$HOME/.local/bin}/t3" ]]; } &&
     { [[ "$name" != atuin ]] || dpkg --compare-versions "$(atuin --version | awk '{print $2}')" ge 18.23.0; }; then
     printf '%s already installed\n' "$name"
     return
@@ -83,6 +84,7 @@ install_extra() {
     grok) SHELL=/bin/sh run_installer https://x.ai/cli/install.sh ;;
     atuin) ATUIN_NO_MODIFY_PATH=1 ATUIN_INSTALL_DIR="$HOME/.atuin/bin" run_installer https://github.com/atuinsh/atuin/releases/latest/download/atuin-installer.sh ;;
     starship) INSTALLER_SHELL=sh run_installer https://starship.rs/install.sh --yes --bin-dir "$HOME/.local/bin" ;;
+    t3) INSTALLER_SHELL=sh run_installer https://t3.codes/install.sh ;;
     fzf) install_fzf ;;
     process-compose) run_installer https://raw.githubusercontent.com/F1bonacc1/process-compose/main/scripts/get-pc.sh -b "$HOME/.local/bin" ;;
     opencode)

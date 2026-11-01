@@ -5,7 +5,7 @@ set -euo pipefail
 case ":$PATH:" in *linuxbrew*) echo 'Linuxbrew remains on PATH' >&2; exit 1 ;; esac
 if command -v brew >/dev/null; then echo 'brew remains available' >&2; exit 1; fi
 
-for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git grok jq nvim node opencode pnpm process-compose rg starship stow op zoxide; do
+for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git grok jq nvim node opencode pnpm process-compose rg starship stow t3 op zoxide; do
   binary="$(command -v "$tool")"
   printf '\n%s (%s)\n' "$tool" "$binary"
   case "$tool" in

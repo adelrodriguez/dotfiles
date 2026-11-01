@@ -23,6 +23,7 @@ pnpm
 process-compose
 starship
 stow
+t3
 1password-cli
 ripgrep
 zoxide
