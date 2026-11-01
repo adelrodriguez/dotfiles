@@ -37,8 +37,18 @@ configure Caddy. The verifier expects this homelab route and existing sessions.
 bash services/t3/setup.sh
 ```
 
-Install T3 Code first or restore `~/.t3` from backup. On a fresh installation with
-no `t3` on PATH, pass `T3_BIN=/absolute/path/to/t3` to the setup script.
+The Ubuntu dotfiles installer installs the self-contained T3 CLI with the
+[official binary installer](https://github.com/pingdotgg/t3code#command-line).
+To install it separately, run:
+
+```sh
+curl -fsSL https://t3.codes/install.sh | sh
+```
+
+The installer puts `t3` in `~/.local/bin` and the versioned runtime in `~/.t3`.
+It requires no Node, npm, or npx. To update the CLI through dotfiles, run
+`scripts/package.sh update t3`. For a custom installation with no `t3` on PATH,
+pass `T3_BIN=/absolute/path/to/t3` to the setup script.
 The script reads the active version from `~/.t3/runtime/service-state.json` on an
 existing installation, then uses `t3 service install` to generate the user unit.
 
