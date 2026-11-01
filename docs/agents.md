@@ -49,10 +49,11 @@ The setup used to live in [adelrodriguez/dotagents](https://github.com/adelrodri
 `make -C ~ agents:sync` runs `scripts/agents.sh sync`, which does these steps:
 
 1. Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`. APM reads its user-scope manifest only from `~/.apm`, and it refuses a symlinked `apm.yml`, so Stow can't link them. If `agents/apm.lock.yaml` differs from the lock in `~/.apm`, which happens after a pull changes it, the sync stops before it copies anything. The deployed lock is the only record of the files to remove, so follow "Update after a pull" in `agents/AGENTS.md` first.
-2. `apm install --global` installs everything in the lock, at the commits it records. If `apm.yml` and the lock disagree, it updates the lock to match. If the install fails, the sync stops and `agents/` stays unchanged.
-3. Copies `apm.yml` and `apm.lock.yaml` back into `agents/` if APM changed them, so check `git status` after a sync. The copy runs before the next steps, so a retry after a failed prune or compile doesn't see a changed lock.
-4. `apm prune` deletes packages in `~/.apm/apm_modules/` that `apm.yml` no longer lists. Global compile reads every instruction in `apm_modules/`, so a removed package's instructions would otherwise stay in `AGENTS.md`.
-5. `apm compile --global` merges the instructions into `~/.codex/AGENTS.md` and `~/.config/opencode/AGENTS.md`.
+2. `apm install --global` installs everything in the lock, at the commits it records. If `apm.yml` and the lock disagree, it updates the lock to match.
+3. `apm prune` deletes packages in `~/.apm/apm_modules/` that `apm.yml` no longer lists, and removes their records from the lock. Global compile reads every instruction in `apm_modules/`, so a removed package's instructions would otherwise stay in `AGENTS.md`.
+4. `apm compile --global` merges the instructions into `~/.codex/AGENTS.md` and `~/.config/opencode/AGENTS.md`.
+
+After each APM step, even one that fails, the sync copies `apm.yml` and `apm.lock.yaml` back into `agents/` if APM changed them, so check `git status` after a sync. The repository's lock then always matches the deployed lock, and the check in step 1 stops only after a pull.
 
 `make -C ~ agents:update` runs `apm update --global --yes` in place of `apm install --global`.
 
