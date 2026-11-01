@@ -14,6 +14,8 @@ write_agents_env() {
   [[ -r "$AGENTS_TOKEN" ]] || die "Save this machine's 1Password service account token to ${AGENTS_TOKEN}"
 
   mkdir -p "$AGENTS_DIR"
+  [[ "$(cd -P "$AGENTS_DIR" && pwd)" != "$DOTFILES_DIR"/* ]] \
+    || die "${AGENTS_DIR} links into the repository; replace that link with a real directory so secrets stay out of it"
   agents_env_tmp="$(umask 077 && mktemp "${AGENTS_DIR}/.env.XXXXXX")"
   trap 'rm -f "${agents_env_tmp:-}"' EXIT
   local tmp="$agents_env_tmp"
@@ -28,15 +30,28 @@ write_agents_env() {
   if [[ -f "$AGENTS_ENV" ]] && cmp -s "$tmp" "$AGENTS_ENV"; then
     chmod 600 "$AGENTS_ENV"
     info "${AGENTS_ENV} is up to date"
-    return 0
+  else
+    mv "$tmp" "$AGENTS_ENV"
+    info "Wrote ${AGENTS_ENV}"
   fi
+  reload_agent_services
+}
 
-  mv "$tmp" "$AGENTS_ENV"
-  info "Wrote ${AGENTS_ENV}"
-  if command_exists systemctl && systemctl --user show-environment >/dev/null 2>&1; then
-    systemctl --user try-restart opencode-web.service
-    info "Restart t3code.service and start new agent sessions to load the change"
-  fi
+# Succeeds when the unit is stopped or its running process already holds every line of the env file.
+agent_service_is_current() {
+  local pid
+  pid="$(systemctl --user show -p MainPID --value "$1")"
+  [[ "$pid" == 0 ]] && return 0
+  ! grep -vE '^(#.*)?$' "$AGENTS_ENV" | grep -vxF -f <(tr '\0' '\n' <"/proc/${pid}/environ") >/dev/null
+}
+
+# Restart OpenCode when it runs without the current values. Restarting T3 would end its sessions, so only report it.
+reload_agent_services() {
+  command_exists systemctl && systemctl --user show-environment >/dev/null 2>&1 || return 0
+  systemctl --user daemon-reload
+  agent_service_is_current opencode-web.service || systemctl --user restart opencode-web.service
+  agent_service_is_current t3code.service \
+    || info "Restart t3code.service and start new agent sessions to load ${AGENTS_ENV}"
 }
 
 setup_agents_env() {
