@@ -1,0 +1,65 @@
+name: dotagents
+version: 0.1.0
+description: My coding-agents setup
+author: Adel Rodríguez
+# Which agent platforms to deploy to.
+# Resolution order: --target flag > this field > auto-detect from filesystem.
+# Accepted values: agent-skills, antigravity, claude, codex, copilot, cursor, gemini, grok-bot, grok-build, hermes, kiro, opencode, vscode, windsurf
+targets:
+  - claude
+  - codex
+  - cursor
+  - grok-bot
+  - grok-build
+  - opencode
+dependencies:
+  apm:
+    - adelrodriguez/instructions
+    # List each skill, so a new skill in the repo stays out of my global setup.
+    - git: adelrodriguez/skills
+      skills:
+        - code-review
+        - codebase-design
+        - comment
+        - consistency
+        - council-review
+        - full-send
+        - full-stop
+        - housekeeping
+        - how
+        - issue
+        - janitor
+        - maintenance
+        - modernize
+        - monitor
+        - next-task
+        - pr
+        - refresh
+        - restraint
+        - takeover
+        - test-pruning
+        - testing
+        - unslop
+        - upload
+        - what
+        - why
+        - writing-changesets
+        - writing-documentation
+        - writing-for-agents
+        - writing-for-humans
+    - git: emilkowalski/skills
+      skills:
+        - break-ui
+    - git: mattpocock/skills
+      skills:
+        - domain-modeling
+        - grilling
+        - handoff
+        - wayfinder
+  mcp:
+    - name: executor
+      registry: false
+      transport: http
+      url: https://mcp.executor.sh/mcp
+includes: auto
+scripts: {}
