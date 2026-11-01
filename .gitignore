@@ -18,3 +18,8 @@ home/.config/fish/completions/orbctl.fish
 home/.config/fish/conf.d/99-local.private.fish
 home/.config/fish/fish_variables
 backups/
+
+# Agent environment written from 1Password by scripts/agents-env.sh
+home/.config/agents/env
+home/.config/agents/1password-token
+home/.config/agents/.env.*

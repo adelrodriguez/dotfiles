@@ -48,6 +48,10 @@ updates. It is deliberately not a Stow symlink. The reference unit in
 2026-10-03. The live launcher selects the version recorded in T3's runtime state.
 Use `t3 update` to change versions rather than editing the unit or runtime state.
 
+Because T3 owns its unit, the agent environment reaches it through the Stow drop-in
+`home/.config/systemd/user/t3code.service.d/agents-env.conf`. See "Agent environment"
+in the README.
+
 T3 stores its settings and databases under `~/.t3/userdata`. Its observed web port
 is 3773, also recorded in `~/.t3/userdata/server-runtime.json` while running.
 
