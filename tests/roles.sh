@@ -42,5 +42,11 @@ done
 duplicates="$(cd "$repo/roles" && find . -path './*/home/*' ! -type d | cut -d/ -f4- | sort | uniq -d)"
 [[ -z "$duplicates" ]] || fail "Several roles link: $duplicates"
 
+# A package tracked by two roles would leave one manifest behind when `package.sh remove` edits the other.
+for manifest in apt.txt extras.txt npm.txt Brewfile; do
+  duplicates="$(cd "$repo/roles" && cat ./*/packages/"$manifest" 2>/dev/null | grep -vE '^[[:space:]]*(#|$|tap )' | sort | uniq -d || true)"
+  [[ -z "$duplicates" ]] || fail "Several roles track in ${manifest}: $duplicates"
+done
+
 [[ "$failed" == 0 ]] || exit 1
 printf 'Profile and role layout checks passed\n'

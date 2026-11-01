@@ -73,6 +73,21 @@ link >/dev/null
 [[ -z "$(ls "$repo/backups" | sed -n 2p)" ]]
 printf 'A file that moves between roles is relinked\n'
 
+# A folded ~/.config is rebuilt before roles outside the profile are unstowed, whether the old directory
+# still holds untracked files or the pull removed it and the link dangles.
+for state in kept removed; do
+  [[ "$state" == kept ]] || rm -rf "$repo/home"
+  export HOME="$tmp/folded-$state"
+  mkdir -p "$HOME"
+  ln -s ../dotfiles/home/.gitconfig "$HOME/.gitconfig"
+  ln -s ../dotfiles/home/.config "$HOME/.config"
+  link >/dev/null
+  [[ "$(cat "$HOME/.config/dotfiles/profile")" == "$expected" ]]
+  [[ -d "$HOME/.config" && ! -L "$HOME/.config" && -L "$HOME/.config/fish/config.fish" ]]
+done
+[[ -d "$tmp/folded-kept/.config/tmux/plugins" ]]
+printf 'A folded ~/.config is rebuilt, with or without its old directory\n'
+
 export HOME="$tmp/fresh"
 mkdir -p "$HOME"
 if link 2>"$tmp/err"; then exit 1; fi

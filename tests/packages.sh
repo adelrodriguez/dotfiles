@@ -67,6 +67,12 @@ if bash "$pkg" add hello --role extra 2>"$tmp/err"; then exit 1; fi
 grep -q "Role extra is not in the server profile" "$tmp/err"
 printf 'both\n' > "$HOME/.config/dotfiles/profile"
 bash "$pkg" add hello --role extra
+# A package belongs to one role, so remove and update always find the only manifest that tracks it.
+if bash "$pkg" add jq --role extra 2>"$tmp/err"; then exit 1; fi
+grep -q 'jq is already tracked in roles/base/packages/apt.txt' "$tmp/err"
+if bash "$pkg" add vercel npm --role extra 2>"$tmp/err"; then exit 1; fi
+grep -q 'vercel is already tracked in roles/base/packages/npm.txt' "$tmp/err"
+[[ ! -e "$extra/npm.txt" ]] || ! grep -qx vercel "$extra/npm.txt"
 bash "$pkg" add @scope/tool npm --role extra
 grep -qx hello "$extra/apt.txt"
 grep -qx @scope/tool "$extra/npm.txt"
