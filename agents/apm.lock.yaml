@@ -4395,6 +4395,15 @@ deployments:
   content_hash: sha256:d89de3913942c94f510aaa121563479302f4e131793ed251083432906dc8fa72
 - kind: uri
   target: mcp
+  value: paper
+  runtime: claude
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:ba4ab1c181f58fa1b17407bac88e7cfa27141a20ba086046800f75df89fbdffd
+- kind: uri
+  target: mcp
   value: executor
   runtime: codex
   scope: project
@@ -4402,6 +4411,15 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:bc487b235521339d2852728a6fe92b8689f2b83a951e00a8d9e5867eecf4eb99
+- kind: uri
+  target: mcp
+  value: paper
+  runtime: codex
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:d3d7b583415b41e536c68d351b886b85d14eb82040055357e2eae4adc560e1fc
 - kind: uri
   target: mcp
   value: executor
@@ -4413,7 +4431,25 @@ deployments:
   content_hash: null
 - kind: uri
   target: mcp
+  value: paper
+  runtime: cursor
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
   value: executor
+  runtime: opencode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: paper
   runtime: opencode
   scope: project
   owners:
@@ -5268,18 +5304,30 @@ deployments:
   content_hash: sha256:39bb21b1b8d760870be3bd86f96b181acd05356a75923d4b72510c77e0d8e05e
 mcp_servers:
 - executor
+- paper
 mcp_configs:
   executor:
     name: executor
     transport: http
     registry: false
     url: https://mcp.executor.sh/mcp
+  paper:
+    name: paper
+    transport: stdio
+    args:
+    - mcp
+    registry: false
+    command: /Users/adelrodriguez/.paper/bin/paper
 mcp_target_servers:
   claude:
   - executor
+  - paper
   codex:
   - executor
+  - paper
   cursor:
   - executor
+  - paper
   opencode:
   - executor
+  - paper

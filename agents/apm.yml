@@ -61,5 +61,11 @@ dependencies:
       registry: false
       transport: http
       url: https://mcp.executor.sh/mcp
+    - name: paper
+      registry: false
+      transport: stdio
+      command: /Users/adelrodriguez/.paper/bin/paper
+      args:
+        - mcp
 includes: auto
 scripts: {}
