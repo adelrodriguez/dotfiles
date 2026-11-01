@@ -73,6 +73,12 @@ grep -q 'jq is already tracked in roles/base/packages/apt.txt' "$tmp/err"
 if bash "$pkg" add vercel npm --role extra 2>"$tmp/err"; then exit 1; fi
 grep -q 'vercel is already tracked in roles/base/packages/npm.txt' "$tmp/err"
 [[ ! -e "$extra/npm.txt" ]] || ! grep -qx vercel "$extra/npm.txt"
+# Roles outside the profile own their packages too.
+printf 'server\n' > "$HOME/.config/dotfiles/profile"
+if bash "$pkg" add hello 2>"$tmp/err"; then exit 1; fi
+grep -q 'hello is already tracked in roles/extra/packages/apt.txt' "$tmp/err"
+if grep -qx hello "$base/apt.txt"; then exit 1; fi
+printf 'both\n' > "$HOME/.config/dotfiles/profile"
 bash "$pkg" add @scope/tool npm --role extra
 grep -qx hello "$extra/apt.txt"
 grep -qx @scope/tool "$extra/npm.txt"
