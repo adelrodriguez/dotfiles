@@ -9,7 +9,17 @@ mkdir -p "$repo"
 cp -R "$source_repo/scripts" "$source_repo/home" "$source_repo/agents" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
-mkdir -p "$HOME/.local/bin" "$HOME/.config"
+mkdir -p "$HOME/.local/bin" "$HOME/.config" "$tmp/bin"
+
+# Link every command on PATH except apm, so the test controls whether APM exists and which one runs.
+IFS=: read -ra path_dirs <<< "$PATH"
+for dir in "${path_dirs[@]}"; do
+  for command in "$dir"/*; do
+    name="${command##*/}"
+    [[ -x "$command" && ! -d "$command" && "$name" != apm && ! -e "$tmp/bin/$name" ]] && ln -s "$command" "$tmp/bin/$name"
+  done
+done
+export PATH="$HOME/.local/bin:$tmp/bin"
 bash "$repo/scripts/link.sh" >/dev/null
 [[ -L "$HOME/Makefile" ]]
 agents() { make --no-print-directory -s -C "$HOME" "agents:$1"; }
