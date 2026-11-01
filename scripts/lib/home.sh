@@ -59,11 +59,12 @@ link_home() {
   command_exists stow || die "GNU Stow is not installed. Run: scripts/install.sh"
   load_profile
   local dir role
+  # Stow refuses to unstow through a folded directory from the old layout, so rebuild those first.
+  prune_links
   for dir in "$ROLES_DIR"/*/home; do
     role="$(basename "$(dirname "$dir")")"
     has_role "$role" || stow -D --no-folding -d "${ROLES_DIR}/${role}" -t "$HOME" home
   done
-  prune_links
   # Without folding, Stow links files into real directories, so several roles can share a directory
   # and secrets written to ~/.config/agents stay out of the repository.
   for role in "${ROLES[@]}"; do

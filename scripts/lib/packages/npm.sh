@@ -37,7 +37,7 @@ npm_packages() {
       ;;
     add)
       [[ -n "$name" ]] || die "Usage: scripts/package.sh add <package> npm [--role <role>]"
-      npmfile="$(role_manifest "$role" npm.txt)"
+      npmfile="$(role_manifest "$role" npm.txt "$name")"
       ensure_npm
       npm install --global "$name"
       if ! grep -qxF "$name" "$npmfile"; then

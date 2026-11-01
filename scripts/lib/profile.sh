@@ -16,6 +16,10 @@ profile_set() {
   local name="$1"
   [[ "$name" =~ ^[a-z0-9-]+$ && -f "${PROFILES_DIR}/${name}.txt" ]] \
     || die "Unknown profile: ${name}. Choose one of: $(profile_names)"
+  # A ~/.config folded by the home/ layout dangles once a pull removes its directory. link_home rebuilds it.
+  if [[ -L "$HOME/.config" && ! -e "$HOME/.config" && "$(resolve_link "$HOME/.config")" == "$DOTFILES_DIR"/* ]]; then
+    rm "$HOME/.config"
+  fi
   mkdir -p "$(dirname "$PROFILE_FILE")"
   printf '%s\n' "$name" > "$PROFILE_FILE"
 }
@@ -66,10 +70,14 @@ role_manifests() {
   return 0
 }
 
-# Print the manifest that `package add --role` writes to, creating it when the role has none yet.
+# Print the manifest that `package add --role` writes the entry to, creating it when the role has none yet.
+# Each package belongs to one role, so remove and update find the only manifest that tracks it.
 role_manifest() {
-  local role="$1" file="$2"
+  local role="$1" file="$2" entry="$3" tracked
   has_role "$role" || die "Role ${role} is not in the ${PROFILE} profile"
+  if tracked="$(manifest_tracking "$file" "$entry")" && [[ "$tracked" != "${ROLES_DIR}/${role}/packages/${file}" ]]; then
+    die "${entry} is already tracked in ${tracked#"$DOTFILES_DIR"/}"
+  fi
   mkdir -p "${ROLES_DIR}/${role}/packages"
   touch "${ROLES_DIR}/${role}/packages/${file}"
   printf '%s\n' "${ROLES_DIR}/${role}/packages/${file}"

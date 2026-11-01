@@ -28,7 +28,7 @@ linux_packages() {
     add)
       [[ "$name" =~ ^[a-z0-9][a-z0-9+.-]*$ ]] || die "Usage: scripts/package.sh add <package> [apt|npm] [--role <role>]"
       [[ "$type" == apt ]] || die "Add upstream installers to scripts/lib/packages/extras.sh and a role's packages/extras.txt"
-      aptfile="$(role_manifest "$role" apt.txt)"
+      aptfile="$(role_manifest "$role" apt.txt "$name")"
       sudo apt-get update
       sudo apt-get install -y "$name"
       if ! grep -qxF "$name" "$aptfile"; then

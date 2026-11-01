@@ -102,10 +102,10 @@ macos_package_add() {
   [[ "$type" != "brew" && "$type" != "cask" ]] && die "Invalid type: $type"
 
   ensure_homebrew
-  BREWFILE="$(role_manifest "$role" Brewfile)"
+  local line="${type} \"${name}\""
+  BREWFILE="$(role_manifest "$role" Brewfile "$line")"
   parse_brewfile
 
-  local line="${type} \"${name}\""
   if brewfile_has_line "$line"; then
     warn "Already in Brewfile: ${line}"
   else
