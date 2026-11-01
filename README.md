@@ -31,8 +31,6 @@ Machine tasks live in `home/Makefile`, which Stow links to `~/Makefile`. Run `ma
 | --- | --- |
 | `agents-sync` | Runs `make -C ~/.apm sync`, which installs, prunes, and compiles the agent setup from [dotagents](https://github.com/adelrodriguez/dotagents) at user scope. Fails before it syncs if `~/.apm` has no dotagents clone or the `apm` command is missing. Rerun it after each change to a skill or instruction. |
 
-Run `bash tests/agents-sync.sh` to check the target against stub dotagents and `apm` commands.
-
 ## Repository layout
 
 The main paths are:
