@@ -11,8 +11,10 @@ use_node_version() {
   local dir=$PWD
   while [[ $dir != / && ! -f $dir/.node-version ]]; do dir=${dir:h}; done
   [[ -f $dir/.node-version ]] || return 0
-  local bin=$HOME/.local/share/fnm/node-versions/v${$(<$dir/.node-version)#v}/installation/bin
-  [[ -d $bin ]] && export PATH="$bin:$PATH"
+  local version=${$(<$dir/.node-version)#v}
+  # Like fnm, a partial version such as 22 picks the newest installed 22.x.
+  local -a bins=(${FNM_DIR:-$HOME/.local/share/fnm}/node-versions/v${version}(|.*)/installation/bin(N/nOn))
+  (( $#bins )) && export PATH="$bins[1]:$PATH"
   return 0
 }
 use_node_version
