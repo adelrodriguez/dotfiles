@@ -25,6 +25,14 @@ Each task is a script in the repository. Run them from any directory.
 
 `scripts/sync.sh` stops before it changes `$HOME` if `git pull --no-rebase --ff-only` fails.
 
+Machine tasks live in `home/Makefile`, which Stow links to `~/Makefile`. Run `make <target>` from `~`, or `make -C ~ <target>` from any directory.
+
+| Target | Description |
+| --- | --- |
+| `agents-sync` | Runs `make -C ~/.apm sync`, which installs, prunes, and compiles the agent setup from [dotagents](https://github.com/adelrodriguez/dotagents) at user scope. Fails before it syncs if `~/.apm` has no dotagents clone or the `apm` command is missing. Rerun it after each change to a skill or instruction. |
+
+Run `bash tests/agents-sync.sh` to check the target against stub dotagents and `apm` commands.
+
 ## Repository layout
 
 The main paths are:
