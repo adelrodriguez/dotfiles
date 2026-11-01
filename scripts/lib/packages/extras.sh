@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Upstream tools outside APT, listed in packages/linux/extras.txt.
+# Upstream tools outside APT, listed in each role's extras.txt.
 source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../profile.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/github-release.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/opencode.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/node.sh"
-
-EXTRASFILE="$PACKAGES_DIR/linux/extras.txt"
 
 run_installer() {
   local url="$1"
@@ -109,7 +108,7 @@ install_extras() {
     return
   fi
   # Child installers must not consume the remaining manifest through stdin.
-  mapfile -t names < "$EXTRASFILE"
+  mapfile -t names < <(manifest_entries extras.txt)
   for name in "${names[@]}"; do
     [[ -z "$name" || "$name" == \#* ]] && continue
     install_extra "$name" </dev/null

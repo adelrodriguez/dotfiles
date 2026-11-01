@@ -4,7 +4,8 @@ set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
-mkdir -p "$tmp/home/.local/bin"
+mkdir -p "$tmp/home/.local/bin" "$tmp/home/.config/dotfiles"
+printf "server\n" > "$tmp/home/.config/dotfiles/profile"
 cat > "$tmp/home/.local/bin/curl" <<'SH'
 #!/usr/bin/env bash
 printf '[{"version":"v99.0.0-alpha.1"},{"version":"v28.1.0-rc.1"},{"version":"v28.0.1"},{"version":"v26.9.0","lts":"Example"}]\n'
@@ -93,7 +94,7 @@ prepare_release 2.9.0
 setup_service
 service_binary="$tmp/home/services/opencode/bin/opencode"
 [[ "$("$service_binary" --version)" == 'opencode v2.9.0' ]]
-[[ -L "$tmp/home/.config/systemd/user/opencode-web.service" ]]
+[[ -L "$tmp/home/.config/systemd/user/opencode-web.service" && -f "$tmp/home/.config/systemd/user/opencode-web.service" ]]
 [[ "$(readlink -f "$tmp/home/services/opencode/runtime/xdg-data/opencode")" == "$tmp/home/services/opencode/runtime/data" ]]
 grep -qxF -- '--user enable opencode-web.service' "$tmp/service-calls"
 grep -qxF -- '--user restart opencode-web.service' "$tmp/service-calls"

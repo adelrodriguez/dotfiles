@@ -6,10 +6,11 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 repo="$tmp/repo"
 mkdir -p "$repo"
-cp -R "$source_repo/scripts" "$source_repo/home" "$source_repo/agents" "$repo/"
+cp -R "$source_repo/scripts" "$source_repo/roles" "$source_repo/profiles" "$source_repo/agents" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
-mkdir -p "$HOME/.local/bin" "$HOME/.config" "$tmp/bin"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles" "$tmp/bin"
+printf "server\n" > "$HOME/.config/dotfiles/profile"
 
 # Link every command on PATH except apm, so the test controls whether APM exists and which one runs.
 IFS=: read -ra path_dirs <<< "$PATH"

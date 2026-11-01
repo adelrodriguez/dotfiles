@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# macOS packages from packages/macos/Brewfile.
+# macOS packages from each role's Brewfile.
 source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../profile.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/node.sh"
 
-BREWFILE="$PACKAGES_DIR/macos/Brewfile"
+# The Brewfile that parse_brewfile, write_brewfile, and brewfile_has_line act on.
+BREWFILE=""
 
 ensure_homebrew() {
   if command_exists brew; then
@@ -28,12 +30,6 @@ ensure_homebrew() {
   done
 
   die "Homebrew installed but brew binary was not found in a supported path"
-}
-
-ensure_brewfile() {
-  if [[ ! -f "$BREWFILE" ]]; then
-    die "Missing Brewfile at ${BREWFILE}"
-  fi
 }
 
 parse_brewfile() {
@@ -89,21 +85,24 @@ brewfile_has_line() {
 }
 
 macos_package_install() {
+  local file
   ensure_homebrew
-  ensure_brewfile
-  brew bundle --file "$BREWFILE"
+  while IFS= read -r file; do
+    brew bundle --file "$file"
+  done < <(role_manifests Brewfile)
   use_node
 }
 
 macos_package_add() {
   local name="${1:-}"
   local type="${2:-brew}"
+  local role="${3:-base}"
 
-  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask|npm]"
+  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask|npm] [--role <role>]"
   [[ "$type" != "brew" && "$type" != "cask" ]] && die "Invalid type: $type"
 
   ensure_homebrew
-  ensure_brewfile
+  BREWFILE="$(role_manifest "$role" Brewfile)"
   parse_brewfile
 
   local line="${type} \"${name}\""
@@ -130,21 +129,13 @@ macos_package_remove() {
   local name="${1:-}"
   [[ -z "$name" ]] && die "Usage: scripts/package.sh remove <name>"
 
-  ensure_homebrew
-  ensure_brewfile
-  parse_brewfile
-
   local brew_line="brew \"${name}\""
   local cask_line="cask \"${name}\""
-  local found="false"
 
-  if brewfile_has_line "$brew_line"; then
-    found="true"
-  fi
-  if brewfile_has_line "$cask_line"; then
-    found="true"
-  fi
-  [[ "$found" == "false" ]] && die "Package not found in Brewfile: ${name}"
+  ensure_homebrew
+  BREWFILE="$(manifest_tracking Brewfile "$brew_line" || manifest_tracking Brewfile "$cask_line")" \
+    || die "Package not found in a Brewfile: ${name}"
+  parse_brewfile
 
   local -a new_brews=()
   for line in "${BREWS[@]}"; do
@@ -167,7 +158,7 @@ macos_package_remove() {
   fi
 
   write_brewfile
-  info "Removed ${name} from Brewfile"
+  info "Removed ${name} from ${BREWFILE#"$DOTFILES_DIR"/}"
 
   if confirm "Uninstall ${name} from system?" "n"; then
     if brew list --formula 2>/dev/null | grep -qFx "$name"; then
@@ -182,7 +173,6 @@ macos_package_remove() {
 macos_package_update() {
   local name="${1:-}"
   ensure_homebrew
-  ensure_brewfile
 
   if [[ -z "$name" ]]; then
     brew update
@@ -199,23 +189,22 @@ macos_package_update() {
 }
 
 macos_package_list() {
-  ensure_brewfile
-  parse_brewfile
-
-  if [[ ${#TAPS[@]} -gt 0 ]]; then
-    info "taps:"
-    printf "%s\n" "${TAPS[@]}" | sed 's/^tap "\(.*\)"$/  \1/'
-  fi
-
-  if [[ ${#BREWS[@]} -gt 0 ]]; then
-    info "brew:"
-    printf "%s\n" "${BREWS[@]}" | sed 's/^brew "\(.*\)"$/  \1/'
-  fi
-
-  if [[ ${#CASKS[@]} -gt 0 ]]; then
-    info "cask:"
-    printf "%s\n" "${CASKS[@]}" | sed 's/^cask "\(.*\)"$/  \1/'
-  fi
+  while IFS= read -r BREWFILE; do
+    info "${BREWFILE#"$DOTFILES_DIR"/}:"
+    parse_brewfile
+    if [[ ${#TAPS[@]} -gt 0 ]]; then
+      info "taps:"
+      printf "%s\n" "${TAPS[@]}" | sed 's/^tap "\(.*\)"$/  \1/'
+    fi
+    if [[ ${#BREWS[@]} -gt 0 ]]; then
+      info "brew:"
+      printf "%s\n" "${BREWS[@]}" | sed 's/^brew "\(.*\)"$/  \1/'
+    fi
+    if [[ ${#CASKS[@]} -gt 0 ]]; then
+      info "cask:"
+      printf "%s\n" "${CASKS[@]}" | sed 's/^cask "\(.*\)"$/  \1/'
+    fi
+  done < <(role_manifests Brewfile)
 }
 
 macos_packages() {

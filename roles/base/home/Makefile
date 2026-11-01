@@ -1,6 +1,6 @@
 # Machine tasks. Stow links this file to ~/Makefile, so run `make <target>` from ~ or `make -C ~ <target>` from anywhere.
 # Resolve the link to find the repository's scripts.
-DOTFILES_DIR := $(realpath $(dir $(realpath $(firstword $(MAKEFILE_LIST))))..)
+DOTFILES_DIR := $(realpath $(dir $(realpath $(firstword $(MAKEFILE_LIST))))../../..)
 
 .PHONY: agents\:sync agents\:update
 

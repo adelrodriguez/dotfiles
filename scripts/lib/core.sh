@@ -2,8 +2,8 @@
 # Repository paths and output helpers. Every module sources this; it sources nothing.
 
 DOTFILES_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-PACKAGES_DIR="${DOTFILES_DIR}/packages"
-HOME_DIR="${DOTFILES_DIR}/home"
+ROLES_DIR="${DOTFILES_DIR}/roles"
+PROFILES_DIR="${DOTFILES_DIR}/profiles"
 PLATFORM="$(uname -s)"
 if [[ "$PLATFORM" == Linux ]]; then
   # Do not let an inherited Linuxbrew PATH satisfy installation checks.
@@ -25,6 +25,26 @@ die() {
 
 command_exists() {
   command -v "$1" >/dev/null 2>&1
+}
+
+# Print the absolute path a symlink points to, even when the target no longer exists.
+resolve_link() {
+  local link="$1" target part
+  local -a parts=() kept=()
+  [[ -L "$link" ]] || return 0
+  target="$(readlink "$link")"
+  [[ "$target" == /* ]] || target="$(cd -P "$(dirname "$link")" && pwd)/${target}"
+  IFS=/ read -r -a parts <<< "$target"
+  for part in "${parts[@]}"; do
+    case "$part" in
+      ""|.) ;;
+      ..) [[ ${#kept[@]} -eq 0 ]] || unset "kept[$((${#kept[@]} - 1))]" ;;
+      *) kept+=("$part") ;;
+    esac
+  done
+  [[ ${#kept[@]} -gt 0 ]] || kept=("")
+  printf '/%s' "${kept[@]}"
+  printf '\n'
 }
 
 confirm() {

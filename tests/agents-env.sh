@@ -6,11 +6,12 @@ tmp="$(mktemp -d)"
 trap 'kill $(jobs -p) 2>/dev/null; rm -rf "$tmp"' EXIT
 repo="$tmp/repo"
 mkdir -p "$repo"
-cp -R "$source_repo/scripts" "$source_repo/home" "$repo/"
+cp -R "$source_repo/scripts" "$source_repo/roles" "$source_repo/profiles" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
 env_file="$HOME/.config/agents/env"
-mkdir -p "$HOME/.local/bin" "$HOME/.config"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles"
+printf "server\n" > "$HOME/.config/dotfiles/profile"
 # Linking a fresh home, then linking it again, keeps ~/.config/agents a real directory.
 bash "$repo/scripts/link.sh"
 bash "$repo/scripts/link.sh"
@@ -80,11 +81,11 @@ if grep -q value- "$tmp/err"; then exit 1; fi
 
 # A folded link into the repository never receives secrets.
 mv "$HOME/.config/agents" "$tmp/agents"
-ln -s "$repo/home/.config/agents" "$HOME/.config/agents"
-cp "$tmp/agents/1password-token" "$repo/home/.config/agents/"
+ln -s "$repo/roles/base/home/.config/agents" "$HOME/.config/agents"
+cp "$tmp/agents/1password-token" "$repo/roles/base/home/.config/agents/"
 if write 2>/dev/null; then exit 1; fi
-[[ ! -e "$repo/home/.config/agents/env" ]]
-rm "$HOME/.config/agents" "$repo/home/.config/agents/1password-token"
+[[ ! -e "$repo/roles/base/home/.config/agents/env" ]]
+rm "$HOME/.config/agents" "$repo/roles/base/home/.config/agents/1password-token"
 mv "$tmp/agents" "$HOME/.config/agents"
 
 # Each loader exports every value and never the 1Password token.
@@ -102,6 +103,6 @@ if command -v zsh >/dev/null; then
   [[ "$first_path" == "$tmp/fnm/node-versions/v22.10.0/installation/bin" ]]
 fi
 if command -v fish >/dev/null; then
-  fish --no-config -c "source '$repo/home/.config/fish/conf.d/00-env.fish'; bash -c '$check'"
+  fish --no-config -c "source '$repo/roles/base/home/.config/fish/conf.d/00-env.fish'; bash -c '$check'"
 fi
 printf 'Agent environment checks passed\n'

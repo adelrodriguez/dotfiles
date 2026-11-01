@@ -4,7 +4,7 @@ repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 mkdir "$tmp/docs" "$tmp/add" "$tmp/list"
-env COMPLETION_FILE="$repo/home/.config/fish/completions/grok.fish" FIXTURE="$tmp" fish --no-config -c '
+env COMPLETION_FILE="$repo/roles/base/home/.config/fish/completions/grok.fish" FIXTURE="$tmp" fish --no-config -c '
     source "$COMPLETION_FILE"
     cd "$FIXTURE"
     set -l actions (string split -f 1 \t -- (complete -C "grok worktree redirect "))
