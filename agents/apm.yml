@@ -64,8 +64,10 @@ dependencies:
     - name: paper
       registry: false
       transport: stdio
-      command: /Users/adelrodriguez/.paper/bin/paper
+      # Paper runs only on macOS, so elsewhere the wrapper exits instead of failing on a missing binary.
+      command: sh
       args:
-        - mcp
+        - -c
+        - 'p="$HOME/.paper/bin/paper"; [ -x "$p" ] || exit 0; exec "$p" mcp'
 includes: auto
 scripts: {}

@@ -4401,7 +4401,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:ba4ab1c181f58fa1b17407bac88e7cfa27141a20ba086046800f75df89fbdffd
+  content_hash: sha256:599f8d37290e3945620401a357b546884887ae740dbd3721dae1933ba1d822c9
 - kind: uri
   target: mcp
   value: executor
@@ -4419,7 +4419,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:d3d7b583415b41e536c68d351b886b85d14eb82040055357e2eae4adc560e1fc
+  content_hash: sha256:54f4b818731576c011fe7db6fc879a56d97900dccf19b38c0f293ca6f18ece4e
 - kind: uri
   target: mcp
   value: executor
@@ -5315,9 +5315,10 @@ mcp_configs:
     name: paper
     transport: stdio
     args:
-    - mcp
+    - -c
+    - p="$HOME/.paper/bin/paper"; [ -x "$p" ] || exit 0; exec "$p" mcp
     registry: false
-    command: /Users/adelrodriguez/.paper/bin/paper
+    command: sh
 mcp_target_servers:
   claude:
   - executor
