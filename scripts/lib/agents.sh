@@ -17,7 +17,7 @@ copy_if_changed() {
 }
 
 # Deploy agents/ with `sync` at the locked commits or `update` to the latest ones.
-# The repository's copies change only when every APM command succeeds.
+# The repository's copies change only when the install or update succeeds.
 deploy_agents() {
   local install
   case "$1" in
@@ -40,11 +40,13 @@ deploy_agents() {
     copy_if_changed "${AGENTS_SOURCE_DIR}/${file}" "${APM_DIR}/${file}"
   done
 
-  # apm prune reads the manifest from the current directory. `||` turns off errexit, so chain each step with `&&`.
-  (cd "$APM_DIR" && "${install[@]}" && apm prune && apm compile --global) \
-    || die "APM failed; kept ${AGENTS_SOURCE_DIR} unchanged"
+  (cd "$APM_DIR" && "${install[@]}") || die "APM could not install the agent setup; kept ${AGENTS_SOURCE_DIR} unchanged"
 
+  # The deployed lock now records what is installed, so bring it back before a later step can fail and strand it.
   for file in "${APM_FILES[@]}"; do
     copy_if_changed "${APM_DIR}/${file}" "${AGENTS_SOURCE_DIR}/${file}"
   done
+
+  # apm prune reads the manifest from the current directory. `||` turns off errexit, so chain each step with `&&`.
+  (cd "$APM_DIR" && apm prune && apm compile --global) || die "APM could not prune or compile the agent setup"
 }
