@@ -24,6 +24,20 @@ function __fish_grok_using_subcommand
 	contains -- $cmd[1] $argv
 end
 
+# Succeeds once an action follows `worktree redirect`. argparse skips option values, so `--cwd add` is not an action.
+function __fish_grok_redirect_action_selected
+	set -l cmd (commandline -opc)
+	set -e cmd[1]
+	argparse -s (__fish_grok_global_optspecs) -- $cmd 2>/dev/null
+	or return 1
+	set -l index (contains -i -- redirect $argv)
+	or return 1
+	set -l rest $argv[(math $index + 1)..-1]
+	argparse -s (__fish_grok_global_optspecs) -- $rest 2>/dev/null
+	or return 1
+	set -q argv[1]
+end
+
 complete -c grok -n "__fish_grok_needs_command" -l cwd -d 'Working directory' -r -F
 complete -c grok -n "__fish_grok_needs_command" -l add-dir -d 'Also work in this folder, beside the working directory (repeatable)' -r -f -a "(__fish_complete_directories)"
 complete -c grok -n "__fish_grok_needs_command" -l leader-socket -d 'Use a custom leader socket path instead of the default `~/.grok/leader.sock`' -r -F
@@ -628,12 +642,12 @@ complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subc
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect" -l debug-file -d 'Write debug logs to FILE' -r -F
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect" -s h -l help -d 'Print help (see more with \'grok help worktree redirect\')'
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect" -l debug -d 'Enable debug logging'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "list" -d 'Print the mount\'s effective redirect entries'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "add" -d 'Declare a user redirect and apply it'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "del" -d 'Remove a user redirect or exclude an automatic redirect'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "fixup" -d 'Apply the mount\'s redirect policy and reopen a closed redirect gate'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "unmount" -d 'Take down one redirect object, or every redirect object on the mount'
-complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_seen_subcommand_from list add del fixup unmount help" -f -a "help" -d 'Print this message or the help of the given subcommand(s)'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "list" -d 'Print the mount\'s effective redirect entries'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "add" -d 'Declare a user redirect and apply it'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "del" -d 'Remove a user redirect or exclude an automatic redirect'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "fixup" -d 'Apply the mount\'s redirect policy and reopen a closed redirect gate'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "unmount" -d 'Take down one redirect object, or every redirect object on the mount'
+complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from redirect; and not __fish_grok_redirect_action_selected" -f -a "help" -d 'Print this message or the help of the given subcommand(s)'
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from db" -l leader-socket -d 'Use a custom leader socket path instead of the default `~/.grok/leader.sock`' -r -F
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from db" -l debug-file -d 'Write debug logs to FILE' -r -F
 complete -c grok -n "__fish_grok_using_subcommand worktree; and __fish_seen_subcommand_from db" -s h -l help -d 'Print help (see more with \'grok help worktree db\')'
