@@ -2,7 +2,7 @@
 # Install, add, remove, update, or list the current platform's tracked packages.
 #
 #   scripts/package.sh install
-#   scripts/package.sh add <name> [apt|brew|cask]
+#   scripts/package.sh add <name> [apt|brew|cask|npm]
 #   scripts/package.sh remove <name>
 #   scripts/package.sh update [name]
 #   scripts/package.sh list

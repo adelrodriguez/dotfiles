@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # macOS packages from packages/macos/Brewfile.
 source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/node.sh"
 
 BREWFILE="$PACKAGES_DIR/macos/Brewfile"
 
@@ -91,13 +92,14 @@ macos_package_install() {
   ensure_homebrew
   ensure_brewfile
   brew bundle --file "$BREWFILE"
+  use_node
 }
 
 macos_package_add() {
   local name="${1:-}"
   local type="${2:-brew}"
 
-  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask]"
+  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask|npm]"
   [[ "$type" != "brew" && "$type" != "cask" ]] && die "Invalid type: $type"
 
   ensure_homebrew
@@ -185,10 +187,15 @@ macos_package_update() {
   if [[ -z "$name" ]]; then
     brew update
     brew upgrade
+    install_node
     return 0
   fi
 
   brew upgrade "$name" || brew install "$name"
+  # Shells use fnm's default Node, not Homebrew's.
+  if [[ "$name" == node ]]; then
+    install_node
+  fi
 }
 
 macos_package_list() {

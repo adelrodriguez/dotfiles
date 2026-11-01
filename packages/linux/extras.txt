@@ -15,17 +15,14 @@ fish
 fzf
 gh
 git
-graphite
 grok
 jq
 neovim
 opencode
-pi
 pnpm
 process-compose
 starship
 stow
-vercel
 1password-cli
 ripgrep
 zoxide

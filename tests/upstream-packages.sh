@@ -125,3 +125,24 @@ env HOME="$tmp/home" CALLS="$tmp/cli-calls" FIXTURE="$tmp" \
 [[ "$("$tmp/home/.opencode/bin/opencode" --version)" == 'opencode v2.11.0' ]]
 [[ "$("$service_binary" --version)" == 'opencode v2.10.0' ]]
 printf 'Host CLI installation remains separate from the service binary\n'
+
+# On macOS, a named Node update must also move fnm's default, which shells use.
+cat > "$tmp/home/.local/bin/curl" <<'SH'
+#!/usr/bin/env bash
+printf '[{"version":"v28.1.0-rc.1"},{"version":"v28.0.1"}]\n'
+SH
+cat > "$tmp/home/.local/bin/uname" <<'SH'
+#!/usr/bin/env bash
+echo Darwin
+SH
+cat > "$tmp/home/.local/bin/brew" <<'SH'
+#!/usr/bin/env bash
+printf 'brew %s\n' "$*" >> "$CALLS"
+SH
+chmod +x "$tmp/home/.local/bin/"{curl,uname,brew}
+: > "$tmp/node-calls"
+env HOME="$tmp/home" PATH="$tmp/home/.local/bin:$PATH" CALLS="$tmp/node-calls" bash "$repo/scripts/package.sh" update node
+for expected in 'brew upgrade node' 'install v28.0.1' 'default v28.0.1'; do
+  grep -qxF "$expected" "$tmp/node-calls"
+done
+printf 'macOS Node update moves the fnm default\n'
