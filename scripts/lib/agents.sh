@@ -30,6 +30,10 @@ deploy_agents() {
   [[ ! -e "${APM_DIR}/.git" ]] \
     || die "${APM_DIR} is still a dotagents clone. See ${DOTFILES_DIR}/docs/agents.md#move-from-dotagents"
 
+  # The deployed lock is the only record of what to remove after a pull, so never overwrite it with a different lock.
+  [[ ! -e "${APM_DIR}/apm.lock.yaml" ]] || cmp -s "${APM_DIR}/apm.lock.yaml" "${AGENTS_SOURCE_DIR}/apm.lock.yaml" \
+    || die "agents/apm.lock.yaml differs from the deployed lock. Follow \"Update after a pull\" in ${AGENTS_SOURCE_DIR}/AGENTS.md first."
+
   mkdir -p "$APM_DIR"
   local file
   for file in "${APM_FILES[@]}"; do
