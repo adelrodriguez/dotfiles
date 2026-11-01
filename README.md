@@ -4,6 +4,8 @@ Personal shell, tool, and agent configuration. GNU Stow links the files in this 
 
 See [Install the dotfiles](docs/install.md) to set up a machine.
 
+See [Deploy the agent setup](docs/agents.md) for the skills, instructions, and MCP servers that APM installs for every coding agent.
+
 See [Host OpenCode and T3 services](docs/agent-services.md) to restore the native
 web servers, their systemd services, and the OpenCode homelab proxy route.
 
@@ -15,6 +17,7 @@ Each task is a script in the repository. Run them from any directory.
 | --- | --- |
 | `scripts/install.sh` | Installs platform packages, links the dotfiles, configures fish, and starts the Process Compose service on Linux. Safe to rerun. |
 | `scripts/sync.sh` | Fast-forwards the current branch, then links the dotfiles. |
+| `scripts/agents.sh sync\|update` | Deploys `agents/` with APM. The `agents:sync` and `agents:update` targets below run it. |
 | `scripts/agents-env.sh` | Fills `~/.config/agents/env` from 1Password. Rerun it to pick up rotated keys. |
 | `scripts/link.sh` | Backs up existing target files and links `home/` into `$HOME` with GNU Stow. |
 | `scripts/package.sh install` | Installs every tracked package for the current platform. |
@@ -29,7 +32,8 @@ Machine tasks live in `home/Makefile`, which Stow links to `~/Makefile`. Run `ma
 
 | Target | Description |
 | --- | --- |
-| `agents-sync` | Runs `make -C ~/.apm sync`, which installs, prunes, and compiles the agent setup from [dotagents](https://github.com/adelrodriguez/dotagents) at user scope. Fails before it syncs if `~/.apm` has no dotagents clone or the `apm` command is missing. Rerun it after each change to a skill or instruction. |
+| `agents:sync` | Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`, then installs, prunes, and compiles the agent setup at user scope with APM. Copies the lock back if APM changed it. Rerun it after each change to a skill or instruction. |
+| `agents:update` | Does the same with `apm update`, which moves every agent package to the latest commit on its branch. |
 
 ## Repository layout
 
@@ -41,10 +45,11 @@ The main paths are:
 | `scripts/lib/` | Modules: files that define functions and run nothing when loaded. |
 | `scripts/lib/core.sh` | Repository paths, `PATH`, and output helpers. Every module loads it. |
 | `scripts/lib/home.sh` | Backs up conflicts and links `home/` with GNU Stow. |
-| `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh`, `scripts/lib/agents-env.sh` | Machine setup steps. |
+| `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh`, `scripts/lib/agents-env.sh`, `scripts/lib/agents.sh` | Machine setup steps. |
 | `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh`, `opencode.sh`, and `node.sh`. `macos.sh` also uses `node.sh`, which installs Node through fnm. |
 | `tests/` | Checks for the scripts and the installed tools. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
+| `agents/` | The APM manifest and lock for the global agent setup. The agent sync copies them into `~/.apm`. |
 | `packages/macos/Brewfile` | Homebrew formulae and casks for macOS. |
 | `packages/npm.txt` | Global npm tools for both platforms, one per line. They install into `~/.npm-global`. |
 | `packages/linux/apt.txt` | Ubuntu APT packages, one per line. |
@@ -52,7 +57,7 @@ The main paths are:
 | `backups/` | Files moved out of the way during a sync. |
 | `docs/` | Setup and maintenance guides. |
 
-Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modules → `scripts/lib/core.sh`. A module loads only `core.sh` and modules below it in the list above; it never loads a command or a module that depends on it. `packages/` holds data only.
+Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modules → `scripts/lib/core.sh`. A module loads only `core.sh` and modules below it in the list above; it never loads a command or a module that depends on it. `packages/` and `agents/` hold data only.
 
 ## Local configuration
 

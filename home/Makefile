@@ -1,10 +1,13 @@
 # Machine tasks. Stow links this file to ~/Makefile, so run `make <target>` from ~ or `make -C ~ <target>` from anywhere.
-APM_DIR := $(HOME)/.apm
+# Resolve the link to find the repository's scripts.
+DOTFILES_DIR := $(realpath $(dir $(realpath $(firstword $(MAKEFILE_LIST))))..)
 
-.PHONY: agents-sync
+.PHONY: agents\:sync agents\:update
 
-# Install, prune, and compile the agent setup from the dotagents clone at user scope.
-agents-sync:
-	@test -f "$(APM_DIR)/Makefile" || { echo "agents-sync: dotagents is not cloned at $(APM_DIR). See https://github.com/adelrodriguez/dotagents#install-dotagents" >&2; exit 1; }
-	@command -v apm >/dev/null || { echo "agents-sync: the apm command is not installed. See https://github.com/adelrodriguez/dotagents#install-dotagents" >&2; exit 1; }
-	$(MAKE) -C "$(APM_DIR)" sync
+# Install, prune, and compile the agent setup in agents/ at the commits in its lock.
+agents\:sync:
+	"$(DOTFILES_DIR)/scripts/agents.sh" sync
+
+# Move every agent package to the latest commit on its branch, then deploy it.
+agents\:update:
+	"$(DOTFILES_DIR)/scripts/agents.sh" update
