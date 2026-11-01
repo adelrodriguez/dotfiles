@@ -192,6 +192,10 @@ macos_package_update() {
   fi
 
   brew upgrade "$name" || brew install "$name"
+  # Shells use fnm's default Node, not Homebrew's.
+  if [[ "$name" == node ]]; then
+    install_node
+  fi
 }
 
 macos_package_list() {
