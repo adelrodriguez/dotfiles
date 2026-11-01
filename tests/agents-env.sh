@@ -10,7 +10,11 @@ cp -R "$source_repo/scripts" "$source_repo/home" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
 env_file="$HOME/.config/agents/env"
-mkdir -p "$HOME/.local/bin" "$HOME/.config/agents" "$HOME/.config/fish/conf.d"
+mkdir -p "$HOME/.local/bin" "$HOME/.config"
+# Linking a fresh home, then linking it again, keeps ~/.config/agents a real directory.
+bash "$repo/scripts/link.sh"
+bash "$repo/scripts/link.sh"
+[[ -d "$HOME/.config/agents" && ! -L "$HOME/.config/agents" && -L "$HOME/.config/agents/env.tpl" ]]
 # Each op:// reference becomes value-<field>. OP_MODE=fail fails and OP_MODE=space adds a space to the values.
 cat > "$HOME/.local/bin/op" <<'SH'
 #!/bin/bash
@@ -86,7 +90,6 @@ mv "$tmp/agents" "$HOME/.config/agents"
 # Each loader exports every value and never the 1Password token.
 printf 'AGENTS_DASH=-dash\n' >> "$env_file"
 check='[[ "$FILE_UPLOAD_SECRET_ACCESS_KEY" == value-secret_access_key && "$AGENTS_DASH" == -dash && -z "${OP_SERVICE_ACCOUNT_TOKEN:-}" ]]'
-cp "$repo/home/.zshenv" "$HOME/.zshenv"
 bash -c "source \"\$HOME/.zshenv\" && bash -c '$check'"
 if command -v zsh >/dev/null; then
   zsh -c "bash -c '$check'"

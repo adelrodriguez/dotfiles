@@ -79,7 +79,7 @@ Agents don't load interactive shell config, so variables they need, such as the 
 
 `home/.config/agents/env.tpl` holds only `op://` references. `scripts/agents-env.sh` fills it with the machine's read-only 1Password service account, whose token lives at `~/.config/agents/1password-token` with mode `600`. The script passes the token to that one `op` call, never exports it, and writes the env file with mode `600`. If 1Password fails or a value contains characters that systemd and the shells would read differently, the script keeps the existing file. `scripts/install.sh` runs this step when the token file exists.
 
-To add a variable, add a line to the template and its value to the `Agents` vault, then rerun `scripts/agents-env.sh`. The script restarts `opencode-web.service` when its running process lacks a current value. It only reports when `t3code.service` needs a restart, because restarting T3 ends the sessions it runs. After that restart, start new agent sessions. The script refuses to write when `~/.config/agents` links into the repository. Run `bash tests/agents-env.sh` to check the setup and loaders without 1Password.
+To add a variable, add a line to the template and its value to the `Agents` vault, then rerun `scripts/agents-env.sh`. The script restarts `opencode-web.service` when its running process lacks a current value. It only reports when `t3code.service` needs a restart, because restarting T3 ends the sessions it runs. After that restart, start new agent sessions. `scripts/link.sh` creates `~/.config/agents` as a real directory so Stow never links it into the repository, and the script refuses to write if an older link already does. Run `bash tests/agents-env.sh` to check the setup and loaders without 1Password.
 
 ## Scheduled sync
 
