@@ -18,11 +18,12 @@ agents() { make --no-print-directory -s -C "$HOME" "agents:$1"; }
 if agents sync 2>/dev/null; then exit 1; fi
 [[ ! -e "$HOME/.apm" ]]
 
-# Each call records its arguments and directory. APM_MODE=fail fails the install, and an update rewrites the lock the way APM does.
+# Each call records its arguments and directory. APM_MODE=fail fails the install, APM_MODE=fail-prune fails prune, and an update rewrites the lock the way APM does.
 cat > "$HOME/.local/bin/apm" <<'SH'
 #!/bin/bash
 printf 'apm %s in %s\n' "$*" "$PWD" >> "$CALLS"
 [[ "$1" == install && "${APM_MODE:-}" == fail ]] && exit 1
+[[ "$1" == prune && "${APM_MODE:-}" == fail-prune ]] && exit 1
 if [[ "$1" == update ]]; then
   { cat apm.lock.yaml; printf '# updated\n'; } > apm.lock.yaml.tmp
   mv apm.lock.yaml.tmp apm.lock.yaml
@@ -68,6 +69,11 @@ agents update >/dev/null
 grep -qx 'apm update --global --yes in .*' "$CALLS"
 [[ "$(tail -n 1 "$repo/agents/apm.lock.yaml")" == '# updated' ]]
 cmp -s "$HOME/.apm/apm.lock.yaml" "$repo/agents/apm.lock.yaml"
+
+# An update whose prune fails still brings the new lock back, so a retry is not mistaken for a pull.
+if APM_MODE=fail-prune agents update 2>/dev/null; then exit 1; fi
+cmp -s "$HOME/.apm/apm.lock.yaml" "$repo/agents/apm.lock.yaml"
+agents sync >/dev/null
 
 # After a pull changes the lock, the sync stops before APM runs and keeps the deployed lock for the cleanup.
 deployed="$(cat "$HOME/.apm/apm.lock.yaml")"
