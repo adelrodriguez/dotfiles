@@ -3,6 +3,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/github-release.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/opencode.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/node.sh"
 
 EXTRASFILE="$PACKAGES_DIR/linux/extras.txt"
 
@@ -14,23 +15,6 @@ run_installer() {
   curl -fsSL "$url" -o "$script"
   "${INSTALLER_SHELL:-bash}" "$script" "$@"
   rm -f "$script"
-}
-
-use_node() {
-  command -v fnm >/dev/null || install_extra fnm
-  eval "$(fnm env --shell bash)"
-  if ! fnm use default; then
-    install_node
-  fi
-  export PATH="$(npm prefix --global)/bin:$PATH"
-}
-
-install_node() {
-  local version
-  version="$(curl -fsSL https://nodejs.org/dist/index.json | jq -er 'first(.[] | select(.version | test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))).version')"
-  fnm install "$version"
-  fnm use "$version"
-  fnm default "$version"
 }
 
 install_fzf() {
@@ -80,7 +64,9 @@ install_extra() {
       return ;;
   esac
   case "$name" in
-    node|pnpm) use_node ;;
+    node|pnpm)
+      command -v fnm >/dev/null || install_extra fnm
+      use_node ;;
   esac
   if [[ "${UPDATE:-0}" != 1 ]] && command -v "$binary" >/dev/null &&
     { [[ "$name" != fzf ]] || [[ "$(command -v fzf)" == "$HOME/.local/bin/fzf" ]]; } &&

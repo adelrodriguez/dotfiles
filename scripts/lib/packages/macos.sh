@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # macOS packages from packages/macos/Brewfile.
 source "$(dirname "${BASH_SOURCE[0]}")/../core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/node.sh"
 
 BREWFILE="$PACKAGES_DIR/macos/Brewfile"
 
@@ -91,6 +92,7 @@ macos_package_install() {
   ensure_homebrew
   ensure_brewfile
   brew bundle --file "$BREWFILE"
+  use_node
 }
 
 macos_package_add() {
@@ -185,6 +187,7 @@ macos_package_update() {
   if [[ -z "$name" ]]; then
     brew update
     brew upgrade
+    install_node
     return 0
   fi
 

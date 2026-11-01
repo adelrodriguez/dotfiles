@@ -35,7 +35,7 @@ The main paths are:
 | `scripts/lib/core.sh` | Repository paths, `PATH`, and output helpers. Every module loads it. |
 | `scripts/lib/home.sh` | Backs up conflicts and links `home/` with GNU Stow. |
 | `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh` | Machine setup steps. |
-| `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh` and `opencode.sh`. |
+| `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh`, `opencode.sh`, and `node.sh`. `macos.sh` also uses `node.sh`, which installs Node through fnm. |
 | `tests/` | Checks for the scripts and the installed tools. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
 | `packages/macos/Brewfile` | Homebrew formulae and casks for macOS. |
@@ -51,7 +51,7 @@ Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modul
 
 Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
 
-`scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
+`scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. On both platforms, Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
 
 GitHub release binaries live under `~/.local/share/dot-tools/<tool>/<version>` and are linked into `~/.local/bin`. Neovim's runtime files stay alongside its binary. Bubblewrap is built from its upstream release; GNU Stow is built from its latest published tarball. Updates preserve prior version directories. Run `bash tests/packages.sh` and `bash tests/upstream-packages.sh` to check package-command behavior and upstream updates without changing installed packages, and `bash tests/installed-tools.sh` from a fresh fish session to check the installed tools.
 
