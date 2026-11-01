@@ -17,8 +17,8 @@ Each task is a script in the repository. Run them from any directory.
 | `scripts/sync.sh` | Fast-forwards the current branch, then links the dotfiles. |
 | `scripts/link.sh` | Backs up existing target files and links `home/` into `$HOME` with GNU Stow. |
 | `scripts/package.sh install` | Installs every tracked package for the current platform. |
-| `scripts/package.sh add <name> [apt\|brew\|cask]` | Installs and records a package. Defaults to APT on Ubuntu and a Homebrew formula on macOS. |
-| `scripts/package.sh remove <name>` | Removes a package from the platform manifest, then offers to uninstall APT/Homebrew packages. Upstream tools require manual uninstallation. |
+| `scripts/package.sh add <name> [apt\|brew\|cask\|npm]` | Installs and records a package. Defaults to APT on Ubuntu and a Homebrew formula on macOS. `npm` records a global npm tool for both platforms. |
+| `scripts/package.sh remove <name>` | Removes a package from its manifest, then offers to uninstall APT, Homebrew, and npm packages. Upstream tools require manual uninstallation. |
 | `scripts/package.sh update [name]` | Updates one tracked package or all packages for the current platform. |
 | `scripts/package.sh list` | Lists the current platform's tracked packages by source. |
 
@@ -35,10 +35,11 @@ The main paths are:
 | `scripts/lib/core.sh` | Repository paths, `PATH`, and output helpers. Every module loads it. |
 | `scripts/lib/home.sh` | Backs up conflicts and links `home/` with GNU Stow. |
 | `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh` | Machine setup steps. |
-| `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh` and `opencode.sh`. |
+| `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh` and `opencode.sh`. |
 | `tests/` | Checks for the scripts and the installed tools. |
 | `home/` | Files that GNU Stow links into `$HOME`. |
-| `packages/macos/Brewfile` | Homebrew formulae, casks, and npm packages for macOS. |
+| `packages/macos/Brewfile` | Homebrew formulae and casks for macOS. |
+| `packages/npm.txt` | Global npm tools for both platforms, one per line. They install into `~/.npm-global`. |
 | `packages/linux/apt.txt` | Ubuntu APT packages, one per line. |
 | `packages/linux/extras.txt` | Enabled upstream tools, one per line. |
 | `backups/` | Files moved out of the way during a sync. |
@@ -48,7 +49,7 @@ Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modul
 
 ## Local configuration
 
-Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm, Graphite, Pi, and Vercel. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
+Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
 
 `scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
 

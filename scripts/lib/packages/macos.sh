@@ -97,7 +97,7 @@ macos_package_add() {
   local name="${1:-}"
   local type="${2:-brew}"
 
-  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask]"
+  [[ -z "$name" ]] && die "Usage: scripts/package.sh add <name> [brew|cask|npm]"
   [[ "$type" != "brew" && "$type" != "cask" ]] && die "Invalid type: $type"
 
   ensure_homebrew

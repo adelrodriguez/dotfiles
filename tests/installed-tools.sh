@@ -5,7 +5,7 @@ set -euo pipefail
 case ":$PATH:" in *linuxbrew*) echo 'Linuxbrew remains on PATH' >&2; exit 1 ;; esac
 if command -v brew >/dev/null; then echo 'brew remains available' >&2; exit 1; fi
 
-for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git gt grok jq nvim node opencode pi pnpm process-compose rg starship stow vercel op zoxide; do
+for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git grok jq nvim node opencode pnpm process-compose rg starship stow op zoxide; do
   binary="$(command -v "$tool")"
   printf '\n%s (%s)\n' "$tool" "$binary"
   case "$tool" in
@@ -13,6 +13,11 @@ for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm f
     *) "$binary" --version ;;
   esac
 done
+
+while IFS= read -r name; do
+  [[ -z "$name" || "$name" == \#* ]] && continue
+  npm ls --global "$name" >/dev/null
+done < "$(dirname "${BASH_SOURCE[0]}")/../packages/npm.txt"
 
 # Exercise the databases and runtime files, without printing shell history.
 atuin history list >/dev/null

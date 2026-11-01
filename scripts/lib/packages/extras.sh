@@ -61,7 +61,6 @@ install_1password() {
 install_extra() {
   local name="$1" binary="$1"
   case "$name" in
-    graphite) binary=gt ;;
     1password-cli) binary=op ;;
     bubblewrap) binary=bwrap ;;
     neovim) binary=nvim ;;
@@ -81,7 +80,7 @@ install_extra() {
       return ;;
   esac
   case "$name" in
-    node|pnpm|graphite|pi|vercel) use_node ;;
+    node|pnpm) use_node ;;
   esac
   if [[ "${UPDATE:-0}" != 1 ]] && command -v "$binary" >/dev/null &&
     { [[ "$name" != fzf ]] || [[ "$(command -v fzf)" == "$HOME/.local/bin/fzf" ]]; } &&
@@ -107,9 +106,6 @@ install_extra() {
         install_opencode_v2
       fi ;;
     pnpm) npm install --global pnpm ;;
-    graphite) npm install --global @withgraphite/graphite-cli ;;
-    pi) npm install --global @earendil-works/pi-coding-agent ;;
-    vercel) npm install --global vercel ;;
     1password-cli) install_1password ;;
     *) printf 'Unknown extra: %s\n' "$name" >&2; return 1 ;;
   esac

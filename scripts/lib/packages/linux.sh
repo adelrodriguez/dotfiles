@@ -27,7 +27,7 @@ linux_packages() {
       printf 'upstream:\n'; sed 's/^/  /' "$EXTRASFILE"
       ;;
     add)
-      [[ "$name" =~ ^[a-z0-9][a-z0-9+.-]*$ ]] || die "Usage: scripts/package.sh add <package> [apt]"
+      [[ "$name" =~ ^[a-z0-9][a-z0-9+.-]*$ ]] || die "Usage: scripts/package.sh add <package> [apt|npm]"
       [[ "$type" == apt ]] || die "Add upstream installers to scripts/lib/packages/extras.sh and packages/linux/extras.txt"
       sudo apt-get update
       sudo apt-get install -y "$name"
