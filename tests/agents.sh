@@ -55,6 +55,13 @@ ln -s "$repo/agents/apm.yml" "$HOME/.apm/apm.yml"
 agents sync >/dev/null
 [[ -f "$HOME/.apm/apm.yml" && ! -L "$HOME/.apm/apm.yml" ]]
 
+# A failed install stops before prune and keeps the repository's lock.
+: > "$CALLS"
+if APM_MODE=fail agents sync 2>/dev/null; then exit 1; fi
+grep -q '^apm install' "$CALLS"
+if grep -q prune "$CALLS"; then exit 1; fi
+cmp -s "$repo/agents/apm.lock.yaml" "$source_repo/agents/apm.lock.yaml"
+
 # An update brings the new lock back into the repository.
 : > "$CALLS"
 agents update >/dev/null
@@ -62,12 +69,13 @@ grep -qx 'apm update --global --yes in .*' "$CALLS"
 [[ "$(tail -n 1 "$repo/agents/apm.lock.yaml")" == '# updated' ]]
 cmp -s "$HOME/.apm/apm.lock.yaml" "$repo/agents/apm.lock.yaml"
 
-# A failed install stops before prune and keeps the repository's lock.
-cp "$source_repo/agents/apm.lock.yaml" "$repo/agents/apm.lock.yaml"
+# After a pull changes the lock, the sync stops before APM runs and keeps the deployed lock for the cleanup.
+deployed="$(cat "$HOME/.apm/apm.lock.yaml")"
+printf '# pulled\n' >> "$repo/agents/apm.lock.yaml"
 : > "$CALLS"
-if APM_MODE=fail agents sync 2>/dev/null; then exit 1; fi
-if grep -q prune "$CALLS"; then exit 1; fi
-cmp -s "$repo/agents/apm.lock.yaml" "$source_repo/agents/apm.lock.yaml"
+if agents sync 2>"$tmp/err"; then exit 1; fi
+grep -q 'Update after a pull' "$tmp/err"
+[[ ! -s "$CALLS" && "$(cat "$HOME/.apm/apm.lock.yaml")" == "$deployed" ]]
 
 # The script rejects other commands.
 if bash "$repo/scripts/agents.sh" deploy 2>/dev/null; then exit 1; fi
