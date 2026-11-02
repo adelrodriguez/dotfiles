@@ -22,6 +22,11 @@ ln -s ../../dotfiles/home/.config/ghostty "$HOME/.config/ghostty"
 ln -s ../../dotfiles/home/.config/tmux "$HOME/.config/tmux"
 ln -s ../../../dotfiles/home/.local/bin/dotfiles-sync "$HOME/.local/bin/dotfiles-sync"
 ln -s "$tmp" "$HOME/.config/elsewhere"
+# systemctl enable recorded the unit's resolved path in the repository, so the move left the boot link dangling.
+wants="$HOME/.config/systemd/user/default.target.wants"
+mkdir -p "$wants"
+ln -s "$repo/home/.config/systemd/user/process-compose.service" "$wants/process-compose.service"
+ln -s "$HOME/.config/systemd/user/t3code.service" "$wants/t3code.service"
 link >/dev/null
 
 case "$(uname -s)" in Linux) expected=server ;; Darwin) expected=mac ;; esac
@@ -38,6 +43,22 @@ case "$(uname -s)" in Linux) expected=server ;; Darwin) expected=mac ;; esac
 [[ -L "$HOME/.config/tmux" && -L "$HOME/.config/elsewhere" ]]
 [[ ! -e "$repo/backups" ]]
 printf 'Linking migrates a home linked by the home/ layout\n'
+
+# A boot link points at the unit's link in ~/.config, so a unit file that moves in the repository stays enabled.
+[[ "$(readlink "$wants/process-compose.service")" == "$HOME/.config/systemd/user/process-compose.service" ]]
+[[ -f "$wants/process-compose.service" ]]
+[[ "$(readlink "$wants/t3code.service")" == "$HOME/.config/systemd/user/t3code.service" ]]
+mkdir -p "$repo/roles/extra/home/.config/systemd/user"
+mv "$base/.config/systemd/user/process-compose.service" "$repo/roles/extra/home/.config/systemd/user/"
+printf 'base\nextra\n' > "$repo/profiles/both.txt"
+printf 'both\n' > "$HOME/.config/dotfiles/profile"
+link >/dev/null
+[[ -f "$wants/process-compose.service" ]]
+mv "$repo/roles/extra/home/.config/systemd/user/process-compose.service" "$base/.config/systemd/user/"
+rm -r "$repo/roles/extra" "$repo/profiles/both.txt"
+printf '%s\n' "$expected" > "$HOME/.config/dotfiles/profile"
+link >/dev/null
+printf 'A unit file that moves in the repository stays enabled\n'
 
 before="$(snapshot)"
 link >/dev/null
