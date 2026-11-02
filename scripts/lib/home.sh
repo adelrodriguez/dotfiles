@@ -1,68 +1,75 @@
 #!/usr/bin/env bash
-# Link home/ into $HOME with GNU Stow, moving conflicting files to backups/ first.
+# Link the home/ folder of each role in the profile into $HOME with GNU Stow, moving conflicting files to backups/ first.
 source "$(dirname "${BASH_SOURCE[0]}")/core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/profile.sh"
+
+# Every path that any role links, relative to $HOME. A directory sorts before its contents.
+role_paths() {
+  local dir
+  for dir in "$ROLES_DIR"/*/home; do
+    find "$dir" -mindepth 1 | sed "s|^${dir}/||"
+  done | sort -u
+}
+
+# Remove links into the repository that no longer point at a role's file, such as links into the
+# home/ folder of the layout before roles or into a role that dropped the file. Stow relinks the path.
+# A folded directory from the old layout becomes a real directory that keeps its untracked files.
+prune_links() {
+  local rel path target
+  while IFS= read -r rel; do
+    path="${HOME}/${rel}"
+    [[ -L "$path" ]] || continue
+    target="$(resolve_link "$path")"
+    [[ "$target" == "$DOTFILES_DIR"/* ]] || continue
+    [[ "$target" == "$ROLES_DIR"/*/home/"$rel" && -f "$target" ]] && continue
+    rm "$path"
+    if [[ "$target" == "$DOTFILES_DIR"/home/* && -d "$target" ]]; then
+      mkdir "$path"
+      find "$target" -mindepth 1 -maxdepth 1 -exec mv {} "$path/" \;
+    fi
+  done < <(role_paths)
+}
 
 backup_conflicts() {
+  local role_home="$1"
   local backup_dir="${DOTFILES_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
   local -a conflicts=()
-
-  add_conflict() {
-    local rel="$1"
-    local existing
-    for existing in "${conflicts[@]-}"; do
-      [[ "$existing" == "$rel" ]] && return 0
-    done
-    conflicts+=("$rel")
-  }
-
-  if [[ ! -d "$HOME_DIR" ]]; then
-    die "Missing home directory at ${HOME_DIR}"
-  fi
+  local file rel target source_resolved target_resolved
 
   while IFS= read -r -d '' file; do
-    local rel="${file#"${HOME_DIR}"/}"
-    local target="${HOME}/${rel}"
-    local source_resolved
-    local target_resolved
+    rel="${file#"${role_home}"/}"
+    target="${HOME}/${rel}"
+    [[ -e "$target" || -L "$target" ]] || continue
+    [[ "$(resolve_link "$target")" == "$file" ]] && continue
+    source_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$file" 2>/dev/null || true)
+    target_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
+    [[ -n "$source_resolved" && "$source_resolved" == "$target_resolved" ]] && continue
+    conflicts+=("$rel")
+  done < <(find "$role_home" -type f -print0)
 
-    if [[ -e "$target" || -L "$target" ]]; then
-      source_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$file" 2>/dev/null || true)
-      target_resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
-
-      if [[ -n "$source_resolved" && "$source_resolved" == "$target_resolved" ]]; then
-        continue
-      fi
-
-      if [[ -L "$target" ]]; then
-        local resolved
-        resolved=$(perl -MCwd -e 'print Cwd::abs_path(shift)' "$target" 2>/dev/null || true)
-        if [[ "$resolved" == "${HOME_DIR}"/* ]]; then
-          continue
-        fi
-      fi
-
-      add_conflict "$rel"
-    fi
-  done < <(find "$HOME_DIR" -type f -print0)
-
-  if [[ ${#conflicts[@]} -eq 0 ]]; then
-    return 0
-  fi
-
+  [[ ${#conflicts[@]} -gt 0 ]] || return 0
   info "Backing up existing files to ${backup_dir}"
   for rel in "${conflicts[@]}"; do
-    local src="${HOME}/${rel}"
-    local dst="${backup_dir}/${rel}"
-
-    mkdir -p "$(dirname "$dst")"
-    mv "$src" "$dst"
+    mkdir -p "$(dirname "${backup_dir}/${rel}")"
+    mv "${HOME}/${rel}" "${backup_dir}/${rel}"
   done
 }
 
 link_home() {
   command_exists stow || die "GNU Stow is not installed. Run: scripts/install.sh"
-  backup_conflicts
-  # A real directory keeps Stow from linking ~/.config/agents into the repository, so the token and env file stay out of it.
-  mkdir -p "$HOME/.config/agents"
-  stow -R -d "$DOTFILES_DIR" -t "$HOME" home
+  load_profile
+  local dir role
+  # Stow refuses to unstow through a folded directory from the old layout, so rebuild those first.
+  prune_links
+  for dir in "$ROLES_DIR"/*/home; do
+    role="$(basename "$(dirname "$dir")")"
+    has_role "$role" || stow -D --no-folding -d "${ROLES_DIR}/${role}" -t "$HOME" home
+  done
+  # Without folding, Stow links files into real directories, so several roles can share a directory
+  # and secrets written to ~/.config/agents stay out of the repository.
+  for role in "${ROLES[@]}"; do
+    [[ -d "${ROLES_DIR}/${role}/home" ]] || continue
+    backup_conflicts "${ROLES_DIR}/${role}/home"
+    stow -R --no-folding -d "${ROLES_DIR}/${role}" -t "$HOME" home
+  done
 }

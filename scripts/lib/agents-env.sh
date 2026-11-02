@@ -4,7 +4,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/core.sh"
 
 AGENTS_DIR="${HOME}/.config/agents"
 AGENTS_ENV="${AGENTS_DIR}/env"
-AGENTS_ENV_TEMPLATE="${HOME_DIR}/.config/agents/env.tpl"
+AGENTS_ENV_TEMPLATE="${AGENTS_DIR}/env.tpl"
 AGENTS_TOKEN="${AGENTS_DIR}/1password-token"
 # Comments, blank lines, and KEY=value lines whose values every reader parses the same way.
 AGENTS_ENV_LINE='^(#.*|[A-Za-z_][A-Za-z0-9_]*=[A-Za-z0-9_./:@+,=%-]*)?$'

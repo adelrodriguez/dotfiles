@@ -94,4 +94,4 @@ The merged `AGENTS.md` files drop `applyTo` scoping, so every instruction applie
 | `agents/apm.lock.yaml` | The resolved commits and deployed files. APM writes it, so don't edit it by hand. |
 | `agents/AGENTS.md` | Steps for agents that sync, including the cleanup after a pull changes the lock |
 | `scripts/agents.sh`, `scripts/lib/agents.sh` | The `sync` and `update` commands |
-| `home/Makefile` | The `agents:sync` and `agents:update` targets |
+| `roles/base/home/Makefile` | The `agents:sync` and `agents:update` targets |

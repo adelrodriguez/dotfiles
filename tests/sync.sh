@@ -9,7 +9,7 @@ mkdir -p "$HOME"
 git() { command git -c user.name=test -c user.email=test@example.invalid -c init.defaultBranch=main "$@"; }
 
 git init -q "$tmp/origin"
-cp -R "$repo/scripts" "$repo/home" "$tmp/origin/"
+cp -R "$repo/scripts" "$repo/roles" "$repo/profiles" "$tmp/origin/"
 git -C "$tmp/origin" add -A
 git -C "$tmp/origin" commit -qm initial
 git clone -q "$tmp/origin" "$tmp/clone"

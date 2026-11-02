@@ -12,7 +12,7 @@ for name in data state cache; do
   ln -sfnT "../$name" "$root/runtime/xdg-$name/opencode"
 done
 unit="$HOME/.config/systemd/user/opencode-web.service"
-source="$repo/home/.config/systemd/user/opencode-web.service"
+source="$repo/roles/base/home/.config/systemd/user/opencode-web.service"
 if [[ -e "$unit" && ! -L "$unit" ]]; then
   cp -p "$unit" "$unit.backup-$(date +%Y%m%d%H%M%S)"
 fi

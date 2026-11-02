@@ -17,7 +17,7 @@ done
 while IFS= read -r name; do
   [[ -z "$name" || "$name" == \#* ]] && continue
   npm ls --global "$name" >/dev/null
-done < "$(dirname "${BASH_SOURCE[0]}")/../packages/npm.txt"
+done < <(cat "$(dirname "${BASH_SOURCE[0]}")"/../roles/*/packages/npm.txt)
 
 # Exercise the databases and runtime files, without printing shell history.
 atuin history list >/dev/null

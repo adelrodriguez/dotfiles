@@ -20,12 +20,12 @@ These steps install the repository at `~/Developer/dotfiles` and link its config
 	cd "$HOME/Developer/dotfiles"
 	```
 
-4. Set up the machine.
+4. Set up the machine with its profile. Use `server` for an Ubuntu server or VPS, or `mac` for a macOS workstation.
 
 	```sh
-	scripts/install.sh
+	scripts/install.sh server
 	```
 
-	On macOS, `scripts/install.sh` installs Homebrew when needed and installs `packages/macos/Brewfile`. On Ubuntu, it installs `packages/linux/apt.txt` with APT and runs the upstream installers listed in `packages/linux/extras.txt`. Ubuntu installation requires sudo access. fnm manages Node; no Linuxbrew or mise installation is needed.
+	`scripts/install.sh` records the profile in `~/.config/dotfiles/profile`, so later runs need no profile name. On macOS, it installs Homebrew when needed and installs each role's `packages/Brewfile`. On Ubuntu, it installs each role's `packages/apt.txt` with APT and runs the upstream installers listed in each role's `packages/extras.txt`. Ubuntu installation requires sudo access. fnm manages Node; no Linuxbrew or mise installation is needed.
 
 	It then links the dotfiles, sets fish as the account's default shell, and configures scheduled tasks. A successful run ends with `Done`. Start a new terminal session to use fish after the default shell changes.

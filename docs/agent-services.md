@@ -59,7 +59,7 @@ updates. It is deliberately not a Stow symlink. The reference unit in
 Use `t3 update` to change versions rather than editing the unit or runtime state.
 
 Because T3 owns its unit, the agent environment reaches it through the Stow drop-in
-`home/.config/systemd/user/t3code.service.d/agents-env.conf`. See "Agent environment"
+`roles/base/home/.config/systemd/user/t3code.service.d/agents-env.conf`. See "Agent environment"
 in the README.
 
 T3 stores its settings and databases under `~/.t3/userdata`. Its observed web port
