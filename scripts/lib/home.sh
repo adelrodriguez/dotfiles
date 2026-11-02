@@ -30,6 +30,18 @@ prune_links() {
   done < <(role_paths)
 }
 
+# systemctl enable records a linked unit's resolved path, which is inside the repository and dangles once the
+# unit file moves. Point each boot link at the unit's link in ~/.config instead, which Stow keeps current.
+point_unit_links_home() {
+  local units="${HOME}/.config/systemd/user" wants unit
+  for wants in "$units"/*.wants/*; do
+    [[ -L "$wants" && "$(resolve_link "$wants")" == "$DOTFILES_DIR"/* ]] || continue
+    unit="${units}/$(basename "$wants")"
+    [[ -L "$unit" && -e "$unit" ]] && ln -sfn "$unit" "$wants"
+  done
+  return 0
+}
+
 backup_conflicts() {
   local role_home="$1"
   local backup_dir="${DOTFILES_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
@@ -72,4 +84,5 @@ link_home() {
     backup_conflicts "${ROLES_DIR}/${role}/home"
     stow -R --no-folding -d "${ROLES_DIR}/${role}" -t "$HOME" home
   done
+  point_unit_links_home
 }
