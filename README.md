@@ -56,7 +56,7 @@ A role in `roles/<role>/` may hold these entries, and nothing else:
 
 Run `bash tests/roles.sh` to check that the profiles and roles follow these rules.
 
-`scripts/link.sh` removes links into the repository that no longer point at a role's file, and links of roles the profile no longer lists. Machines linked before roles existed record the profile their OS implied, `server` on Linux and `mac` on macOS, on their next sync.
+`scripts/link.sh` removes links into the repository that no longer point at a role's file, and links of roles the profile no longer lists. Machines linked before roles existed record the profile their OS implied, `server` on Linux and `mac` on macOS, on their next sync. It also points each systemd boot link in `~/.config/systemd/user/*.wants/` that targets the repository at the unit's link in `~/.config/systemd/user/`, so a unit stays enabled when its file moves between roles.
 
 ## Repository layout
 
