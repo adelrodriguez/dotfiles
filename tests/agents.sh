@@ -75,10 +75,10 @@ grep -q '^apm install' "$CALLS"
 if grep -q prune "$CALLS"; then exit 1; fi
 cmp -s "$repo/agents/apm.lock.yaml" "$source_repo/agents/apm.lock.yaml"
 
-# An update brings the new lock back into the repository.
+# An update installs again before prune, and brings the new lock back into the repository.
 : > "$CALLS"
 agents update >/dev/null
-grep -qx 'apm update --global --yes in .*' "$CALLS"
+diff <(printf 'apm %s in %s\n' 'update --global --yes' "$HOME/.apm" 'install --global' "$HOME/.apm" prune "$HOME/.apm" 'compile --global' "$HOME/.apm") "$CALLS"
 [[ "$(tail -n 1 "$repo/agents/apm.lock.yaml")" == '# updated' ]]
 cmp -s "$HOME/.apm/apm.lock.yaml" "$repo/agents/apm.lock.yaml"
 
