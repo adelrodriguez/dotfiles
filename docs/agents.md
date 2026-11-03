@@ -55,7 +55,7 @@ The setup used to live in [adelrodriguez/dotagents](https://github.com/adelrodri
 
 After each APM step, even one that fails, the sync copies `apm.yml` and `apm.lock.yaml` back into `agents/` if APM changed them, so check `git status` after a sync. The repository's lock then always matches the deployed lock, and the check in step 1 stops only after a pull.
 
-`make -C ~ agents:update` runs `apm update --global --yes` in place of `apm install --global`.
+`make -C ~ agents:update` runs `apm update --global --yes` in place of `apm install --global`, then runs `apm install --global` once more. APM 0.35.0 can delete skill files that an update changes ([microsoft/apm#3422](https://github.com/microsoft/apm/issues/3422)), and the second install restores them. Drop it once a release includes [microsoft/apm#3440](https://github.com/microsoft/apm/pull/3440).
 
 Never run `apm install` or `apm update` without `--global`. Inside `~/.apm`, a plain `apm install` installs at project scope, which writes `.claude/`, `.agents/`, `.cursor/`, `.grok/`, and `agent-data/` there and adds project-scope entries to the lock.
 

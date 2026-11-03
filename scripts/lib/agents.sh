@@ -51,6 +51,11 @@ deploy_agents() {
   done
 
   run_apm "${install[@]}" || die "APM could not install the agent setup"
+  # APM 0.35.0 can delete changed skill files during an update, and a second install restores them (microsoft/apm#3422).
+  # Remove this install once a release includes microsoft/apm#3440.
+  if [[ "$1" == update ]]; then
+    run_apm apm install --global || die "APM could not install the agent setup"
+  fi
   run_apm apm prune || die "APM could not prune the agent setup"
   run_apm apm compile --global || die "APM could not compile the agent setup"
 }
