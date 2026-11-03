@@ -33,7 +33,7 @@ Machine tasks live in `roles/base/home/Makefile`, which Stow links to `~/Makefil
 | Target | Description |
 | --- | --- |
 | `agents:sync` | Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`, then installs, prunes, and compiles the agent setup at user scope with APM. Copies the lock back if APM changed it. Rerun it after each change to a skill or instruction. |
-| `agents:update` | Does the same with `apm update`, which moves every agent package to the latest commit on its branch. |
+| `agents:update` | Does the same with `apm update`, which moves every agent package to the latest commit on its branch, then installs once more to restore skill files that APM 0.35.0 deletes during an update. |
 
 ## Profiles and roles
 
