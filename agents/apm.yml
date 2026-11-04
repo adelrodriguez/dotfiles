@@ -23,10 +23,14 @@ dependencies:
         - comment
         - consistency
         - council-review
+        - design-context
+        - design-review
         - full-send
         - full-stop
+        - harden-ui
         - housekeeping
         - how
+        - interface-design
         - issue
         - janitor
         - maintenance
@@ -47,9 +51,6 @@ dependencies:
         - writing-documentation
         - writing-for-agents
         - writing-for-humans
-    - git: emilkowalski/skills
-      skills:
-        - break-ui
     - git: mattpocock/skills
       skills:
         - domain-modeling
