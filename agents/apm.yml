@@ -28,6 +28,7 @@ dependencies:
         - full-send
         - full-stop
         - harden-ui
+        - hillclimb
         - housekeeping
         - how
         - interface-design
