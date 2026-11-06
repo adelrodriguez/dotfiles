@@ -71,6 +71,10 @@ dependencies:
   - .agents/skills/harden-ui/SKILL.md
   - .agents/skills/harden-ui/references/catalog.md
   - .agents/skills/harden-ui/references/signatures.md
+  - .agents/skills/hillclimb
+  - .agents/skills/hillclimb/SKILL.md
+  - .agents/skills/hillclimb/references/find-the-hill.md
+  - .agents/skills/hillclimb/references/judged-scores.md
   - .agents/skills/housekeeping
   - .agents/skills/housekeeping/SKILL.md
   - .agents/skills/how
@@ -162,6 +166,10 @@ dependencies:
   - .claude/skills/harden-ui/SKILL.md
   - .claude/skills/harden-ui/references/catalog.md
   - .claude/skills/harden-ui/references/signatures.md
+  - .claude/skills/hillclimb
+  - .claude/skills/hillclimb/SKILL.md
+  - .claude/skills/hillclimb/references/find-the-hill.md
+  - .claude/skills/hillclimb/references/judged-scores.md
   - .claude/skills/housekeeping
   - .claude/skills/housekeeping/SKILL.md
   - .claude/skills/how
@@ -253,6 +261,10 @@ dependencies:
   - .config/opencode/skills/harden-ui/SKILL.md
   - .config/opencode/skills/harden-ui/references/catalog.md
   - .config/opencode/skills/harden-ui/references/signatures.md
+  - .config/opencode/skills/hillclimb
+  - .config/opencode/skills/hillclimb/SKILL.md
+  - .config/opencode/skills/hillclimb/references/find-the-hill.md
+  - .config/opencode/skills/hillclimb/references/judged-scores.md
   - .config/opencode/skills/housekeeping
   - .config/opencode/skills/housekeeping/SKILL.md
   - .config/opencode/skills/how
@@ -344,6 +356,10 @@ dependencies:
   - .grok/skills/harden-ui/SKILL.md
   - .grok/skills/harden-ui/references/catalog.md
   - .grok/skills/harden-ui/references/signatures.md
+  - .grok/skills/hillclimb
+  - .grok/skills/hillclimb/SKILL.md
+  - .grok/skills/hillclimb/references/find-the-hill.md
+  - .grok/skills/hillclimb/references/judged-scores.md
   - .grok/skills/housekeeping
   - .grok/skills/housekeeping/SKILL.md
   - .grok/skills/how
@@ -435,6 +451,10 @@ dependencies:
   - agent-data/workflows/harden-ui/SKILL.md
   - agent-data/workflows/harden-ui/references/catalog.md
   - agent-data/workflows/harden-ui/references/signatures.md
+  - agent-data/workflows/hillclimb
+  - agent-data/workflows/hillclimb/SKILL.md
+  - agent-data/workflows/hillclimb/references/find-the-hill.md
+  - agent-data/workflows/hillclimb/references/judged-scores.md
   - agent-data/workflows/housekeeping
   - agent-data/workflows/housekeeping/SKILL.md
   - agent-data/workflows/how
@@ -517,6 +537,9 @@ dependencies:
     .agents/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
     .agents/skills/harden-ui/references/catalog.md: sha256:7bd1a98e77c259e7509693dbba1a5e7cdb035416b6b8ecc0d0d6bacfd3936a87
     .agents/skills/harden-ui/references/signatures.md: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+    .agents/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+    .agents/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+    .agents/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
     .agents/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
     .agents/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .agents/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
@@ -575,6 +598,9 @@ dependencies:
     .claude/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
     .claude/skills/harden-ui/references/catalog.md: sha256:7bd1a98e77c259e7509693dbba1a5e7cdb035416b6b8ecc0d0d6bacfd3936a87
     .claude/skills/harden-ui/references/signatures.md: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+    .claude/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+    .claude/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+    .claude/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
     .claude/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
     .claude/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .claude/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
@@ -633,6 +659,9 @@ dependencies:
     .config/opencode/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
     .config/opencode/skills/harden-ui/references/catalog.md: sha256:7bd1a98e77c259e7509693dbba1a5e7cdb035416b6b8ecc0d0d6bacfd3936a87
     .config/opencode/skills/harden-ui/references/signatures.md: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+    .config/opencode/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+    .config/opencode/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+    .config/opencode/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
     .config/opencode/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
     .config/opencode/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .config/opencode/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
@@ -691,6 +720,9 @@ dependencies:
     .grok/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
     .grok/skills/harden-ui/references/catalog.md: sha256:7bd1a98e77c259e7509693dbba1a5e7cdb035416b6b8ecc0d0d6bacfd3936a87
     .grok/skills/harden-ui/references/signatures.md: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+    .grok/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+    .grok/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+    .grok/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
     .grok/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
     .grok/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .grok/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
@@ -749,6 +781,9 @@ dependencies:
     agent-data/workflows/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
     agent-data/workflows/harden-ui/references/catalog.md: sha256:7bd1a98e77c259e7509693dbba1a5e7cdb035416b6b8ecc0d0d6bacfd3936a87
     agent-data/workflows/harden-ui/references/signatures.md: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+    agent-data/workflows/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+    agent-data/workflows/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+    agent-data/workflows/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
     agent-data/workflows/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
     agent-data/workflows/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     agent-data/workflows/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
@@ -803,6 +838,7 @@ dependencies:
   - full-send
   - full-stop
   - harden-ui
+  - hillclimb
   - housekeeping
   - how
   - interface-design
@@ -1358,6 +1394,42 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+- kind: project-relative
+  target: claude
+  value: .claude/skills/hillclimb
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/hillclimb/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+- kind: project-relative
+  target: claude
+  value: .claude/skills/hillclimb/references/find-the-hill.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+- kind: project-relative
+  target: claude
+  value: .claude/skills/hillclimb/references/judged-scores.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
 - kind: project-relative
   target: claude
   value: .claude/skills/housekeeping
@@ -2305,6 +2377,42 @@ deployments:
   content_hash: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
 - kind: project-relative
   target: codex
+  value: .agents/skills/hillclimb
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/hillclimb/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+- kind: project-relative
+  target: codex
+  value: .agents/skills/hillclimb/references/find-the-hill.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/hillclimb/references/judged-scores.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
+- kind: project-relative
+  target: codex
   value: .agents/skills/housekeeping
   runtime: null
   scope: project
@@ -3248,6 +3356,42 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/hillclimb
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/hillclimb/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/hillclimb/references/find-the-hill.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/hillclimb/references/judged-scores.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/housekeeping
@@ -4256,6 +4400,42 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/hillclimb
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/hillclimb/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/hillclimb/references/find-the-hill.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/hillclimb/references/judged-scores.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
 - kind: project-relative
   target: grok-build
   value: .grok/skills/housekeeping
@@ -5273,6 +5453,42 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:62bbcac13981ab6117b58ffb26c6f0b1e67d9aff305db6754c0d3ef6a4ae6ccf
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/hillclimb
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/hillclimb/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/hillclimb/references/find-the-hill.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/hillclimb/references/judged-scores.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/housekeeping
