@@ -12,6 +12,7 @@ import unittest
 
 REPO = Path(__file__).resolve().parents[2]
 FISH = shutil.which('fish')
+FNM = shutil.which('fnm')
 ZSH = shutil.which('zsh')
 
 class Home(unittest.TestCase):
@@ -148,6 +149,81 @@ esac
                            'use_project_node', 'print -r -- "project:$?"', 'cd "$HOME"',
                            'use_project_node', 'print -r -- "system:$?"'])
         self.assertEqual(result, ['project:17', 'system:17'])
+
+    @unittest.skipUnless(FNM and ZSH, 'Node selection requires fnm and zsh')
+    def test_fnm_returns_to_system_outside_projects(self):
+        base = self.executable(self.root / 'bin/node', 'v26.0.0')
+        self.executable(base.parent / 'starship', '')
+        self.executable(base.parent / 'zoxide', '')
+        bindings = self.home / '.config/zsh/bindings.zsh'
+        bindings.parent.mkdir(parents=True)
+        bindings.touch()
+        fnm = self.root / 'fnm'
+        installations = []
+        for version in ('20.0.0', '22.0.0'):
+            installations.append(self.executable(fnm / f'node-versions/v{version}/installation/bin/node', f'v{version}'))
+        aliases = fnm / 'aliases'
+        aliases.mkdir()
+        (aliases / 'default').symlink_to(installations[0].parent.parent)
+        before = [path.read_bytes() for path in installations]
+        runtime = self.root / 'runtime'
+        runtime.mkdir(mode=0o700)
+        self.env.update({'FNM_DIR': str(fnm), 'XDG_RUNTIME_DIR': str(runtime), 'TMPDIR': str(runtime),
+                         'PATH': os.pathsep.join([str(base.parent), str(Path(FNM).parent), '/usr/bin', '/bin'])})
+        self.env.pop('FNM_MULTISHELL_PATH', None)
+        projects = []
+        for filename in ('.node-version', '.nvmrc'):
+            project = self.root / filename.removeprefix('.') / 'nested'
+            project.mkdir(parents=True)
+            (project.parent / filename).write_text('22\n')
+            projects.append((project, 'v22.0.0'))
+        conflicting = self.root / 'conflicting'
+        conflicting.mkdir()
+        (conflicting / '.node-version').write_text('22\n')
+        (conflicting / '.nvmrc').write_text('20\n')
+        projects.append((conflicting, 'v20.0.0'))
+        nearer_engine = self.root / 'ancestor/child'
+        nearer_engine.mkdir(parents=True)
+        (nearer_engine.parent / '.node-version').write_text('22\n')
+        (nearer_engine / 'package.json').write_text(json.dumps({'engines': {'node': '20'}}))
+        projects.append((nearer_engine, 'v20.0.0'))
+        destinations = [self.home, Path('/')]
+        for name in ('empty-system', 'file-system', 'project-system'):
+            destination = self.root / name
+            destination.mkdir()
+            system = destination / 'system'
+            if name == 'file-system':
+                system.write_text('20\n')
+            else:
+                system.mkdir()
+                if name == 'project-system':
+                    (system / '.node-version').write_text('20\n')
+            destinations.append(destination)
+        for shell in ('fish', 'zsh'):
+            if shell == 'fish':
+                startup = REPO / 'home/shell/fish/conf.d/70-fnm.fish'
+                command = [FISH, '--no-config', '-c']
+                probe = 'node --version'
+            else:
+                startup = REPO / 'home/shell/zsh/zshrc'
+                command = [ZSH, '-dfc']
+                # Isolate #63 from the separate zsh command-cache defect in #65.
+                probe = 'rehash; node --version'
+            for project, selected in projects:
+                for destination in destinations:
+                    with self.subTest(shell=shell, project=project.name, destination=str(destination)):
+                        script = f'source {shlex.quote(str(startup))}; {probe}; '
+                        for directory in (project, destination, project, destination):
+                            script += f'cd {shlex.quote(str(directory))}; {probe}; '
+                        result = subprocess.run([*command, script + 'pwd'], cwd=self.home, env=self.env,
+                                                capture_output=True, text=True)
+                        self.assertEqual(result.returncode, 0, result.stderr)
+                        versions = [line for line in result.stdout.splitlines() if line.startswith('v')]
+                        self.assertEqual(versions, ['v26.0.0', selected, 'v26.0.0', selected, 'v26.0.0'],
+                                         result.stdout + result.stderr)
+                        self.assertEqual(result.stdout.splitlines()[-1], str(destination))
+        self.assertEqual([path.read_bytes() for path in installations], before)
+        self.assertEqual((aliases / 'default').readlink(), installations[0].parent.parent)
 
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
