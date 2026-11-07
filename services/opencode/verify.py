@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import base64
 import fnmatch
+from html.parser import HTMLParser
 import json
 import os
 from pathlib import Path
@@ -29,8 +30,31 @@ def get(base, path, authenticated=True):
         return response.read()
 
 
+class Page(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.titles = []
+        self.title = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "title":
+            self.title = []
+
+    def handle_data(self, data):
+        if self.title is not None:
+            self.title.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "title" and self.title is not None:
+            self.titles.append("".join(self.title))
+            self.title = None
+
+
 for base in URLS:
-    assert b"<title>OpenCode</title>" in get(base, "/", False), base
+    page = Page()
+    page.feed(get(base, "/", False).decode("utf-8"))
+    page.close()
+    assert page.titles == ["OpenCode"], base
     if base.startswith("https://"):
         info = json.loads(get(base, "/api/info", False))
         assert json.loads(get(base, "/api/session?limit=1", False))["data"]
