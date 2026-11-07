@@ -9,7 +9,7 @@ My own skills and instructions live in their own repos:
 
 ## Install APM
 
-`scripts/install.sh` installs APM on both profiles. macOS uses `roles/base/packages/Brewfile`. Linux installs uv with its standalone installer and installs `apm-cli` with `uv tool install --upgrade apm-cli`.
+`scripts/bootstrap.sh` installs APM on both hosts. macOS declares APM in `hosts/mac/packages.nix`. Homelab declares uv through Nix and installs `apm-cli` in its writable uv tool environment.
 
 Then sync. APM fetches the packages with your git credentials:
 
@@ -44,7 +44,7 @@ The setup used to live in [adelrodriguez/dotagents](https://github.com/adelrodri
 
 `make -C ~ agents:sync` runs `scripts/agents.sh sync`, which does these steps:
 
-1. Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`. APM reads its user-scope manifest only from `~/.apm`, and it refuses a symlinked `apm.yml`, so Stow can't link them. If `agents/apm.lock.yaml` differs from the lock in `~/.apm`, which happens after a pull changes it, the sync stops before it copies anything. The deployed lock is the only record of the files to remove, so follow "Update after a pull" in `agents/AGENTS.md` first.
+1. Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`. APM reads its user-scope manifest only from `~/.apm`, and it refuses a symlinked `apm.yml`, so Home Manager must not link them. If `agents/apm.lock.yaml` differs from the lock in `~/.apm`, which happens after a pull changes it, the sync stops before it copies anything. The deployed lock is the only record of the files to remove, so follow "Update after a pull" in `agents/AGENTS.md` first.
 2. `apm install --global` installs everything in the lock, at the commits it records. If `apm.yml` and the lock disagree, it updates the lock to match.
 3. `apm prune` deletes packages in `~/.apm/apm_modules/` that `apm.yml` no longer lists, and removes their records from the lock. Global compile reads every instruction in `apm_modules/`, so a removed package's instructions would otherwise stay in `AGENTS.md`.
 4. `apm compile --global` merges the instructions into `~/.codex/AGENTS.md` and `~/.config/opencode/AGENTS.md`.
@@ -90,4 +90,4 @@ The merged `AGENTS.md` files drop `applyTo` scoping, so every instruction applie
 | `agents/apm.lock.yaml` | The resolved commits and deployed files. APM writes it, so don't edit it by hand. |
 | `agents/AGENTS.md` | Steps for agents that sync, including the cleanup after a pull changes the lock |
 | `scripts/agents.sh`, `scripts/lib/agents.sh` | The `sync` and `update` commands |
-| `roles/base/home/Makefile` | The `agents:sync` and `agents:update` targets |
+| `config/Makefile` | The `agents:sync` and `agents:update` targets |

@@ -1,31 +1,62 @@
-# Install the dotfiles
+# How to install or migrate the dotfiles
 
-These steps install the repository at `~/Developer/dotfiles` and link its configuration into `$HOME`.
+This guide shows you how to replace the native installer and Stow links with the declared Nix environment. Use the production checkout on `main` after the PR merges. Do not activate a feature worktree on a live host.
 
-1. Create the parent directory.
+## Prepare the checkout
 
-	```sh
-	mkdir -p "$HOME/Developer"
-	```
+1. Use `/Users/adelrodriguez/Developer/dotfiles` on the Mac or `/home/adel/dotfiles` on homelab. For a different account or checkout, update the machine record in `flake.nix` first. The apply command checks the checkout path before changing files.
+2. Commit or save local configuration edits. The handoff backs up conflicting target files under `~/.local/state/dotfiles/backups/`, but private databases and application state still need their normal backups.
+3. On the Mac, install [Homebrew](https://brew.sh) if missing. On Ubuntu, provide `curl`, Git, Python 3, CA certificates, and xz through the distribution before bootstrapping. Ubuntu 24.04 is the tested Linux base.
 
-2. Clone the repository.
+## Build and apply
 
-	```sh
-	git clone https://github.com/adelrodriguez/dotfiles.git "$HOME/Developer/dotfiles"
-	```
+If Nix is already installed, build first:
 
-3. Open the repository directory.
+```sh
+scripts/apply.sh mac --build
+# On homelab:
+scripts/apply.sh homelab --build
+```
 
-	```sh
-	cd "$HOME/Developer/dotfiles"
-	```
+To install Nix if needed and provision the host:
 
-4. Set up the machine with its profile. Use `server` for an Ubuntu server or VPS, or `mac` for a macOS workstation.
+```sh
+scripts/bootstrap.sh mac
+# On homelab:
+scripts/bootstrap.sh homelab
+```
 
-	```sh
-	scripts/install.sh server
-	```
+The Nix installer requests administrator access. On macOS it creates the Nix Store volume at `/nix`. nix-darwin activation also requires administrator access. Linux bootstrap registers fish as the login shell and enables user lingering so services survive logout. Follow the installer's Terminal prompts directly.
 
-	`scripts/install.sh` records the profile in `~/.config/dotfiles/profile`, so later runs need no profile name. On macOS, it installs Homebrew when needed and installs each role's `packages/Brewfile`. On Ubuntu, it installs each role's `packages/apt.txt` with APT and runs the upstream installers listed in each role's `packages/extras.txt`. Ubuntu installation requires sudo access. fnm manages Node; no Linuxbrew or mise installation is needed.
+The first apply builds before moving any legacy file. It replaces checkout links with Home Manager links, preserves private agent files and local Git credentials, and records the host and checkout under `~/.config/dotfiles/`. It does not uninstall unlisted Homebrew formulae or casks.
 
-	It then links the dotfiles, sets fish as the account's default shell, and configures scheduled tasks. A successful run ends with `Done`. Start a new terminal session to use fish after the default shell changes.
+For an existing nix-darwin file conflict under `/etc`, inspect the named file and preserve a copy before moving it aside. Do not force activation over unknown system files. The manual Nix installer trials did not exercise root-level nix-darwin activation. See the [recorded results and installer issues](nix-trial-results.md).
+
+## Verify the host
+
+Start a fresh fish or zsh login shell, then run:
+
+```sh
+scripts/doctor.sh
+make -C ~ agents:sync
+```
+
+The doctor reports missing tools, unexpected providers, unsafe private file permissions, and stopped Linux services. Restore homelab's private OpenCode and Caddy credentials before testing its public route, as described in [the service guide](agent-services.md). Reauthenticate Codex in its default `~/.codex` home when needed.
+
+To populate agent variables, save the host's 1Password service-account token as the regular file `~/.config/agents/1password-token`, set mode 0600, and run `scripts/agents-env.sh`. Never add the token or generated environment to Git.
+
+## Update and roll back
+
+Edit packages in the owning host module. Add shared configuration in `config/` and its Home Manager module. Stage new files before Nix evaluates a Git checkout, because flakes exclude untracked files.
+
+Update the pinned inputs and rebuild through a PR:
+
+```sh
+nix flake update
+scripts/apply.sh mac --build
+# Or scripts/apply.sh homelab --build
+```
+
+After merging, `scripts/sync.sh` fast-forwards and activates the new generation. Apply installs missing vendor tools and changed npm versions. Use each vendor's supported update command for an installed self-updating CLI. Homebrew updates are deliberate, for example `brew upgrade pnpm`.
+
+On homelab, list previous configurations with `home-manager generations` and run the selected generation's `activate` script. On the Mac, use `sudo darwin-rebuild switch --rollback`. Restore mutable runtime data separately if an application update changed it. To return to native dotfiles, remove Home Manager's managed links and restore the backup files before running the previous repository revision. Nix uninstall is a separate system operation, including its macOS volume. Do not delete `/nix` by hand.

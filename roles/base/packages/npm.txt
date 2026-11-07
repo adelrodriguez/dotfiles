@@ -1,7 +1,0 @@
-@antfu/ni
-@earendil-works/pi-coding-agent
-agent-browser
-agent-desktop
-packref
-pnpm
-vercel

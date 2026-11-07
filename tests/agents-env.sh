@@ -6,17 +6,19 @@ tmp="$(mktemp -d)"
 trap 'for pid in $(jobs -p); do kill "$pid" 2>/dev/null || true; done; rm -rf "$tmp"' EXIT
 repo="$tmp/repo"
 mkdir -p "$repo"
-cp -R "$source_repo/scripts" "$source_repo/roles" "$source_repo/profiles" "$repo/"
+cp -R "$source_repo/scripts" "$source_repo/config" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
 env_file="$HOME/.config/agents/env"
 mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles"
 export PATH="$HOME/.local/bin:$PATH"
 printf "server\n" > "$HOME/.config/dotfiles/profile"
-# Linking a fresh home, then linking it again, keeps ~/.config/agents a real directory.
-bash "$repo/scripts/link.sh"
-bash "$repo/scripts/link.sh"
-[[ -d "$HOME/.config/agents" && ! -L "$HOME/.config/agents" && -L "$HOME/.config/agents/env.tpl" ]]
+# Home Manager links individual files into a real agents directory.
+mkdir -p "$HOME/.config/agents" "$HOME/.config/zsh"
+ln -s "$repo/config/agents/env.tpl" "$HOME/.config/agents/env.tpl"
+ln -s "$repo/config/zsh/zshenv" "$HOME/.zshenv"
+ln -s "$repo/config/zsh/env.zsh" "$HOME/.config/zsh/env.zsh"
+printf '%s\n' "$HOME/.npm-global/bin" "$HOME/.local/bin" /usr/local/bin /usr/bin /bin > "$HOME/.config/agents/runtime.path"
 # Each op:// reference becomes value-<field>. OP_MODE=fail fails and OP_MODE=space adds a space to the values.
 cat > "$HOME/.local/bin/op" <<'SH'
 #!/bin/bash
@@ -85,11 +87,11 @@ if grep -q value- "$tmp/err"; then exit 1; fi
 
 # A folded link into the repository never receives secrets.
 mv "$HOME/.config/agents" "$tmp/agents"
-ln -s "$repo/roles/base/home/.config/agents" "$HOME/.config/agents"
-cp "$tmp/agents/1password-token" "$repo/roles/base/home/.config/agents/"
+ln -s "$repo/config/agents" "$HOME/.config/agents"
+cp "$tmp/agents/1password-token" "$repo/config/agents/"
 if write 2>/dev/null; then exit 1; fi
-[[ ! -e "$repo/roles/base/home/.config/agents/env" ]]
-rm "$HOME/.config/agents" "$repo/roles/base/home/.config/agents/1password-token"
+[[ ! -e "$repo/config/agents/env" ]]
+rm "$HOME/.config/agents" "$repo/config/agents/1password-token"
 mv "$tmp/agents" "$HOME/.config/agents"
 
 # Each loader exports every value and never the 1Password token.
@@ -107,6 +109,6 @@ if command -v zsh >/dev/null; then
   [[ "$first_path" == "$tmp/fnm/node-versions/v22.10.0/installation/bin" ]]
 fi
 if command -v fish >/dev/null; then
-  fish --no-config -c "source '$repo/roles/base/home/.config/fish/conf.d/00-env.fish'; bash -c '$check'"
+  fish --no-config -c "source '$repo/config/fish/conf.d/00-env.fish'; bash -c '$check'"
 fi
 printf 'Agent environment checks passed\n'

@@ -1,9 +1,10 @@
-# Untracked files left in the home/ folder of the layout before roles, such as old tmux plugins.
-# scripts/link.sh moves files out of folded directories it still finds there.
+# Local migration backups and historical untracked sources.
 /home/
 backups/
-
-# Agent environment written from 1Password by scripts/agents-env.sh
-roles/*/home/.config/agents/env
-roles/*/home/.config/agents/1password-token
-roles/*/home/.config/agents/.env.*
+result
+result-*
+__pycache__/
+# Never include runtime credentials in the flake source.
+config/agents/env
+config/agents/1password-token
+config/agents/.env.*

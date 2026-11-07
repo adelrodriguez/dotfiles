@@ -6,7 +6,7 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 repo="$tmp/repo"
 mkdir -p "$repo"
-cp -R "$source_repo/scripts" "$source_repo/roles" "$source_repo/profiles" "$source_repo/agents" "$repo/"
+cp -R "$source_repo/scripts" "$source_repo/config" "$source_repo/agents" "$repo/"
 export HOME="$tmp/home"
 export CALLS="$tmp/calls"
 mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles" "$tmp/bin"
@@ -21,7 +21,8 @@ for dir in "${path_dirs[@]}"; do
   done
 done
 export PATH="$HOME/.local/bin:$tmp/bin"
-bash "$repo/scripts/link.sh" >/dev/null
+printf "%s\n" "$repo" > "$HOME/.config/dotfiles/checkout"
+ln -s "$repo/config/Makefile" "$HOME/Makefile"
 [[ -L "$HOME/Makefile" ]]
 agents() { make --no-print-directory -s -C "$HOME" "agents:$1"; }
 

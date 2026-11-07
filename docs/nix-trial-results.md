@@ -4,7 +4,7 @@ The manual trials on November 7, 2026 covered one disposable Ubuntu 24.04.4 x86_
 
 Home Manager builds, file-collision protection, activation, repeat activation, invalid-build protection, and generation rollback passed on both machines. Real package commands executed. A Mac shell check also passed after inherited Nix paths and environment markers were removed. The Mac's existing pnpm command and Homebrew formula were preserved.
 
-The package inputs recorded in `nix/flake.lock` are:
+The package inputs recorded in `flake.lock` are:
 
 | Input | Revision |
 | --- | --- |
@@ -12,7 +12,7 @@ The package inputs recorded in `nix/flake.lock` are:
 | Linux nixpkgs | `c56a87d8e41ce69bd2af57eb35dcc117a9dfca33` |
 | Darwin nixpkgs | `57f1c8965649ce5bcac5118a0d2e41f1fbdc56e5` |
 
-These manual runs used small standalone configurations. The committed pilot adds a disposable home and profile-state isolation. Its CI runs use upstream Nix 2.34.1 and verify the committed implementation on Ubuntu and macOS.
+These historical manual runs used small standalone configurations. The repository now declares the complete host environments. Its host harness uses upstream Nix 2.34.1 and verifies those configurations in disposable homes. The manual pilot results alone do not prove the full migration.
 
 ## Installer findings
 
@@ -31,4 +31,14 @@ The first Mac background installation also failed while renaming `/etc/fstab.tmp
 
 The captured Mac file contents, ownership, and permissions were restored. The trial volume, services, build accounts, profiles, caches, and managed files were removed. The dotfiles checkout remained clean. The empty synthetic `/nix` mount point remains until the next restart, as described by macOS `synthetic.conf(5)`.
 
-The trials did not activate nix-darwin or migrate existing Stow files, services, or credentials. Homebrew version rollback and full machine reproduction were not tested. Installer-source fixes remain outside this pilot. No performance benchmark was run.
+The trials did not activate nix-darwin or migrate existing Stow files, services, or credentials. Homebrew version rollback and full machine reproduction were not tested. Installer-source fixes remain outside the dotfiles configuration. No performance benchmark was run.
+
+## Full configuration validation
+
+The replacement configuration was tested on November 7 in a fresh disposable Boat VM running Ubuntu 24.04.4 x86_64 with upstream Nix 2.34.1. The complete homelab Home Manager configuration built and passed collision protection, legacy handoff, activation, repeat activation, generation rollback, and fresh fish and zsh checks. The declared Nix packages, pinned direct npm packages, and native agent CLIs executed from their expected providers. Project Node selection used fnm while the default runtime returned to the pinned Nix Node.
+
+The harness checked unchanged account profiles and an inherited custom Nix state fixture. Deliberately redirecting `NIX_STATE_HOME` back to that inherited fixture made activation fail. The corrected isolated environment completed successfully. A separate migration regression first failed because an old Fisher function remained. The handoff now backs up the files registered to the repository's former plugins, and that check passes.
+
+A separate run exercised `scripts/apply.sh homelab` with the disposable VM account and checkout declared as its machine identity. The apply and runtime installers passed. OpenCode, T3, and Process Compose were enabled and active, their running environments matched the host runtime, and the OpenCode and T3 web roots returned HTTP 200 on loopback. This run used fresh application data, not homelab's existing databases or private route.
+
+The Mac fixture suite passed. The complete nix-darwin system derivation evaluated on the Linux test host. Mac package builds and the generated Homebrew inventory are checked by the Mac CI job. Root-level nix-darwin activation, the homelab private Caddy route, private credentials, and existing application databases remain deployment checks. Neither live machine was changed during this replacement.

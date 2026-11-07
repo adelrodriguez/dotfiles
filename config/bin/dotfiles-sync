@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+read -r checkout < "$HOME/.config/dotfiles/checkout"
+exec "$checkout/scripts/sync.sh"
