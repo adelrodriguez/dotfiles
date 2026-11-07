@@ -41,7 +41,7 @@ dependencies:
 - repo_url: adelrodriguez/skills
   name: skills
   host: github.com
-  resolved_commit: 0d0ad9ee6007ae4fef1ea6f93627e829546c0aab
+  resolved_commit: 0a48f861e782a3e3def9c295a6b473db38234432
   version: unknown
   package_type: skill_bundle
   deployed_files:
@@ -53,6 +53,8 @@ dependencies:
   - .agents/skills/codebase-design/references/design-it-twice.md
   - .agents/skills/codebase-design/references/rationale.md
   - .agents/skills/codebase-design/references/red-flags.md
+  - .agents/skills/coding-standards
+  - .agents/skills/coding-standards/SKILL.md
   - .agents/skills/comment
   - .agents/skills/comment/SKILL.md
   - .agents/skills/consistency
@@ -63,6 +65,12 @@ dependencies:
   - .agents/skills/design-context/SKILL.md
   - .agents/skills/design-review
   - .agents/skills/design-review/SKILL.md
+  - .agents/skills/design-ui
+  - .agents/skills/design-ui/SKILL.md
+  - .agents/skills/design-ui/references/app-screens.md
+  - .agents/skills/design-ui/references/craft.md
+  - .agents/skills/design-ui/references/motion.md
+  - .agents/skills/design-ui/references/tells.md
   - .agents/skills/full-send
   - .agents/skills/full-send/SKILL.md
   - .agents/skills/full-stop
@@ -81,12 +89,6 @@ dependencies:
   - .agents/skills/how/SKILL.md
   - .agents/skills/how/references/explainer-prompt.md
   - .agents/skills/how/references/explorer-prompt.md
-  - .agents/skills/interface-design
-  - .agents/skills/interface-design/SKILL.md
-  - .agents/skills/interface-design/references/app-screens.md
-  - .agents/skills/interface-design/references/craft.md
-  - .agents/skills/interface-design/references/motion.md
-  - .agents/skills/interface-design/references/tells.md
   - .agents/skills/issue
   - .agents/skills/issue/SKILL.md
   - .agents/skills/janitor
@@ -106,6 +108,11 @@ dependencies:
   - .agents/skills/refresh/SKILL.md
   - .agents/skills/restraint
   - .agents/skills/restraint/SKILL.md
+  - .agents/skills/retro
+  - .agents/skills/retro/SKILL.md
+  - .agents/skills/retro/references/targets.md
+  - .agents/skills/sessions
+  - .agents/skills/sessions/SKILL.md
   - .agents/skills/takeover
   - .agents/skills/takeover/SKILL.md
   - .agents/skills/test-pruning
@@ -148,6 +155,8 @@ dependencies:
   - .claude/skills/codebase-design/references/design-it-twice.md
   - .claude/skills/codebase-design/references/rationale.md
   - .claude/skills/codebase-design/references/red-flags.md
+  - .claude/skills/coding-standards
+  - .claude/skills/coding-standards/SKILL.md
   - .claude/skills/comment
   - .claude/skills/comment/SKILL.md
   - .claude/skills/consistency
@@ -158,6 +167,12 @@ dependencies:
   - .claude/skills/design-context/SKILL.md
   - .claude/skills/design-review
   - .claude/skills/design-review/SKILL.md
+  - .claude/skills/design-ui
+  - .claude/skills/design-ui/SKILL.md
+  - .claude/skills/design-ui/references/app-screens.md
+  - .claude/skills/design-ui/references/craft.md
+  - .claude/skills/design-ui/references/motion.md
+  - .claude/skills/design-ui/references/tells.md
   - .claude/skills/full-send
   - .claude/skills/full-send/SKILL.md
   - .claude/skills/full-stop
@@ -176,12 +191,6 @@ dependencies:
   - .claude/skills/how/SKILL.md
   - .claude/skills/how/references/explainer-prompt.md
   - .claude/skills/how/references/explorer-prompt.md
-  - .claude/skills/interface-design
-  - .claude/skills/interface-design/SKILL.md
-  - .claude/skills/interface-design/references/app-screens.md
-  - .claude/skills/interface-design/references/craft.md
-  - .claude/skills/interface-design/references/motion.md
-  - .claude/skills/interface-design/references/tells.md
   - .claude/skills/issue
   - .claude/skills/issue/SKILL.md
   - .claude/skills/janitor
@@ -201,6 +210,11 @@ dependencies:
   - .claude/skills/refresh/SKILL.md
   - .claude/skills/restraint
   - .claude/skills/restraint/SKILL.md
+  - .claude/skills/retro
+  - .claude/skills/retro/SKILL.md
+  - .claude/skills/retro/references/targets.md
+  - .claude/skills/sessions
+  - .claude/skills/sessions/SKILL.md
   - .claude/skills/takeover
   - .claude/skills/takeover/SKILL.md
   - .claude/skills/test-pruning
@@ -243,6 +257,8 @@ dependencies:
   - .config/opencode/skills/codebase-design/references/design-it-twice.md
   - .config/opencode/skills/codebase-design/references/rationale.md
   - .config/opencode/skills/codebase-design/references/red-flags.md
+  - .config/opencode/skills/coding-standards
+  - .config/opencode/skills/coding-standards/SKILL.md
   - .config/opencode/skills/comment
   - .config/opencode/skills/comment/SKILL.md
   - .config/opencode/skills/consistency
@@ -253,6 +269,12 @@ dependencies:
   - .config/opencode/skills/design-context/SKILL.md
   - .config/opencode/skills/design-review
   - .config/opencode/skills/design-review/SKILL.md
+  - .config/opencode/skills/design-ui
+  - .config/opencode/skills/design-ui/SKILL.md
+  - .config/opencode/skills/design-ui/references/app-screens.md
+  - .config/opencode/skills/design-ui/references/craft.md
+  - .config/opencode/skills/design-ui/references/motion.md
+  - .config/opencode/skills/design-ui/references/tells.md
   - .config/opencode/skills/full-send
   - .config/opencode/skills/full-send/SKILL.md
   - .config/opencode/skills/full-stop
@@ -271,12 +293,6 @@ dependencies:
   - .config/opencode/skills/how/SKILL.md
   - .config/opencode/skills/how/references/explainer-prompt.md
   - .config/opencode/skills/how/references/explorer-prompt.md
-  - .config/opencode/skills/interface-design
-  - .config/opencode/skills/interface-design/SKILL.md
-  - .config/opencode/skills/interface-design/references/app-screens.md
-  - .config/opencode/skills/interface-design/references/craft.md
-  - .config/opencode/skills/interface-design/references/motion.md
-  - .config/opencode/skills/interface-design/references/tells.md
   - .config/opencode/skills/issue
   - .config/opencode/skills/issue/SKILL.md
   - .config/opencode/skills/janitor
@@ -296,6 +312,11 @@ dependencies:
   - .config/opencode/skills/refresh/SKILL.md
   - .config/opencode/skills/restraint
   - .config/opencode/skills/restraint/SKILL.md
+  - .config/opencode/skills/retro
+  - .config/opencode/skills/retro/SKILL.md
+  - .config/opencode/skills/retro/references/targets.md
+  - .config/opencode/skills/sessions
+  - .config/opencode/skills/sessions/SKILL.md
   - .config/opencode/skills/takeover
   - .config/opencode/skills/takeover/SKILL.md
   - .config/opencode/skills/test-pruning
@@ -338,6 +359,8 @@ dependencies:
   - .grok/skills/codebase-design/references/design-it-twice.md
   - .grok/skills/codebase-design/references/rationale.md
   - .grok/skills/codebase-design/references/red-flags.md
+  - .grok/skills/coding-standards
+  - .grok/skills/coding-standards/SKILL.md
   - .grok/skills/comment
   - .grok/skills/comment/SKILL.md
   - .grok/skills/consistency
@@ -348,6 +371,12 @@ dependencies:
   - .grok/skills/design-context/SKILL.md
   - .grok/skills/design-review
   - .grok/skills/design-review/SKILL.md
+  - .grok/skills/design-ui
+  - .grok/skills/design-ui/SKILL.md
+  - .grok/skills/design-ui/references/app-screens.md
+  - .grok/skills/design-ui/references/craft.md
+  - .grok/skills/design-ui/references/motion.md
+  - .grok/skills/design-ui/references/tells.md
   - .grok/skills/full-send
   - .grok/skills/full-send/SKILL.md
   - .grok/skills/full-stop
@@ -366,12 +395,6 @@ dependencies:
   - .grok/skills/how/SKILL.md
   - .grok/skills/how/references/explainer-prompt.md
   - .grok/skills/how/references/explorer-prompt.md
-  - .grok/skills/interface-design
-  - .grok/skills/interface-design/SKILL.md
-  - .grok/skills/interface-design/references/app-screens.md
-  - .grok/skills/interface-design/references/craft.md
-  - .grok/skills/interface-design/references/motion.md
-  - .grok/skills/interface-design/references/tells.md
   - .grok/skills/issue
   - .grok/skills/issue/SKILL.md
   - .grok/skills/janitor
@@ -391,6 +414,11 @@ dependencies:
   - .grok/skills/refresh/SKILL.md
   - .grok/skills/restraint
   - .grok/skills/restraint/SKILL.md
+  - .grok/skills/retro
+  - .grok/skills/retro/SKILL.md
+  - .grok/skills/retro/references/targets.md
+  - .grok/skills/sessions
+  - .grok/skills/sessions/SKILL.md
   - .grok/skills/takeover
   - .grok/skills/takeover/SKILL.md
   - .grok/skills/test-pruning
@@ -433,6 +461,8 @@ dependencies:
   - agent-data/workflows/codebase-design/references/design-it-twice.md
   - agent-data/workflows/codebase-design/references/rationale.md
   - agent-data/workflows/codebase-design/references/red-flags.md
+  - agent-data/workflows/coding-standards
+  - agent-data/workflows/coding-standards/SKILL.md
   - agent-data/workflows/comment
   - agent-data/workflows/comment/SKILL.md
   - agent-data/workflows/consistency
@@ -443,6 +473,12 @@ dependencies:
   - agent-data/workflows/design-context/SKILL.md
   - agent-data/workflows/design-review
   - agent-data/workflows/design-review/SKILL.md
+  - agent-data/workflows/design-ui
+  - agent-data/workflows/design-ui/SKILL.md
+  - agent-data/workflows/design-ui/references/app-screens.md
+  - agent-data/workflows/design-ui/references/craft.md
+  - agent-data/workflows/design-ui/references/motion.md
+  - agent-data/workflows/design-ui/references/tells.md
   - agent-data/workflows/full-send
   - agent-data/workflows/full-send/SKILL.md
   - agent-data/workflows/full-stop
@@ -461,12 +497,6 @@ dependencies:
   - agent-data/workflows/how/SKILL.md
   - agent-data/workflows/how/references/explainer-prompt.md
   - agent-data/workflows/how/references/explorer-prompt.md
-  - agent-data/workflows/interface-design
-  - agent-data/workflows/interface-design/SKILL.md
-  - agent-data/workflows/interface-design/references/app-screens.md
-  - agent-data/workflows/interface-design/references/craft.md
-  - agent-data/workflows/interface-design/references/motion.md
-  - agent-data/workflows/interface-design/references/tells.md
   - agent-data/workflows/issue
   - agent-data/workflows/issue/SKILL.md
   - agent-data/workflows/janitor
@@ -486,6 +516,11 @@ dependencies:
   - agent-data/workflows/refresh/SKILL.md
   - agent-data/workflows/restraint
   - agent-data/workflows/restraint/SKILL.md
+  - agent-data/workflows/retro
+  - agent-data/workflows/retro/SKILL.md
+  - agent-data/workflows/retro/references/targets.md
+  - agent-data/workflows/sessions
+  - agent-data/workflows/sessions/SKILL.md
   - agent-data/workflows/takeover
   - agent-data/workflows/takeover/SKILL.md
   - agent-data/workflows/test-pruning
@@ -521,17 +556,23 @@ dependencies:
   - agent-data/workflows/writing-for-humans
   - agent-data/workflows/writing-for-humans/SKILL.md
   deployed_file_hashes:
-    .agents/skills/code-review/SKILL.md: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+    .agents/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .agents/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .agents/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
     .agents/skills/codebase-design/references/design-it-twice.md: sha256:e77160fe9ea6d4061c39a10b37ec4af3c2f7729a5f59206bb10d5ac3a81519dd
     .agents/skills/codebase-design/references/rationale.md: sha256:a5643deccc867782b0b0d5857f35cd796d1f4fd3d5736a940b21f47ceed7b19b
     .agents/skills/codebase-design/references/red-flags.md: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+    .agents/skills/coding-standards/SKILL.md: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
     .agents/skills/comment/SKILL.md: sha256:33a402e7c5388bec55271508a4c76df30d4f44e0b603e0e6bc2d0473efb48d32
     .agents/skills/consistency/SKILL.md: sha256:448bb51efeef4b80a1abd8cff0c14f9bdd472e4dd8759617a3acbebb48366f28
     .agents/skills/council-review/SKILL.md: sha256:0dbadae888172c91f808ad00c36571c0347e744ee7b98c5fab7aff1a98ca34c6
-    .agents/skills/design-context/SKILL.md: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
-    .agents/skills/design-review/SKILL.md: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+    .agents/skills/design-context/SKILL.md: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
+    .agents/skills/design-review/SKILL.md: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+    .agents/skills/design-ui/SKILL.md: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+    .agents/skills/design-ui/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+    .agents/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+    .agents/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+    .agents/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .agents/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .agents/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .agents/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -540,36 +581,34 @@ dependencies:
     .agents/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
     .agents/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
     .agents/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
-    .agents/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+    .agents/skills/housekeeping/SKILL.md: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
     .agents/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .agents/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
     .agents/skills/how/references/explorer-prompt.md: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
-    .agents/skills/interface-design/SKILL.md: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-    .agents/skills/interface-design/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-    .agents/skills/interface-design/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-    .agents/skills/interface-design/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-    .agents/skills/interface-design/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .agents/skills/issue/SKILL.md: sha256:485c58f2546428c0b8271d10294a332c43ef7137909e2696d2c75fb641410c19
-    .agents/skills/janitor/SKILL.md: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+    .agents/skills/janitor/SKILL.md: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
     .agents/skills/maintenance/SKILL.md: sha256:8ba32c7933b6e80623d3ee8d3844adf837ef0a6e1bb781acc6125908b36db8e0
     .agents/skills/modernize/SKILL.md: sha256:c899676536fc4d11f08d49ece9b7aa10333497078029ad0b3e96a23c8705592c
     .agents/skills/monitor/SKILL.md: sha256:1ecf808818765b2cf8b5d2f12e2038727fc0810c057bd5b30577366c38d19ab4
     .agents/skills/monitor/scripts/monitor-pr: sha256:3e0213851a736ffe220cde05e98ecc6472fcfefe89ad08c04cb0d5c43f1049dc
     .agents/skills/next-task/SKILL.md: sha256:3d3736337177e420e1d014ca21fc051711742420f77072fd3a61fdc91368a172
-    .agents/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+    .agents/skills/pr/SKILL.md: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
     .agents/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .agents/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .agents/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+    .agents/skills/retro/SKILL.md: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+    .agents/skills/retro/references/targets.md: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+    .agents/skills/sessions/SKILL.md: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+    .agents/skills/takeover/SKILL.md: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
     .agents/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .agents/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .agents/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
     .agents/skills/upload/SKILL.md: sha256:7971bcd71340dfe81ff8e38dcbdad86dd501294a38515102038a674fcb270782
     .agents/skills/upload/scripts/upload: sha256:e7ad4da1bbc11eb839643b8af2b140f43303ab01e9f0d7d75b20847cf969c224
     .agents/skills/what/SKILL.md: sha256:778ae2792593d260051db87d432ad213ce201c1c9146583a02cbd1a9b3efad41
-    .agents/skills/why/SKILL.md: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+    .agents/skills/why/SKILL.md: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
     .agents/skills/why/references/epistemics.md: sha256:824a482fb0882b8a2c67b95c4394380294aaafe054b9b073825dd7a408fe4d82
     .agents/skills/why/references/investigator-prompt.md: sha256:112b612a178c33f5a854f3d9b961bcd0976ad2a3bb70882dfd568f091b17aa4a
-    .agents/skills/why/references/sources.md: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+    .agents/skills/why/references/sources.md: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
     .agents/skills/why/references/synthesizer-prompt.md: sha256:a0248bac31a989d0205d0999d98807cf897319c8f19339a0031e32791cec5882
     .agents/skills/writing-changesets/SKILL.md: sha256:25ffc28337ec921b01d1129230c754ec8bd2f62aa60b4164179de06ced87db65
     .agents/skills/writing-documentation/SKILL.md: sha256:164a333c3f9548bfc0c876ce21efe39c1609f1c906dcc534a57b19c49d8a85b0
@@ -580,19 +619,25 @@ dependencies:
     .agents/skills/writing-documentation/references/style.md: sha256:3f219e4968a085c57153818552757394b902ecccd30b1a3ebd07840242462230
     .agents/skills/writing-documentation/references/tutorial.md: sha256:d734c0ff28e53d20877bbb18f7bc32146aa40e262b01c174f443a7b1bf27a26b
     .agents/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
-    .agents/skills/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+    .agents/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .agents/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-    .claude/skills/code-review/SKILL.md: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+    .claude/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .claude/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .claude/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
     .claude/skills/codebase-design/references/design-it-twice.md: sha256:e77160fe9ea6d4061c39a10b37ec4af3c2f7729a5f59206bb10d5ac3a81519dd
     .claude/skills/codebase-design/references/rationale.md: sha256:a5643deccc867782b0b0d5857f35cd796d1f4fd3d5736a940b21f47ceed7b19b
     .claude/skills/codebase-design/references/red-flags.md: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+    .claude/skills/coding-standards/SKILL.md: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
     .claude/skills/comment/SKILL.md: sha256:33a402e7c5388bec55271508a4c76df30d4f44e0b603e0e6bc2d0473efb48d32
     .claude/skills/consistency/SKILL.md: sha256:448bb51efeef4b80a1abd8cff0c14f9bdd472e4dd8759617a3acbebb48366f28
     .claude/skills/council-review/SKILL.md: sha256:0dbadae888172c91f808ad00c36571c0347e744ee7b98c5fab7aff1a98ca34c6
-    .claude/skills/design-context/SKILL.md: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
-    .claude/skills/design-review/SKILL.md: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+    .claude/skills/design-context/SKILL.md: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
+    .claude/skills/design-review/SKILL.md: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+    .claude/skills/design-ui/SKILL.md: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+    .claude/skills/design-ui/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+    .claude/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+    .claude/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+    .claude/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .claude/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .claude/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .claude/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -601,36 +646,34 @@ dependencies:
     .claude/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
     .claude/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
     .claude/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
-    .claude/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+    .claude/skills/housekeeping/SKILL.md: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
     .claude/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .claude/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
     .claude/skills/how/references/explorer-prompt.md: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
-    .claude/skills/interface-design/SKILL.md: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-    .claude/skills/interface-design/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-    .claude/skills/interface-design/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-    .claude/skills/interface-design/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-    .claude/skills/interface-design/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .claude/skills/issue/SKILL.md: sha256:485c58f2546428c0b8271d10294a332c43ef7137909e2696d2c75fb641410c19
-    .claude/skills/janitor/SKILL.md: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+    .claude/skills/janitor/SKILL.md: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
     .claude/skills/maintenance/SKILL.md: sha256:8ba32c7933b6e80623d3ee8d3844adf837ef0a6e1bb781acc6125908b36db8e0
     .claude/skills/modernize/SKILL.md: sha256:c899676536fc4d11f08d49ece9b7aa10333497078029ad0b3e96a23c8705592c
     .claude/skills/monitor/SKILL.md: sha256:1ecf808818765b2cf8b5d2f12e2038727fc0810c057bd5b30577366c38d19ab4
     .claude/skills/monitor/scripts/monitor-pr: sha256:3e0213851a736ffe220cde05e98ecc6472fcfefe89ad08c04cb0d5c43f1049dc
     .claude/skills/next-task/SKILL.md: sha256:3d3736337177e420e1d014ca21fc051711742420f77072fd3a61fdc91368a172
-    .claude/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+    .claude/skills/pr/SKILL.md: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
     .claude/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .claude/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .claude/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+    .claude/skills/retro/SKILL.md: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+    .claude/skills/retro/references/targets.md: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+    .claude/skills/sessions/SKILL.md: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+    .claude/skills/takeover/SKILL.md: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
     .claude/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .claude/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .claude/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
     .claude/skills/upload/SKILL.md: sha256:7971bcd71340dfe81ff8e38dcbdad86dd501294a38515102038a674fcb270782
     .claude/skills/upload/scripts/upload: sha256:e7ad4da1bbc11eb839643b8af2b140f43303ab01e9f0d7d75b20847cf969c224
     .claude/skills/what/SKILL.md: sha256:778ae2792593d260051db87d432ad213ce201c1c9146583a02cbd1a9b3efad41
-    .claude/skills/why/SKILL.md: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+    .claude/skills/why/SKILL.md: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
     .claude/skills/why/references/epistemics.md: sha256:824a482fb0882b8a2c67b95c4394380294aaafe054b9b073825dd7a408fe4d82
     .claude/skills/why/references/investigator-prompt.md: sha256:112b612a178c33f5a854f3d9b961bcd0976ad2a3bb70882dfd568f091b17aa4a
-    .claude/skills/why/references/sources.md: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+    .claude/skills/why/references/sources.md: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
     .claude/skills/why/references/synthesizer-prompt.md: sha256:a0248bac31a989d0205d0999d98807cf897319c8f19339a0031e32791cec5882
     .claude/skills/writing-changesets/SKILL.md: sha256:25ffc28337ec921b01d1129230c754ec8bd2f62aa60b4164179de06ced87db65
     .claude/skills/writing-documentation/SKILL.md: sha256:164a333c3f9548bfc0c876ce21efe39c1609f1c906dcc534a57b19c49d8a85b0
@@ -641,19 +684,25 @@ dependencies:
     .claude/skills/writing-documentation/references/style.md: sha256:3f219e4968a085c57153818552757394b902ecccd30b1a3ebd07840242462230
     .claude/skills/writing-documentation/references/tutorial.md: sha256:d734c0ff28e53d20877bbb18f7bc32146aa40e262b01c174f443a7b1bf27a26b
     .claude/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
-    .claude/skills/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+    .claude/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .claude/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-    .config/opencode/skills/code-review/SKILL.md: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+    .config/opencode/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .config/opencode/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .config/opencode/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
     .config/opencode/skills/codebase-design/references/design-it-twice.md: sha256:e77160fe9ea6d4061c39a10b37ec4af3c2f7729a5f59206bb10d5ac3a81519dd
     .config/opencode/skills/codebase-design/references/rationale.md: sha256:a5643deccc867782b0b0d5857f35cd796d1f4fd3d5736a940b21f47ceed7b19b
     .config/opencode/skills/codebase-design/references/red-flags.md: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+    .config/opencode/skills/coding-standards/SKILL.md: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
     .config/opencode/skills/comment/SKILL.md: sha256:33a402e7c5388bec55271508a4c76df30d4f44e0b603e0e6bc2d0473efb48d32
     .config/opencode/skills/consistency/SKILL.md: sha256:448bb51efeef4b80a1abd8cff0c14f9bdd472e4dd8759617a3acbebb48366f28
     .config/opencode/skills/council-review/SKILL.md: sha256:0dbadae888172c91f808ad00c36571c0347e744ee7b98c5fab7aff1a98ca34c6
-    .config/opencode/skills/design-context/SKILL.md: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
-    .config/opencode/skills/design-review/SKILL.md: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+    .config/opencode/skills/design-context/SKILL.md: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
+    .config/opencode/skills/design-review/SKILL.md: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+    .config/opencode/skills/design-ui/SKILL.md: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+    .config/opencode/skills/design-ui/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+    .config/opencode/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+    .config/opencode/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+    .config/opencode/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .config/opencode/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .config/opencode/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .config/opencode/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -662,36 +711,34 @@ dependencies:
     .config/opencode/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
     .config/opencode/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
     .config/opencode/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
-    .config/opencode/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+    .config/opencode/skills/housekeeping/SKILL.md: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
     .config/opencode/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .config/opencode/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
     .config/opencode/skills/how/references/explorer-prompt.md: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
-    .config/opencode/skills/interface-design/SKILL.md: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-    .config/opencode/skills/interface-design/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-    .config/opencode/skills/interface-design/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-    .config/opencode/skills/interface-design/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-    .config/opencode/skills/interface-design/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .config/opencode/skills/issue/SKILL.md: sha256:485c58f2546428c0b8271d10294a332c43ef7137909e2696d2c75fb641410c19
-    .config/opencode/skills/janitor/SKILL.md: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+    .config/opencode/skills/janitor/SKILL.md: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
     .config/opencode/skills/maintenance/SKILL.md: sha256:8ba32c7933b6e80623d3ee8d3844adf837ef0a6e1bb781acc6125908b36db8e0
     .config/opencode/skills/modernize/SKILL.md: sha256:c899676536fc4d11f08d49ece9b7aa10333497078029ad0b3e96a23c8705592c
     .config/opencode/skills/monitor/SKILL.md: sha256:1ecf808818765b2cf8b5d2f12e2038727fc0810c057bd5b30577366c38d19ab4
     .config/opencode/skills/monitor/scripts/monitor-pr: sha256:3e0213851a736ffe220cde05e98ecc6472fcfefe89ad08c04cb0d5c43f1049dc
     .config/opencode/skills/next-task/SKILL.md: sha256:3d3736337177e420e1d014ca21fc051711742420f77072fd3a61fdc91368a172
-    .config/opencode/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+    .config/opencode/skills/pr/SKILL.md: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
     .config/opencode/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .config/opencode/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .config/opencode/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+    .config/opencode/skills/retro/SKILL.md: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+    .config/opencode/skills/retro/references/targets.md: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+    .config/opencode/skills/sessions/SKILL.md: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+    .config/opencode/skills/takeover/SKILL.md: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
     .config/opencode/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .config/opencode/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .config/opencode/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
     .config/opencode/skills/upload/SKILL.md: sha256:7971bcd71340dfe81ff8e38dcbdad86dd501294a38515102038a674fcb270782
     .config/opencode/skills/upload/scripts/upload: sha256:e7ad4da1bbc11eb839643b8af2b140f43303ab01e9f0d7d75b20847cf969c224
     .config/opencode/skills/what/SKILL.md: sha256:778ae2792593d260051db87d432ad213ce201c1c9146583a02cbd1a9b3efad41
-    .config/opencode/skills/why/SKILL.md: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+    .config/opencode/skills/why/SKILL.md: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
     .config/opencode/skills/why/references/epistemics.md: sha256:824a482fb0882b8a2c67b95c4394380294aaafe054b9b073825dd7a408fe4d82
     .config/opencode/skills/why/references/investigator-prompt.md: sha256:112b612a178c33f5a854f3d9b961bcd0976ad2a3bb70882dfd568f091b17aa4a
-    .config/opencode/skills/why/references/sources.md: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+    .config/opencode/skills/why/references/sources.md: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
     .config/opencode/skills/why/references/synthesizer-prompt.md: sha256:a0248bac31a989d0205d0999d98807cf897319c8f19339a0031e32791cec5882
     .config/opencode/skills/writing-changesets/SKILL.md: sha256:25ffc28337ec921b01d1129230c754ec8bd2f62aa60b4164179de06ced87db65
     .config/opencode/skills/writing-documentation/SKILL.md: sha256:164a333c3f9548bfc0c876ce21efe39c1609f1c906dcc534a57b19c49d8a85b0
@@ -702,19 +749,25 @@ dependencies:
     .config/opencode/skills/writing-documentation/references/style.md: sha256:3f219e4968a085c57153818552757394b902ecccd30b1a3ebd07840242462230
     .config/opencode/skills/writing-documentation/references/tutorial.md: sha256:d734c0ff28e53d20877bbb18f7bc32146aa40e262b01c174f443a7b1bf27a26b
     .config/opencode/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
-    .config/opencode/skills/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+    .config/opencode/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .config/opencode/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-    .grok/skills/code-review/SKILL.md: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+    .grok/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .grok/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .grok/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
     .grok/skills/codebase-design/references/design-it-twice.md: sha256:e77160fe9ea6d4061c39a10b37ec4af3c2f7729a5f59206bb10d5ac3a81519dd
     .grok/skills/codebase-design/references/rationale.md: sha256:a5643deccc867782b0b0d5857f35cd796d1f4fd3d5736a940b21f47ceed7b19b
     .grok/skills/codebase-design/references/red-flags.md: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+    .grok/skills/coding-standards/SKILL.md: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
     .grok/skills/comment/SKILL.md: sha256:33a402e7c5388bec55271508a4c76df30d4f44e0b603e0e6bc2d0473efb48d32
     .grok/skills/consistency/SKILL.md: sha256:448bb51efeef4b80a1abd8cff0c14f9bdd472e4dd8759617a3acbebb48366f28
     .grok/skills/council-review/SKILL.md: sha256:0dbadae888172c91f808ad00c36571c0347e744ee7b98c5fab7aff1a98ca34c6
-    .grok/skills/design-context/SKILL.md: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
-    .grok/skills/design-review/SKILL.md: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+    .grok/skills/design-context/SKILL.md: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
+    .grok/skills/design-review/SKILL.md: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+    .grok/skills/design-ui/SKILL.md: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+    .grok/skills/design-ui/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+    .grok/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+    .grok/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+    .grok/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .grok/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .grok/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .grok/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -723,36 +776,34 @@ dependencies:
     .grok/skills/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
     .grok/skills/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
     .grok/skills/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
-    .grok/skills/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+    .grok/skills/housekeeping/SKILL.md: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
     .grok/skills/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     .grok/skills/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
     .grok/skills/how/references/explorer-prompt.md: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
-    .grok/skills/interface-design/SKILL.md: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-    .grok/skills/interface-design/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-    .grok/skills/interface-design/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-    .grok/skills/interface-design/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-    .grok/skills/interface-design/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     .grok/skills/issue/SKILL.md: sha256:485c58f2546428c0b8271d10294a332c43ef7137909e2696d2c75fb641410c19
-    .grok/skills/janitor/SKILL.md: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+    .grok/skills/janitor/SKILL.md: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
     .grok/skills/maintenance/SKILL.md: sha256:8ba32c7933b6e80623d3ee8d3844adf837ef0a6e1bb781acc6125908b36db8e0
     .grok/skills/modernize/SKILL.md: sha256:c899676536fc4d11f08d49ece9b7aa10333497078029ad0b3e96a23c8705592c
     .grok/skills/monitor/SKILL.md: sha256:1ecf808818765b2cf8b5d2f12e2038727fc0810c057bd5b30577366c38d19ab4
     .grok/skills/monitor/scripts/monitor-pr: sha256:3e0213851a736ffe220cde05e98ecc6472fcfefe89ad08c04cb0d5c43f1049dc
     .grok/skills/next-task/SKILL.md: sha256:3d3736337177e420e1d014ca21fc051711742420f77072fd3a61fdc91368a172
-    .grok/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+    .grok/skills/pr/SKILL.md: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
     .grok/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .grok/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .grok/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+    .grok/skills/retro/SKILL.md: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+    .grok/skills/retro/references/targets.md: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+    .grok/skills/sessions/SKILL.md: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+    .grok/skills/takeover/SKILL.md: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
     .grok/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .grok/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .grok/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
     .grok/skills/upload/SKILL.md: sha256:7971bcd71340dfe81ff8e38dcbdad86dd501294a38515102038a674fcb270782
     .grok/skills/upload/scripts/upload: sha256:e7ad4da1bbc11eb839643b8af2b140f43303ab01e9f0d7d75b20847cf969c224
     .grok/skills/what/SKILL.md: sha256:778ae2792593d260051db87d432ad213ce201c1c9146583a02cbd1a9b3efad41
-    .grok/skills/why/SKILL.md: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+    .grok/skills/why/SKILL.md: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
     .grok/skills/why/references/epistemics.md: sha256:824a482fb0882b8a2c67b95c4394380294aaafe054b9b073825dd7a408fe4d82
     .grok/skills/why/references/investigator-prompt.md: sha256:112b612a178c33f5a854f3d9b961bcd0976ad2a3bb70882dfd568f091b17aa4a
-    .grok/skills/why/references/sources.md: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+    .grok/skills/why/references/sources.md: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
     .grok/skills/why/references/synthesizer-prompt.md: sha256:a0248bac31a989d0205d0999d98807cf897319c8f19339a0031e32791cec5882
     .grok/skills/writing-changesets/SKILL.md: sha256:25ffc28337ec921b01d1129230c754ec8bd2f62aa60b4164179de06ced87db65
     .grok/skills/writing-documentation/SKILL.md: sha256:164a333c3f9548bfc0c876ce21efe39c1609f1c906dcc534a57b19c49d8a85b0
@@ -763,19 +814,25 @@ dependencies:
     .grok/skills/writing-documentation/references/style.md: sha256:3f219e4968a085c57153818552757394b902ecccd30b1a3ebd07840242462230
     .grok/skills/writing-documentation/references/tutorial.md: sha256:d734c0ff28e53d20877bbb18f7bc32146aa40e262b01c174f443a7b1bf27a26b
     .grok/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
-    .grok/skills/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+    .grok/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .grok/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-    agent-data/workflows/code-review/SKILL.md: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+    agent-data/workflows/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     agent-data/workflows/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     agent-data/workflows/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
     agent-data/workflows/codebase-design/references/design-it-twice.md: sha256:e77160fe9ea6d4061c39a10b37ec4af3c2f7729a5f59206bb10d5ac3a81519dd
     agent-data/workflows/codebase-design/references/rationale.md: sha256:a5643deccc867782b0b0d5857f35cd796d1f4fd3d5736a940b21f47ceed7b19b
     agent-data/workflows/codebase-design/references/red-flags.md: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+    agent-data/workflows/coding-standards/SKILL.md: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
     agent-data/workflows/comment/SKILL.md: sha256:33a402e7c5388bec55271508a4c76df30d4f44e0b603e0e6bc2d0473efb48d32
     agent-data/workflows/consistency/SKILL.md: sha256:448bb51efeef4b80a1abd8cff0c14f9bdd472e4dd8759617a3acbebb48366f28
     agent-data/workflows/council-review/SKILL.md: sha256:0dbadae888172c91f808ad00c36571c0347e744ee7b98c5fab7aff1a98ca34c6
-    agent-data/workflows/design-context/SKILL.md: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
-    agent-data/workflows/design-review/SKILL.md: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+    agent-data/workflows/design-context/SKILL.md: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
+    agent-data/workflows/design-review/SKILL.md: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+    agent-data/workflows/design-ui/SKILL.md: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+    agent-data/workflows/design-ui/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+    agent-data/workflows/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+    agent-data/workflows/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+    agent-data/workflows/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     agent-data/workflows/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     agent-data/workflows/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     agent-data/workflows/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -784,36 +841,34 @@ dependencies:
     agent-data/workflows/hillclimb/SKILL.md: sha256:cbc67dd760011706ea5a4ecc41a7cc0827bfc4ddc2ba6c05582b500cac1ac23f
     agent-data/workflows/hillclimb/references/find-the-hill.md: sha256:ed6da021d56eb0b6402987990c500bc5df36bdbcc7533d4d21e9c6a76225272e
     agent-data/workflows/hillclimb/references/judged-scores.md: sha256:0087d951bb2079897c3b545538517f55b60f525b032445845078600967f0f4f1
-    agent-data/workflows/housekeeping/SKILL.md: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+    agent-data/workflows/housekeeping/SKILL.md: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
     agent-data/workflows/how/SKILL.md: sha256:e154d4d0d2a8eeeaf6d835c9377295e62565a5c2d2da63c8ec2e8ad35b68f98e
     agent-data/workflows/how/references/explainer-prompt.md: sha256:13d6c259e74a74017c79ef61010b5fea738e1eb87965a9882545d0145a7bed4a
     agent-data/workflows/how/references/explorer-prompt.md: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
-    agent-data/workflows/interface-design/SKILL.md: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-    agent-data/workflows/interface-design/references/app-screens.md: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-    agent-data/workflows/interface-design/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-    agent-data/workflows/interface-design/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-    agent-data/workflows/interface-design/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
     agent-data/workflows/issue/SKILL.md: sha256:485c58f2546428c0b8271d10294a332c43ef7137909e2696d2c75fb641410c19
-    agent-data/workflows/janitor/SKILL.md: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+    agent-data/workflows/janitor/SKILL.md: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
     agent-data/workflows/maintenance/SKILL.md: sha256:8ba32c7933b6e80623d3ee8d3844adf837ef0a6e1bb781acc6125908b36db8e0
     agent-data/workflows/modernize/SKILL.md: sha256:c899676536fc4d11f08d49ece9b7aa10333497078029ad0b3e96a23c8705592c
     agent-data/workflows/monitor/SKILL.md: sha256:1ecf808818765b2cf8b5d2f12e2038727fc0810c057bd5b30577366c38d19ab4
     agent-data/workflows/monitor/scripts/monitor-pr: sha256:3e0213851a736ffe220cde05e98ecc6472fcfefe89ad08c04cb0d5c43f1049dc
     agent-data/workflows/next-task/SKILL.md: sha256:3d3736337177e420e1d014ca21fc051711742420f77072fd3a61fdc91368a172
-    agent-data/workflows/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+    agent-data/workflows/pr/SKILL.md: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
     agent-data/workflows/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     agent-data/workflows/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    agent-data/workflows/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+    agent-data/workflows/retro/SKILL.md: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+    agent-data/workflows/retro/references/targets.md: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+    agent-data/workflows/sessions/SKILL.md: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+    agent-data/workflows/takeover/SKILL.md: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
     agent-data/workflows/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     agent-data/workflows/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     agent-data/workflows/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
     agent-data/workflows/upload/SKILL.md: sha256:7971bcd71340dfe81ff8e38dcbdad86dd501294a38515102038a674fcb270782
     agent-data/workflows/upload/scripts/upload: sha256:e7ad4da1bbc11eb839643b8af2b140f43303ab01e9f0d7d75b20847cf969c224
     agent-data/workflows/what/SKILL.md: sha256:778ae2792593d260051db87d432ad213ce201c1c9146583a02cbd1a9b3efad41
-    agent-data/workflows/why/SKILL.md: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+    agent-data/workflows/why/SKILL.md: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
     agent-data/workflows/why/references/epistemics.md: sha256:824a482fb0882b8a2c67b95c4394380294aaafe054b9b073825dd7a408fe4d82
     agent-data/workflows/why/references/investigator-prompt.md: sha256:112b612a178c33f5a854f3d9b961bcd0976ad2a3bb70882dfd568f091b17aa4a
-    agent-data/workflows/why/references/sources.md: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+    agent-data/workflows/why/references/sources.md: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
     agent-data/workflows/why/references/synthesizer-prompt.md: sha256:a0248bac31a989d0205d0999d98807cf897319c8f19339a0031e32791cec5882
     agent-data/workflows/writing-changesets/SKILL.md: sha256:25ffc28337ec921b01d1129230c754ec8bd2f62aa60b4164179de06ced87db65
     agent-data/workflows/writing-documentation/SKILL.md: sha256:164a333c3f9548bfc0c876ce21efe39c1609f1c906dcc534a57b19c49d8a85b0
@@ -824,24 +879,25 @@ dependencies:
     agent-data/workflows/writing-documentation/references/style.md: sha256:3f219e4968a085c57153818552757394b902ecccd30b1a3ebd07840242462230
     agent-data/workflows/writing-documentation/references/tutorial.md: sha256:d734c0ff28e53d20877bbb18f7bc32146aa40e262b01c174f443a7b1bf27a26b
     agent-data/workflows/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
-    agent-data/workflows/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+    agent-data/workflows/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     agent-data/workflows/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-  content_hash: sha256:bb5318ce2c72f304f456630ae81b13ef20362e5efca6ff833cd821ac89ae5e43
+  content_hash: sha256:0200aa1b0d5ef3539d47d477532a8bbeaaf6eaf6518ae76c2fa8a047ebe9ce7e
   skill_subset:
   - code-review
   - codebase-design
+  - coding-standards
   - comment
   - consistency
   - council-review
   - design-context
   - design-review
+  - design-ui
   - full-send
   - full-stop
   - harden-ui
   - hillclimb
   - housekeeping
   - how
-  - interface-design
   - issue
   - janitor
   - maintenance
@@ -851,6 +907,8 @@ dependencies:
   - pr
   - refresh
   - restraint
+  - retro
+  - sessions
   - takeover
   - test-pruning
   - testing
@@ -1078,7 +1136,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+  content_hash: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
 - kind: project-relative
   target: claude
   value: .claude/skills/codebase-design
@@ -1133,6 +1191,24 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coding-standards
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coding-standards/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
 - kind: project-relative
   target: claude
   value: .claude/skills/comment
@@ -1204,7 +1280,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
+  content_hash: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
 - kind: project-relative
   target: claude
   value: .claude/skills/design-review
@@ -1222,7 +1298,61 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+  content_hash: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui/references/app-screens.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui/references/craft.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui/references/motion.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+- kind: project-relative
+  target: claude
+  value: .claude/skills/design-ui/references/tells.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
 - kind: project-relative
   target: claude
   value: .claude/skills/domain-modeling
@@ -1447,7 +1577,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+  content_hash: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
 - kind: project-relative
   target: claude
   value: .claude/skills/how
@@ -1486,60 +1616,6 @@ deployments:
   content_hash: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
 - kind: project-relative
   target: claude
-  value: .claude/skills/interface-design
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: null
-- kind: project-relative
-  target: claude
-  value: .claude/skills/interface-design/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-- kind: project-relative
-  target: claude
-  value: .claude/skills/interface-design/references/app-screens.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-- kind: project-relative
-  target: claude
-  value: .claude/skills/interface-design/references/craft.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-- kind: project-relative
-  target: claude
-  value: .claude/skills/interface-design/references/motion.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-- kind: project-relative
-  target: claude
-  value: .claude/skills/interface-design/references/tells.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
-- kind: project-relative
-  target: claude
   value: .claude/skills/issue
   runtime: null
   scope: project
@@ -1573,7 +1649,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+  content_hash: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
 - kind: project-relative
   target: claude
   value: .claude/skills/maintenance
@@ -1672,7 +1748,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+  content_hash: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
 - kind: project-relative
   target: claude
   value: .claude/skills/refresh
@@ -1711,6 +1787,51 @@ deployments:
   content_hash: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
 - kind: project-relative
   target: claude
+  value: .claude/skills/retro
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retro/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retro/references/targets.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+- kind: project-relative
+  target: claude
+  value: .claude/skills/sessions
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/sessions/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+- kind: project-relative
+  target: claude
   value: .claude/skills/takeover
   runtime: null
   scope: project
@@ -1726,7 +1847,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+  content_hash: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
 - kind: project-relative
   target: claude
   value: .claude/skills/test-pruning
@@ -1870,7 +1991,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+  content_hash: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
 - kind: project-relative
   target: claude
   value: .claude/skills/why/references/epistemics.md
@@ -1897,7 +2018,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+  content_hash: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
 - kind: project-relative
   target: claude
   value: .claude/skills/why/references/synthesizer-prompt.md
@@ -2023,7 +2144,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+  content_hash: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
 - kind: project-relative
   target: claude
   value: .claude/skills/writing-for-humans
@@ -2059,7 +2180,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+  content_hash: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
 - kind: project-relative
   target: codex
   value: .agents/skills/codebase-design
@@ -2114,6 +2235,24 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+- kind: project-relative
+  target: codex
+  value: .agents/skills/coding-standards
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/coding-standards/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
 - kind: project-relative
   target: codex
   value: .agents/skills/comment
@@ -2185,7 +2324,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
+  content_hash: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
 - kind: project-relative
   target: codex
   value: .agents/skills/design-review
@@ -2203,7 +2342,61 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+  content_hash: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui/references/app-screens.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui/references/craft.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui/references/motion.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+- kind: project-relative
+  target: codex
+  value: .agents/skills/design-ui/references/tells.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
 - kind: project-relative
   target: codex
   value: .agents/skills/domain-modeling
@@ -2428,7 +2621,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+  content_hash: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
 - kind: project-relative
   target: codex
   value: .agents/skills/how
@@ -2467,60 +2660,6 @@ deployments:
   content_hash: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
 - kind: project-relative
   target: codex
-  value: .agents/skills/interface-design
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: null
-- kind: project-relative
-  target: codex
-  value: .agents/skills/interface-design/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-- kind: project-relative
-  target: codex
-  value: .agents/skills/interface-design/references/app-screens.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-- kind: project-relative
-  target: codex
-  value: .agents/skills/interface-design/references/craft.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-- kind: project-relative
-  target: codex
-  value: .agents/skills/interface-design/references/motion.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-- kind: project-relative
-  target: codex
-  value: .agents/skills/interface-design/references/tells.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
-- kind: project-relative
-  target: codex
   value: .agents/skills/issue
   runtime: null
   scope: project
@@ -2554,7 +2693,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+  content_hash: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
 - kind: project-relative
   target: codex
   value: .agents/skills/maintenance
@@ -2653,7 +2792,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+  content_hash: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
 - kind: project-relative
   target: codex
   value: .agents/skills/refresh
@@ -2692,6 +2831,51 @@ deployments:
   content_hash: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
 - kind: project-relative
   target: codex
+  value: .agents/skills/retro
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/retro/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+- kind: project-relative
+  target: codex
+  value: .agents/skills/retro/references/targets.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+- kind: project-relative
+  target: codex
+  value: .agents/skills/sessions
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/sessions/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+- kind: project-relative
+  target: codex
   value: .agents/skills/takeover
   runtime: null
   scope: project
@@ -2707,7 +2891,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+  content_hash: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
 - kind: project-relative
   target: codex
   value: .agents/skills/test-pruning
@@ -2851,7 +3035,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+  content_hash: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
 - kind: project-relative
   target: codex
   value: .agents/skills/why/references/epistemics.md
@@ -2878,7 +3062,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+  content_hash: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
 - kind: project-relative
   target: codex
   value: .agents/skills/why/references/synthesizer-prompt.md
@@ -3004,7 +3188,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+  content_hash: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
 - kind: project-relative
   target: codex
   value: .agents/skills/writing-for-humans
@@ -3040,7 +3224,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+  content_hash: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/codebase-design
@@ -3095,6 +3279,24 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/coding-standards
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/coding-standards/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/comment
@@ -3166,7 +3368,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
+  content_hash: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/design-review
@@ -3184,7 +3386,61 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+  content_hash: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui/references/app-screens.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui/references/craft.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui/references/motion.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/design-ui/references/tells.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/domain-modeling
@@ -3409,7 +3665,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+  content_hash: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/how
@@ -3448,60 +3704,6 @@ deployments:
   content_hash: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
 - kind: project-relative
   target: grok-bot
-  value: agent-data/workflows/interface-design
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: null
-- kind: project-relative
-  target: grok-bot
-  value: agent-data/workflows/interface-design/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-- kind: project-relative
-  target: grok-bot
-  value: agent-data/workflows/interface-design/references/app-screens.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-- kind: project-relative
-  target: grok-bot
-  value: agent-data/workflows/interface-design/references/craft.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-- kind: project-relative
-  target: grok-bot
-  value: agent-data/workflows/interface-design/references/motion.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-- kind: project-relative
-  target: grok-bot
-  value: agent-data/workflows/interface-design/references/tells.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
-- kind: project-relative
-  target: grok-bot
   value: agent-data/workflows/issue
   runtime: null
   scope: project
@@ -3535,7 +3737,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+  content_hash: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/maintenance
@@ -3634,7 +3836,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+  content_hash: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/refresh
@@ -3673,6 +3875,51 @@ deployments:
   content_hash: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
 - kind: project-relative
   target: grok-bot
+  value: agent-data/workflows/retro
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/retro/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/retro/references/targets.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/sessions
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/sessions/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+- kind: project-relative
+  target: grok-bot
   value: agent-data/workflows/takeover
   runtime: null
   scope: project
@@ -3688,7 +3935,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+  content_hash: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/test-pruning
@@ -3832,7 +4079,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+  content_hash: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/why/references/epistemics.md
@@ -3859,7 +4106,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+  content_hash: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/why/references/synthesizer-prompt.md
@@ -3985,7 +4232,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+  content_hash: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/writing-for-humans
@@ -4084,7 +4331,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+  content_hash: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
 - kind: project-relative
   target: grok-build
   value: .grok/skills/codebase-design
@@ -4139,6 +4386,24 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/coding-standards
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/coding-standards/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
 - kind: project-relative
   target: grok-build
   value: .grok/skills/comment
@@ -4210,7 +4475,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
+  content_hash: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
 - kind: project-relative
   target: grok-build
   value: .grok/skills/design-review
@@ -4228,7 +4493,61 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+  content_hash: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui/references/app-screens.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui/references/craft.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui/references/motion.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/design-ui/references/tells.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
 - kind: project-relative
   target: grok-build
   value: .grok/skills/domain-modeling
@@ -4453,7 +4772,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+  content_hash: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
 - kind: project-relative
   target: grok-build
   value: .grok/skills/how
@@ -4492,60 +4811,6 @@ deployments:
   content_hash: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
 - kind: project-relative
   target: grok-build
-  value: .grok/skills/interface-design
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: null
-- kind: project-relative
-  target: grok-build
-  value: .grok/skills/interface-design/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-- kind: project-relative
-  target: grok-build
-  value: .grok/skills/interface-design/references/app-screens.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-- kind: project-relative
-  target: grok-build
-  value: .grok/skills/interface-design/references/craft.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-- kind: project-relative
-  target: grok-build
-  value: .grok/skills/interface-design/references/motion.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-- kind: project-relative
-  target: grok-build
-  value: .grok/skills/interface-design/references/tells.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
-- kind: project-relative
-  target: grok-build
   value: .grok/skills/issue
   runtime: null
   scope: project
@@ -4579,7 +4844,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+  content_hash: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
 - kind: project-relative
   target: grok-build
   value: .grok/skills/maintenance
@@ -4678,7 +4943,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+  content_hash: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
 - kind: project-relative
   target: grok-build
   value: .grok/skills/refresh
@@ -4717,6 +4982,51 @@ deployments:
   content_hash: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
 - kind: project-relative
   target: grok-build
+  value: .grok/skills/retro
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/retro/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/retro/references/targets.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/sessions
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/sessions/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+- kind: project-relative
+  target: grok-build
   value: .grok/skills/takeover
   runtime: null
   scope: project
@@ -4732,7 +5042,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+  content_hash: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
 - kind: project-relative
   target: grok-build
   value: .grok/skills/test-pruning
@@ -4876,7 +5186,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+  content_hash: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
 - kind: project-relative
   target: grok-build
   value: .grok/skills/why/references/epistemics.md
@@ -4903,7 +5213,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+  content_hash: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
 - kind: project-relative
   target: grok-build
   value: .grok/skills/why/references/synthesizer-prompt.md
@@ -5029,7 +5339,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+  content_hash: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
 - kind: project-relative
   target: grok-build
   value: .grok/skills/writing-for-humans
@@ -5137,7 +5447,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:ffdc6bf6775e46d36efe9f4d18d2e0d282f813fe282c9d7c0d2d527913022a15
+  content_hash: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/codebase-design
@@ -5192,6 +5502,24 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:f248a624bad1204353fd6efc002c119f808c9f1bc427a3ed680cbb908872569c
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/coding-standards
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/coding-standards/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:260a14ec02f41c1a3b7fbe07d7f3c06495677a87c9e442edbfb50f385f2f9332
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/comment
@@ -5263,7 +5591,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:333a3aee0b7e9903cab43f338dcc7fa1934bf1c27547e066956208b6fa283cbf
+  content_hash: sha256:61cfb91cf1b6a1d345e240ac00993ed98c96c256a382c8e1869e5717cdded780
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/design-review
@@ -5281,7 +5609,61 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:f8bb8b3ac2401b8be94b619c7f52a5cb701c39702951ffa739af26d9261de372
+  content_hash: sha256:a94b805b3fe62f820a3e95bdb24b6da50bb853e089460c557dc305266b47a1af
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:76e1b8d1e4d059a630e0819f3756d7d08c8ae1897210528f9cfe2dda028d9bba
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui/references/app-screens.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui/references/craft.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui/references/motion.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/design-ui/references/tells.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/domain-modeling
@@ -5506,7 +5888,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:895a08880487e7e4993b3181e9d3f6f1211c2bf282e0e4607a39fc08b54d3f99
+  content_hash: sha256:28a19d400c333ca28f8ea5129e0c7e50414e6bc4172526dd3397737ce4abd47a
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/how
@@ -5545,60 +5927,6 @@ deployments:
   content_hash: sha256:92160263784a87f6391184062ddda7119a8cd84e1a1661299ca9fade27adb43e
 - kind: project-relative
   target: opencode
-  value: .config/opencode/skills/interface-design
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: null
-- kind: project-relative
-  target: opencode
-  value: .config/opencode/skills/interface-design/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f206040964379f3eca051dd721c6b29c5f7a2bb4bbf8a3abc63716ac9704b2cf
-- kind: project-relative
-  target: opencode
-  value: .config/opencode/skills/interface-design/references/app-screens.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:b90ebfb3b747e75037e4edf5bfe835f9f7ce96cfe4a023f514cf5cd3296b52c0
-- kind: project-relative
-  target: opencode
-  value: .config/opencode/skills/interface-design/references/craft.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
-- kind: project-relative
-  target: opencode
-  value: .config/opencode/skills/interface-design/references/motion.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
-- kind: project-relative
-  target: opencode
-  value: .config/opencode/skills/interface-design/references/tells.md
-  runtime: null
-  scope: project
-  owners:
-  - adelrodriguez/skills
-  active_owner: adelrodriguez/skills
-  content_hash: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
-- kind: project-relative
-  target: opencode
   value: .config/opencode/skills/issue
   runtime: null
   scope: project
@@ -5632,7 +5960,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:17c845e80ef72eec47c6f7031a5ef040daddf4cce46d876a49ea1101109a9d45
+  content_hash: sha256:c3297572875ab3fd1e297f074576e2a6b7f324f7b672b18fd1e5ec40a687c004
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/maintenance
@@ -5731,7 +6059,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
+  content_hash: sha256:2c705ef4ca4d1c237b1836aad712690d4f9416f909cc78fd6c475c1b276e9423
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/refresh
@@ -5770,6 +6098,51 @@ deployments:
   content_hash: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
 - kind: project-relative
   target: opencode
+  value: .config/opencode/skills/retro
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/retro/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:9813872c022823dc802e687d7c10936491a13bdc30e74ec25dddb1fe78d9dea1
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/retro/references/targets.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:b1766c3368600a6657e628e10cfde904412bd0fc68a1b0a523d05e5251ba59bb
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/sessions
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/sessions/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c2a26a2f1b3d5554a710911f838dc21f5d2387c2cfbebcd9ace433223cb361fb
+- kind: project-relative
+  target: opencode
   value: .config/opencode/skills/takeover
   runtime: null
   scope: project
@@ -5785,7 +6158,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
+  content_hash: sha256:4bccf2fec4f1b5c4e12c16daf1d2e16e6b3e5453851ec6859fd9849b92d53fc0
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/test-pruning
@@ -5929,7 +6302,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:bf2fff6e3a6c7b62e51f0220d23534c25a3be0898ea79255b7d2a1ee55ff9ba3
+  content_hash: sha256:f734a7199d3620d6c23470ef1e15c540dc749d10c3e1aa9f534e33311a2916dd
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/why/references/epistemics.md
@@ -5956,7 +6329,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:c84de0f0e186f626778aa68c4a1e48e8c1749f297dd0218ba89d6ec3913cd431
+  content_hash: sha256:6809c388823452b0425ad9d4f2c03f781cc524c6e57c9535fcdf9715cfdc57dc
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/why/references/synthesizer-prompt.md
@@ -6082,7 +6455,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
+  content_hash: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/writing-for-humans

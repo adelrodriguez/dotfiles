@@ -20,18 +20,19 @@ dependencies:
       skills:
         - code-review
         - codebase-design
+        - coding-standards
         - comment
         - consistency
         - council-review
         - design-context
         - design-review
+        - design-ui
         - full-send
         - full-stop
         - harden-ui
         - hillclimb
         - housekeeping
         - how
-        - interface-design
         - issue
         - janitor
         - maintenance
@@ -41,6 +42,8 @@ dependencies:
         - pr
         - refresh
         - restraint
+        - retro
+        - sessions
         - takeover
         - test-pruning
         - testing
