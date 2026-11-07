@@ -42,3 +42,13 @@ The harness checked unchanged account profiles and an inherited custom Nix state
 A separate run exercised `scripts/apply.sh homelab` with the disposable VM account and checkout declared as its machine identity. The apply and runtime installers passed. OpenCode, T3, and Process Compose were enabled and active, their running environments matched the host runtime, and the OpenCode and T3 web roots returned HTTP 200 on loopback. This run used fresh application data, not homelab's existing databases or private route.
 
 The Mac fixture suite passed. The complete nix-darwin system derivation evaluated on the Linux test host. Mac package builds and the generated Homebrew inventory are checked by the Mac CI job. Root-level nix-darwin activation, the homelab private Caddy route, private credentials, and existing application databases remain deployment checks. Neither live machine was changed during this replacement.
+
+## Runtime regression checks
+
+The installed-state checker now observes the caller's PATH instead of replacing it with the declared runtime. Regression fixtures reject shadowed Nix, npm, and vendor commands, including a PATH missing the declared Node. The host test also invokes the doctor through fresh fish and zsh shells and from an fnm project. Service environments are still compared with the declared default runtime.
+
+Additional migration checks cover a Fish directory linked into the old checkout, preservation of unrelated local functions, repeated handoff, and rejection of foreign directory links. The Fish environment check seeds both an inherited global and an exported universal `CODEX_HOME`, then verifies that both the current shell and a new shell have no custom home. These fixtures failed before the fixes and pass afterward on the Mac.
+
+A probe using the evaluated Mac runtime and conflicting provider fixtures selected Homebrew Fish before the fix. After moving the Home Manager profile ahead of Homebrew, the same probe selected Nix Fish while retaining Homebrew pnpm ahead of an old npm-global copy.
+
+The complete Ubuntu host run passed again with these fixes, including doctor checks from fresh fish and zsh shells and from the fnm project. The regression suite also passed using the pinned Linux tool environment. Mac system activation and the new Mac CI result remain unverified at this point.

@@ -41,7 +41,7 @@ Nix inputs change only when `flake.lock` changes. Homebrew packages follow their
 
 ## Runtime and writable state
 
-Each host generates `~/.config/agents/runtime.path`. Fish, zsh, installers, and Linux services use that order. Nix owns the default Node. fnm owns project versions. Mac pnpm resolves to `/opt/homebrew/bin/pnpm`, ahead of old npm-global installations. Homelab uses Nix pnpm and excludes old Linuxbrew directories.
+Each host generates `~/.config/agents/runtime.path`. Fish, zsh, installers, and Linux services use that order. Nix owns the default Node. fnm owns project versions. The Mac Home Manager profile precedes Homebrew for Nix-owned tools. Homebrew pnpm resolves to `/opt/homebrew/bin/pnpm`, ahead of old npm-global installations. Homelab uses Nix pnpm and excludes old Linuxbrew directories.
 
 Home Manager replaces GNU Stow. It links individual files into real directories, leaving private and generated files writable. The migration backs up conflicting files under `~/.local/state/dotfiles/backups/` before activation. `~/.gitconfig` remains a regular local file with a managed include. Grok's completion remains a regular copy because its updater rewrites it.
 
@@ -51,8 +51,8 @@ APM owns `~/.apm`, generated agent files, and shared skills. These remain outsid
 
 ## Verification
 
-`bash tests/check.sh` checks migration behavior, APM workflows, environment loaders, fish limits, and Grok completion. `python3 tests/hosts.py --runtime` activates the complete host Home Manager configuration in a temporary home, installs that host's declared runtime packages, and checks executable providers. The Mac run also builds the full nix-darwin system and installs its generated Brewfile. CI runs both Ubuntu 24.04 x86_64 and macOS 15 arm64.
+`bash tests/check.sh` checks migration behavior, observed executable providers, Fish variable scopes, APM workflows, environment loaders, fish limits, and Grok completion. `python3 tests/hosts.py --runtime` activates the complete host Home Manager configuration in a temporary home, installs that host's declared runtime packages, and checks executable providers. The Mac run also builds the full nix-darwin system and installs its generated Brewfile. CI runs both Ubuntu 24.04 x86_64 and macOS 15 arm64.
 
-The harness isolates `HOME`, XDG directories, `NIX_STATE_DIR`, and `NIX_STATE_HOME`, and checks that account profiles remain unchanged. Temporary homes have no login user manager, so CI checks package state and generated service definitions. Run `scripts/doctor.sh` on a deployed host to check active services. The Mac CI build does not activate root-level nix-darwin integration.
+The harness isolates `HOME`, XDG directories, `NIX_STATE_DIR`, and `NIX_STATE_HOME`, and checks that account profiles remain unchanged. Temporary homes have no login user manager, so CI checks package state and generated service definitions. Run `scripts/doctor.sh` on a deployed host to check the caller's executable providers and active services. The doctor accepts the fnm Node selected by a project version file. The Mac CI build does not activate root-level nix-darwin integration.
 
 Process Compose runs `scripts/sync.sh` every 15 minutes on homelab. The Mac has no scheduled sync. A sync fast-forwards and applies pinned Nix configuration. Apply also installs missing runtime tools and changed direct npm versions. Existing agent sessions are not restarted during an apply.

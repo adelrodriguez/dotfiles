@@ -16,7 +16,8 @@ args = parser.parse_args()
 home = Path.home()
 expected = json.loads((home / '.config/dotfiles/expected.json').read_text())
 env = os.environ.copy()
-env['PATH'] = ':'.join(expected['runtimePaths'])
+observed_path = env.get('PATH', os.defpath)
+runtime_path = ':'.join(expected['runtimePaths'])
 failures = []
 
 
@@ -30,9 +31,22 @@ def run(command):
 
 
 for name, executable in expected['tools'].items():
-    actual = shutil.which(name, path=env['PATH'])
-    require(actual is not None and Path(actual).resolve() == Path(executable).resolve(),
-            f'{name}: expected {executable}, found {actual}')
+    actual = shutil.which(name, path=observed_path)
+    matches = actual is not None and Path(actual).resolve() == Path(executable).resolve()
+    if name == 'node' and actual and not matches:
+        # fnm owns an installed project version. Ask fnm to resolve the nearest
+        # version file, without changing this shell or a persistent default alias.
+        version_file = next((directory / filename
+                             for directory in [Path.cwd(), *Path.cwd().parents]
+                             for filename in ('.node-version', '.nvmrc')
+                             if (directory / filename).is_file()), None)
+        fnm = expected['tools'].get('fnm') or shutil.which('fnm', path=runtime_path)
+        if version_file is not None and fnm and os.access(fnm, os.X_OK):
+            selected = run([fnm, 'exec', '--using', str(version_file), '--', 'node', '-p', 'process.execPath'])
+            lines = selected.stdout.strip().splitlines()
+            matches = selected.returncode == 0 and bool(lines) and Path(actual).resolve() == Path(lines[-1]).resolve()
+    require(matches, f'{name}: expected {executable} or the fnm project version, found {actual}'
+            if name == 'node' else f'{name}: expected {executable}, found {actual}')
     if actual:
         flags = {'unzip': ['-v'], 'process-compose': ['version']}.get(name, ['--version'])
         result = run([actual, *flags])
@@ -50,7 +64,7 @@ if expected['host'] == 'mac' and not args.home_only:
         for package in expected['brew'][category]:
             result = run(['/opt/homebrew/bin/brew', 'list', option, '--versions', package])
             require(result.returncode == 0 and bool(result.stdout.strip()), f'Homebrew {package} is missing.')
-    actual = shutil.which('pnpm', path=env['PATH'])
+    actual = shutil.which('pnpm', path=observed_path)
     require(actual == '/opt/homebrew/bin/pnpm', f'Mac pnpm must come from Homebrew, found {actual}')
     if actual:
         require(run([actual, '--version']).returncode == 0, 'Homebrew pnpm could not execute.')
@@ -66,16 +80,17 @@ if not args.home_only:
             if isinstance(binaries, str):
                 binaries = {package.rsplit('/', 1)[-1]: binaries}
             for name, relative in binaries.items():
-                actual = shutil.which(name, path=env['PATH'])
+                actual = shutil.which(name, path=observed_path)
                 require(actual is not None and Path(actual).resolve().is_relative_to(directory.resolve()),
                         f'{package}: {name} is shadowed by {actual}')
             primary = next(iter(binaries), None)
-            if primary:
-                result = run([primary, '--version'])
+            primary_executable = shutil.which(primary, path=observed_path) if primary else None
+            if primary_executable:
+                result = run([primary_executable, '--version'])
                 require(result.returncode == 0, f'{package} could not execute: {result.stdout[:300]}')
     for tool in expected['vendorTools']:
         target = home / ('.opencode/bin/opencode' if tool == 'opencode' else f'.local/bin/{tool}')
-        actual = shutil.which(tool, path=env['PATH'])
+        actual = shutil.which(tool, path=observed_path)
         require(target.is_file() and actual is not None and Path(actual).resolve() == target.resolve(),
                 f'{tool}: expected writable native installation {target}, found {actual}')
         if actual:
@@ -90,7 +105,7 @@ if not args.home_only:
             process = Path('/proc') / pid / 'environ'
             if process.is_file():
                 running = dict(entry.split('=', 1) for entry in process.read_text().split('\0') if '=' in entry)
-                require(running.get('PATH') == env['PATH'], f'{service} uses a stale runtime PATH. Restart it when sessions can stop.')
+                require(running.get('PATH') == runtime_path, f'{service} uses a stale runtime PATH. Restart it when sessions can stop.')
                 require('CODEX_HOME' not in running, f'{service} still sets CODEX_HOME.')
 if failures:
     print('\n'.join('FAIL ' + message for message in failures), file=sys.stderr)
