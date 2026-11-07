@@ -4,6 +4,10 @@ Personal shell, tool, and agent configuration. Each machine runs a profile, such
 
 See [Install the dotfiles](docs/install.md) to set up a machine.
 
+See [Run the Nix pilot](docs/nix-pilot.md) for the separate Home Manager experiment
+and its activation checks. The [trial results](docs/nix-trial-results.md) record
+the verified behavior and installer findings.
+
 See [Deploy the agent setup](docs/agents.md) for the skills, instructions, and MCP servers that APM installs for every coding agent.
 
 See [Host OpenCode and T3 services](docs/agent-services.md) to restore the native
