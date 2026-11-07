@@ -26,6 +26,15 @@ doctor() { bash "$tmp/scripts/doctor.sh"; }
 doctor > "$tmp/out"
 grep -q 'No drift found' "$tmp/out"
 
+mkdir -p "$HOME/.config/old-agent/skills"
+ln -s "$HOME/.agents/skills/removed" "$HOME/.config/old-agent/skills/removed"
+if doctor > "$tmp/out"; then exit 1; fi
+grep -q 'alias points to a removed shared skill' "$tmp/out"
+[[ -L "$HOME/.config/old-agent/skills/removed" ]]
+bash "$tmp/scripts/link.sh" >/dev/null
+doctor > "$tmp/out"
+grep -q 'No drift found' "$tmp/out"
+
 # Global npm inventory comes from the declared prefix without running npm.
 printf 'pnpm\n' > "$tmp/roles/base/packages/npm.txt"
 mkdir -p "$HOME/.npm-global/lib/node_modules/pnpm" "$HOME/.npm-global/bin"
