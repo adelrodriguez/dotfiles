@@ -60,10 +60,18 @@ for name in ('env', '1password-token'):
         require(not path.is_symlink() and stat.S_IMODE(path.stat().st_mode) == 0o600,
                 f'{path} must be a private regular file with mode 0600.')
 if expected['host'] == 'mac' and not args.home_only:
-    for category, option in [('brews', '--formula'), ('casks', '--cask')]:
-        for package in expected['brew'][category]:
-            result = run(['/opt/homebrew/bin/brew', 'list', option, '--versions', package])
-            require(result.returncode == 0 and bool(result.stdout.strip()), f'Homebrew {package} is missing.')
+    for package in expected['brew']['brews']:
+        result = run(['/opt/homebrew/bin/brew', 'list', '--formula', '--versions', package])
+        require(result.returncode == 0 and bool(result.stdout.strip()), f'Homebrew {package} is missing.')
+    # Casks expose their tap-qualified identity as full_token. brew list filters
+    # by the short token, so use installed metadata to retain the tap check.
+    result = subprocess.run(['/opt/homebrew/bin/brew', 'info', '--cask', '--json=v2', '--installed'],
+                            env=env, text=True, capture_output=True, timeout=60)
+    require(result.returncode == 0, f'Could not inspect installed Homebrew casks: {result.stderr[:300]}')
+    casks = json.loads(result.stdout)['casks'] if result.returncode == 0 else []
+    installed_casks = {name for cask in casks if cask['installed'] for name in (cask['token'], cask['full_token'])}
+    for package in expected['brew']['casks']:
+        require(package in installed_casks, f'Homebrew {package} is missing.')
     actual = shutil.which('pnpm', path=observed_path)
     require(actual == '/opt/homebrew/bin/pnpm', f'Mac pnpm must come from Homebrew, found {actual}')
     if actual:
