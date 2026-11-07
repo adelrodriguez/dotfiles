@@ -45,6 +45,16 @@ dependencies:
   version: unknown
   package_type: skill_bundle
   deployed_files:
+  - .agents/skills/boat
+  - .agents/skills/boat/SKILL.md
+  - .agents/skills/boat/references/agents.md
+  - .agents/skills/boat/references/checks.md
+  - .agents/skills/boat/references/containers.md
+  - .agents/skills/boat/references/desktop.md
+  - .agents/skills/boat/references/hosting.md
+  - .agents/skills/boat/references/parallel.md
+  - .agents/skills/boat/references/sandboxes.md
+  - .agents/skills/boat/references/services.md
   - .agents/skills/code-review
   - .agents/skills/code-review/SKILL.md
   - .agents/skills/codebase-design
@@ -147,6 +157,16 @@ dependencies:
   - .agents/skills/writing-for-agents/references/skill-mechanics.md
   - .agents/skills/writing-for-humans
   - .agents/skills/writing-for-humans/SKILL.md
+  - .claude/skills/boat
+  - .claude/skills/boat/SKILL.md
+  - .claude/skills/boat/references/agents.md
+  - .claude/skills/boat/references/checks.md
+  - .claude/skills/boat/references/containers.md
+  - .claude/skills/boat/references/desktop.md
+  - .claude/skills/boat/references/hosting.md
+  - .claude/skills/boat/references/parallel.md
+  - .claude/skills/boat/references/sandboxes.md
+  - .claude/skills/boat/references/services.md
   - .claude/skills/code-review
   - .claude/skills/code-review/SKILL.md
   - .claude/skills/codebase-design
@@ -249,6 +269,16 @@ dependencies:
   - .claude/skills/writing-for-agents/references/skill-mechanics.md
   - .claude/skills/writing-for-humans
   - .claude/skills/writing-for-humans/SKILL.md
+  - .config/opencode/skills/boat
+  - .config/opencode/skills/boat/SKILL.md
+  - .config/opencode/skills/boat/references/agents.md
+  - .config/opencode/skills/boat/references/checks.md
+  - .config/opencode/skills/boat/references/containers.md
+  - .config/opencode/skills/boat/references/desktop.md
+  - .config/opencode/skills/boat/references/hosting.md
+  - .config/opencode/skills/boat/references/parallel.md
+  - .config/opencode/skills/boat/references/sandboxes.md
+  - .config/opencode/skills/boat/references/services.md
   - .config/opencode/skills/code-review
   - .config/opencode/skills/code-review/SKILL.md
   - .config/opencode/skills/codebase-design
@@ -351,6 +381,16 @@ dependencies:
   - .config/opencode/skills/writing-for-agents/references/skill-mechanics.md
   - .config/opencode/skills/writing-for-humans
   - .config/opencode/skills/writing-for-humans/SKILL.md
+  - .grok/skills/boat
+  - .grok/skills/boat/SKILL.md
+  - .grok/skills/boat/references/agents.md
+  - .grok/skills/boat/references/checks.md
+  - .grok/skills/boat/references/containers.md
+  - .grok/skills/boat/references/desktop.md
+  - .grok/skills/boat/references/hosting.md
+  - .grok/skills/boat/references/parallel.md
+  - .grok/skills/boat/references/sandboxes.md
+  - .grok/skills/boat/references/services.md
   - .grok/skills/code-review
   - .grok/skills/code-review/SKILL.md
   - .grok/skills/codebase-design
@@ -453,6 +493,16 @@ dependencies:
   - .grok/skills/writing-for-agents/references/skill-mechanics.md
   - .grok/skills/writing-for-humans
   - .grok/skills/writing-for-humans/SKILL.md
+  - agent-data/workflows/boat
+  - agent-data/workflows/boat/SKILL.md
+  - agent-data/workflows/boat/references/agents.md
+  - agent-data/workflows/boat/references/checks.md
+  - agent-data/workflows/boat/references/containers.md
+  - agent-data/workflows/boat/references/desktop.md
+  - agent-data/workflows/boat/references/hosting.md
+  - agent-data/workflows/boat/references/parallel.md
+  - agent-data/workflows/boat/references/sandboxes.md
+  - agent-data/workflows/boat/references/services.md
   - agent-data/workflows/code-review
   - agent-data/workflows/code-review/SKILL.md
   - agent-data/workflows/codebase-design
@@ -556,6 +606,15 @@ dependencies:
   - agent-data/workflows/writing-for-humans
   - agent-data/workflows/writing-for-humans/SKILL.md
   deployed_file_hashes:
+    .agents/skills/boat/SKILL.md: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+    .agents/skills/boat/references/agents.md: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+    .agents/skills/boat/references/checks.md: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+    .agents/skills/boat/references/containers.md: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+    .agents/skills/boat/references/desktop.md: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+    .agents/skills/boat/references/hosting.md: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+    .agents/skills/boat/references/parallel.md: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+    .agents/skills/boat/references/sandboxes.md: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+    .agents/skills/boat/references/services.md: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
     .agents/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .agents/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .agents/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
@@ -621,6 +680,15 @@ dependencies:
     .agents/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     .agents/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .agents/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
+    .claude/skills/boat/SKILL.md: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+    .claude/skills/boat/references/agents.md: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+    .claude/skills/boat/references/checks.md: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+    .claude/skills/boat/references/containers.md: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+    .claude/skills/boat/references/desktop.md: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+    .claude/skills/boat/references/hosting.md: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+    .claude/skills/boat/references/parallel.md: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+    .claude/skills/boat/references/sandboxes.md: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+    .claude/skills/boat/references/services.md: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
     .claude/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .claude/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .claude/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
@@ -686,6 +754,15 @@ dependencies:
     .claude/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     .claude/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .claude/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
+    .config/opencode/skills/boat/SKILL.md: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+    .config/opencode/skills/boat/references/agents.md: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+    .config/opencode/skills/boat/references/checks.md: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+    .config/opencode/skills/boat/references/containers.md: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+    .config/opencode/skills/boat/references/desktop.md: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+    .config/opencode/skills/boat/references/hosting.md: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+    .config/opencode/skills/boat/references/parallel.md: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+    .config/opencode/skills/boat/references/sandboxes.md: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+    .config/opencode/skills/boat/references/services.md: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
     .config/opencode/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .config/opencode/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .config/opencode/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
@@ -751,6 +828,15 @@ dependencies:
     .config/opencode/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     .config/opencode/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .config/opencode/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
+    .grok/skills/boat/SKILL.md: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+    .grok/skills/boat/references/agents.md: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+    .grok/skills/boat/references/checks.md: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+    .grok/skills/boat/references/containers.md: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+    .grok/skills/boat/references/desktop.md: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+    .grok/skills/boat/references/hosting.md: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+    .grok/skills/boat/references/parallel.md: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+    .grok/skills/boat/references/sandboxes.md: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+    .grok/skills/boat/references/services.md: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
     .grok/skills/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     .grok/skills/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     .grok/skills/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
@@ -816,6 +902,15 @@ dependencies:
     .grok/skills/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     .grok/skills/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     .grok/skills/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
+    agent-data/workflows/boat/SKILL.md: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+    agent-data/workflows/boat/references/agents.md: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+    agent-data/workflows/boat/references/checks.md: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+    agent-data/workflows/boat/references/containers.md: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+    agent-data/workflows/boat/references/desktop.md: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+    agent-data/workflows/boat/references/hosting.md: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+    agent-data/workflows/boat/references/parallel.md: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+    agent-data/workflows/boat/references/sandboxes.md: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+    agent-data/workflows/boat/references/services.md: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
     agent-data/workflows/code-review/SKILL.md: sha256:6c0ce20d37cd7389b2ee0761fb40520cd029aefaa7c628a53b899458940aa0ea
     agent-data/workflows/codebase-design/SKILL.md: sha256:3f9ca7207509a78ab954818a5e4f4240c4504716df11f0010fa6ee52aba1555c
     agent-data/workflows/codebase-design/references/deepening.md: sha256:6e721ad5250ef379bd5f33ac8281c30cce891959642708db2fe8ed4d2792ab12
@@ -883,6 +978,7 @@ dependencies:
     agent-data/workflows/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
   content_hash: sha256:0200aa1b0d5ef3539d47d477532a8bbeaaf6eaf6518ae76c2fa8a047ebe9ce7e
   skill_subset:
+  - boat
   - code-review
   - codebase-design
   - coding-standards
@@ -1119,6 +1215,96 @@ deployments:
   - adelrodriguez/instructions
   active_owner: adelrodriguez/instructions
   content_hash: sha256:f81b9b8b3e228ddb559d0ab94c24324df33f0985c0f5f7bf66d84eff60b80978
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/agents.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/checks.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/containers.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/desktop.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/hosting.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/parallel.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/sandboxes.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+- kind: project-relative
+  target: claude
+  value: .claude/skills/boat/references/services.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
 - kind: project-relative
   target: claude
   value: .claude/skills/code-review
@@ -2165,6 +2351,96 @@ deployments:
   content_hash: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
 - kind: project-relative
   target: codex
+  value: .agents/skills/boat
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/agents.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/checks.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/containers.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/desktop.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/hosting.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/parallel.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/sandboxes.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+- kind: project-relative
+  target: codex
+  value: .agents/skills/boat/references/services.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
+- kind: project-relative
+  target: codex
   value: .agents/skills/code-review
   runtime: null
   scope: project
@@ -3207,6 +3483,96 @@ deployments:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
   content_hash: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/agents.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/checks.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/containers.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/desktop.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/hosting.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/parallel.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/sandboxes.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/boat/references/services.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/code-review
@@ -4314,6 +4680,96 @@ deployments:
   - adelrodriguez/instructions
   active_owner: adelrodriguez/instructions
   content_hash: sha256:c8cec39d067c2f11d37aadd03841629198c525352218721a221d44fb0578a318
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/agents.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/checks.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/containers.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/desktop.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/hosting.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/parallel.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/sandboxes.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/boat/references/services.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
 - kind: project-relative
   target: grok-build
   value: .grok/skills/code-review
@@ -5430,6 +5886,96 @@ deployments:
   - .
   active_owner: .
   content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:4e81821fa01e5d639c24bf690501b869d72d63220d473fb44184f9679f48a519
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/agents.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:589e32bbabe7564b249de8a37de9b1ca5ff42411e9042fba222912812f28d424
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/checks.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ebcfbb8ae044791b4cf2b55efbb0b72d3c353d901a77250919d81dd37542a5cf
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/containers.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:c6b5ef839c744c1c476a5c15fe8a3662a90dfa53f7e4f2fd728e37513e41133e
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/desktop.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:ed369c812c453c48b2652bd89539c5e455836eac617f15b71575a1457691f360
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/hosting.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a158d21359de5eb067e8229cb5dd4864443a1c1406b6bddf6b1ae1c75bb9467a
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/parallel.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:829e4691762bcac713038b9d568a3084d965b8b5ea128b9651d0ffdde8612153
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/sandboxes.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:f687dd36b90c65a2470101a5a1038215a6c2c36a5f6ed73ea6c51c7475e2c649
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/boat/references/services.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bb13086d7ee2d704c59bffd4301b6f84a06ab282b1c618444ae1e62e831cb55d
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/code-review
