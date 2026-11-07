@@ -269,6 +269,8 @@ for directory, unit in [('opencode', 'opencode-web'), ('t3', 't3code')]:
     write(path, text)
 (root / 'hosts/homelab/services.nix').unlink()
 (root / 'services/t3/t3code.service.reference').unlink(missing_ok=True)
+for command in ('services/opencode/setup.sh', 'services/t3/setup.sh'):
+    (root / command).chmod(0o755)
 
 # Keep host selection in the composition layer. Lower domains only read runtime data.
 core = read('tools/runtime.sh')
