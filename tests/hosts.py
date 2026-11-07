@@ -112,6 +112,20 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
         for shell in ('fish', 'zsh'):
             result = run([shell, '-lc', 'node --version'], cwd=project, stdout=subprocess.PIPE)
             assert result.stdout.strip().splitlines()[-1].startswith('v22.'), result.stdout
+        run(['fnm', 'install', '20'])
+        conflicting = root / 'conflicting'
+        conflicting.mkdir()
+        (conflicting / '.nvmrc').write_text('20\n')
+        (conflicting / '.node-version').write_text('22\n')
+        ancestor = root / 'ancestor'
+        nearer_engine = ancestor / 'child'
+        nearer_engine.mkdir(parents=True)
+        (ancestor / '.node-version').write_text('22\n')
+        (nearer_engine / 'package.json').write_text(json.dumps({'engines': {'node': '20'}}))
+        for directory in (conflicting, nearer_engine):
+            for shell in ('fish', 'zsh'):
+                result = run([shell, '-lc', 'node --version'], cwd=directory, stdout=subprocess.PIPE)
+                assert result.stdout.strip().splitlines()[-1].startswith('v20.'), result.stdout
         result = run(['fish', '-lc', f'cd {project}; node --version; cd {home}; node --version'], stdout=subprocess.PIPE)
         assert 'v22.' in result.stdout and result.stdout.strip().endswith(subprocess.check_output([str(expected['tools']['node']), '--version'], env=env, text=True).strip()), result.stdout
 
@@ -121,8 +135,9 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
     for shell in ('fish', 'zsh'):
         run([shell, '-lc', shlex.join(['python3', doctor, '--no-services' if args.runtime else '--home-only'])])
     if host == 'homelab' or args.runtime:
-        for shell in ('fish', 'zsh'):
-            run([shell, '-lc', shlex.join(['python3', doctor, '--home-only'])], cwd=project)
+        for directory in (project, conflicting, nearer_engine):
+            for shell in ('fish', 'zsh'):
+                run([shell, '-lc', shlex.join(['python3', doctor, '--home-only'])], cwd=directory)
     # Switching to another generation and back must restore the managed files.
     changed = '(' + expression + ').extendModules { modules = [ { home.file.".config/dotfiles/rollback-probe".text = "new generation"; } ]; }'
     result = run(['nix', 'build', '--impure', '--no-link', '--print-out-paths', '--expr', '(' + changed + ').activationPackage'], stdout=subprocess.PIPE)
