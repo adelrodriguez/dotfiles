@@ -19,8 +19,8 @@
     };
     runtimePaths = [
       "${pkgs.nodejs_26}/bin"
-      "/opt/homebrew/bin" "/opt/homebrew/sbin"
       "${config.home.profileDirectory}/bin"
+      "/opt/homebrew/bin" "/opt/homebrew/sbin"
       "${config.home.homeDirectory}/.npm-global/bin"
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.bun/bin"
