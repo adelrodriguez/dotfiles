@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Check observed providers, Fish scope cleanup, and legacy directory handoff."""
+from contextlib import redirect_stderr, redirect_stdout
+import io
 import json
 import os
+import runpy
 from pathlib import Path
 import shutil
 import shlex
@@ -9,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
 FISH = shutil.which('fish')
@@ -85,6 +89,46 @@ class Runtime(unittest.TestCase):
                 self.assertNotEqual(result.returncode, 0, 'The doctor replaced a caller PATH that lacks the declared Node')
                 self.assertIn('FAIL node:', result.stderr)
                 self.assertNotIn('Traceback', result.stderr)
+
+    def test_doctor_checks_qualified_casks_against_installed_metadata(self):
+        self.doctor_fixture()
+        self.expected['host'] = 'mac'
+        self.expected['brew'] = {'brews': [], 'casks': ['axiomhq/tap/axiom']}
+        (self.home / '.config/dotfiles/expected.json').write_text(json.dumps(self.expected))
+        original_run, original_which = subprocess.run, shutil.which
+        for casks, accepted in [
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': '0.22.0'}], True),
+            ([{'token': 'axiom', 'full_token': 'other/tap/axiom', 'installed': '0.22.0'}], False),
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': None}], False),
+            ([], False),
+        ]:
+            with self.subTest(casks=casks):
+                def brew(command, **kwargs):
+                    if command == ['/opt/homebrew/bin/brew', 'info', '--cask', '--json=v2', '--installed']:
+                        return subprocess.CompletedProcess(command, 0, stdout=json.dumps({'casks': casks}), stderr='')
+                    if command[:3] == ['/opt/homebrew/bin/brew', 'list', '--cask']:
+                        # brew list filters installed casks by token, not full_token.
+                        return subprocess.CompletedProcess(command, 0, stdout='', stderr='')
+                    if command == ['/opt/homebrew/bin/pnpm', '--version']:
+                        return subprocess.CompletedProcess(command, 0, stdout='11.0.0\n', stderr='')
+                    return original_run(command, **kwargs)
+
+                def which(name, mode=os.F_OK | os.X_OK, path=None):
+                    return '/opt/homebrew/bin/pnpm' if name == 'pnpm' else original_which(name, mode=mode, path=path)
+
+                output, errors = io.StringIO(), io.StringIO()
+                code = 0
+                with patch.dict(os.environ, self.env, clear=True), \
+                     patch.object(sys, 'argv', ['installed.py', '--no-services']), \
+                     patch('subprocess.run', side_effect=brew), patch('shutil.which', side_effect=which), \
+                     redirect_stdout(output), redirect_stderr(errors):
+                    try:
+                        runpy.run_path(str(REPO / 'checks/installed.py'), run_name='__main__')
+                    except SystemExit as error:
+                        code = error.code
+                self.assertEqual(code == 0, accepted, errors.getvalue())
+                if not accepted:
+                    self.assertIn('Homebrew axiomhq/tap/axiom is missing', errors.getvalue())
 
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
