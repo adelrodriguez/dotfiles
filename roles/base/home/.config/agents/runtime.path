@@ -1,0 +1,13 @@
+.npm-global/bin
+.local/share/fnm/aliases/default/bin
+.local/bin
+.local/share/fnm
+.bun/bin
+.atuin/bin
+.opencode/bin
+.cargo/bin
+/opt/homebrew/bin
+/opt/homebrew/sbin
+/usr/local/bin
+/usr/bin
+/bin

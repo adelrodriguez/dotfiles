@@ -2,6 +2,10 @@
 # Exercise package commands in an isolated home with APT replaced by a recorder.
 set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ "$(uname -s)" != Linux ]]; then
+  echo 'Ubuntu package checks run on Linux. See packages-macos.sh for macOS.'
+  exit 0
+fi
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 export HOME="$tmp/home"
@@ -9,6 +13,8 @@ export CALLS="$tmp/calls"
 mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles" "$tmp/repo/roles/base/packages" "$tmp/repo/roles/extra" "$tmp/repo/profiles"
 cp -R "$repo/scripts" "$tmp/repo/scripts"
 cp "$repo/roles/base/packages/"{apt.txt,extras.txt,npm.txt} "$tmp/repo/roles/base/packages/"
+mkdir -p "$tmp/repo/roles/base/home/.config/agents"
+cp "$repo/roles/base/home/.config/agents/runtime.path" "$tmp/repo/roles/base/home/.config/agents/"
 printf 'base\n' > "$tmp/repo/profiles/server.txt"
 printf 'base\nextra\n' > "$tmp/repo/profiles/both.txt"
 base="$tmp/repo/roles/base/packages"

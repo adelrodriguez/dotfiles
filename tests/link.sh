@@ -18,29 +18,40 @@ mkdir -p "$HOME/.config" "$HOME/.local/bin" "$repo/home/.config/fish" "$repo/hom
 printf 'SETUVAR x:1\n' > "$repo/home/.config/fish/fish_variables"
 ln -s ../dotfiles/home/.gitconfig "$HOME/.gitconfig"
 ln -s ../../dotfiles/home/.config/fish "$HOME/.config/fish"
-ln -s ../../dotfiles/home/.config/ghostty "$HOME/.config/ghostty"
+ln -s ../../dotfiles/home/.config/bat "$HOME/.config/bat"
 ln -s ../../dotfiles/home/.config/tmux "$HOME/.config/tmux"
 ln -s ../../../dotfiles/home/.local/bin/dotfiles-sync "$HOME/.local/bin/dotfiles-sync"
 ln -s "$tmp" "$HOME/.config/elsewhere"
+mkdir -p "$HOME/.config/retired"
+ln -s "$base/.config/retired/config" "$HOME/.config/retired/config"
+mkdir -p "$HOME/.config/other/skills" "$HOME/.agents/skills/current"
+ln -s "$HOME/.agents/skills/removed" "$HOME/.config/other/skills/removed"
+ln -s "$HOME/.agents/skills/current" "$HOME/.config/other/skills/current"
+ln -s "$tmp/unmanaged/missing" "$HOME/.config/other/skills/unmanaged"
 # systemctl enable recorded the unit's resolved path in the repository, so the move left the boot link dangling.
 wants="$HOME/.config/systemd/user/default.target.wants"
 mkdir -p "$wants"
 ln -s "$repo/home/.config/systemd/user/process-compose.service" "$wants/process-compose.service"
 ln -s "$HOME/.config/systemd/user/t3code.service" "$wants/t3code.service"
 link >/dev/null
+[[ ! -L "$HOME/.config/retired/config" ]]
+[[ ! -L "$HOME/.config/other/skills/removed" ]]
+[[ -L "$HOME/.config/other/skills/current" && -L "$HOME/.config/other/skills/unmanaged" ]]
 
 case "$(uname -s)" in Linux) expected=server ;; Darwin) expected=mac ;; esac
 [[ "$(cat "$HOME/.config/dotfiles/profile")" == "$expected" ]]
-[[ "$(cd -P "$(dirname "$(readlink -f "$HOME/.gitconfig")")" && pwd)/.gitconfig" == "$base/.gitconfig" ]]
+[[ ! -L "$HOME/.gitconfig" ]]
+[[ "$(git config --file "$HOME/.gitconfig" --get include.path)" == "$base/.gitconfig" ]]
+[[ ! -L "$HOME/.config/fish/completions/grok.fish" ]]
 [[ -d "$HOME/.config/fish" && ! -L "$HOME/.config/fish" ]]
 [[ "$(cat "$HOME/.config/fish/fish_variables")" == 'SETUVAR x:1' && ! -L "$HOME/.config/fish/fish_variables" ]]
 [[ ! -e "$repo/home/.config/fish/fish_variables" ]]
 [[ -f "$HOME/.config/fish/config.fish" && -L "$HOME/.config/fish/conf.d/00-env.fish" ]]
-[[ -d "$HOME/.config/ghostty" && ! -L "$HOME/.config/ghostty" && -f "$HOME/.config/ghostty/config" ]]
+[[ -d "$HOME/.config/bat" && ! -L "$HOME/.config/bat" && -f "$HOME/.config/bat/config" ]]
 [[ -x "$HOME/.local/bin/dotfiles-sync" ]]
 [[ -d "$HOME/.config/agents" && ! -L "$HOME/.config/agents" ]]
-# Paths no role links stay as they were.
-[[ -L "$HOME/.config/tmux" && -L "$HOME/.config/elsewhere" ]]
+# Retired repository links become real directories when they hold private files.
+[[ -d "$HOME/.config/tmux/plugins" && ! -L "$HOME/.config/tmux" && -L "$HOME/.config/elsewhere" ]]
 [[ ! -e "$repo/backups" ]]
 printf 'Linking migrates a home linked by the home/ layout\n'
 
@@ -65,6 +76,18 @@ link >/dev/null
 [[ "$(snapshot)" == "$before" ]]
 printf 'A second link changes nothing\n'
 
+# Credential tooling and completion generators cannot modify tracked source.
+git config --global credential.helper fixture-helper
+[[ "$(git config --global --get credential.helper)" == fixture-helper ]]
+! grep -q fixture-helper "$base/.gitconfig"
+printf '# generated locally\n' > "$HOME/.config/fish/completions/grok.fish"
+! grep -q 'generated locally' "$base/.config/fish/completions/grok.fish"
+link >/dev/null
+cmp "$HOME/.config/fish/completions/grok.fish" "$base/.config/fish/completions/grok.fish"
+[[ "$(git config --global --get credential.helper)" == fixture-helper ]]
+rm -rf "$repo/backups"
+printf 'Mutable tool configuration stays outside the checkout\n'
+
 rm "$HOME/.zshrc"
 printf 'local edit\n' > "$HOME/.zshrc"
 link >/dev/null
@@ -86,16 +109,17 @@ link >/dev/null
 printf 'Roles share directories, and leaving a role removes its links\n'
 
 # A file that moves to another role is relinked there.
-mkdir -p "$repo/roles/extra/home/.config/ghostty"
-mv "$base/.config/ghostty/config" "$repo/roles/extra/home/.config/ghostty/config"
+mkdir -p "$repo/roles/extra/home/.config/bat"
+mv "$base/.config/bat/config" "$repo/roles/extra/home/.config/bat/config"
 printf 'both\n' > "$HOME/.config/dotfiles/profile"
 link >/dev/null
-[[ "$(readlink -f "$HOME/.config/ghostty/config")" == "$repo/roles/extra/home/.config/ghostty/config" ]]
+[[ "$(readlink -f "$HOME/.config/bat/config")" == "$repo/roles/extra/home/.config/bat/config" ]]
 [[ -z "$(ls "$repo/backups" | sed -n 2p)" ]]
 printf 'A file that moves between roles is relinked\n'
 
 # A folded ~/.config is rebuilt before roles outside the profile are unstowed, whether the old directory
 # still holds untracked files or the pull removed it and the link dangles.
+mkdir -p "$repo/home/.config/tmux/plugins"
 for state in kept removed; do
   [[ "$state" == kept ]] || rm -rf "$repo/home"
   export HOME="$tmp/folded-$state"

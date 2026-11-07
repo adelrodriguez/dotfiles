@@ -9,11 +9,7 @@ My own skills and instructions live in their own repos:
 
 ## Install APM
 
-On macOS, `scripts/install.sh` installs APM from `packages/macos/Brewfile`. On Linux, use APM's installer:
-
-```sh
-curl -sSL https://aka.ms/apm-unix | sh
-```
+`scripts/install.sh` installs APM on both profiles. macOS uses `roles/base/packages/Brewfile`. Linux installs uv with its standalone installer and installs `apm-cli` with `uv tool install --upgrade apm-cli`.
 
 Then sync. APM fetches the packages with your git credentials:
 

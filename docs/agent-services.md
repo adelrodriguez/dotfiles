@@ -16,7 +16,9 @@ the runtime directories, and enables and restarts `opencode-web.service`. Stop a
 Docker deployment using port 4096 or this database before running it.
 
 Rerun the setup script to update the service. `scripts/package.sh update opencode`
-updates the host CLI separately. The verifier checks that the running service
+updates the host CLI separately. After updating the CLI, rerun the service setup
+to align its binary, then run the verifier. `scripts/doctor.sh` reports a release
+difference between the two binaries. The verifier checks that the running service
 matches its installed binary rather than requiring a fixed release.
 
 The service binds to `127.0.0.1:4096`. Its executable lives in
@@ -61,6 +63,22 @@ Use `t3 update` to change versions rather than editing the unit or runtime state
 Because T3 owns its unit, the agent environment reaches it through the Stow drop-in
 `roles/base/home/.config/systemd/user/t3code.service.d/agents-env.conf`. See "Agent environment"
 in the README.
+
+`scripts/link.sh` also generates `runtime.conf` drop-ins for both agent services
+from the shared `roles/base/home/.config/agents/runtime.path`. These select fnm's
+default Node and the same npm and agent tools as a shell. The drop-ins remove
+`CODEX_HOME` so Codex uses `~/.codex`. Relinking does not restart either service.
+Reload the user units and restart each service when its sessions can stop:
+
+```sh
+systemctl --user daemon-reload
+systemctl --user restart opencode-web.service
+systemctl --user restart t3code.service
+```
+
+Run `scripts/doctor.sh` from a fresh Fish session afterward. It checks the running
+process environments as well as the saved drop-ins. It prints variable names and
+repair instructions, never secret values.
 
 T3 stores its settings and databases under `~/.t3/userdata`. Its observed web port
 is 3773, also recorded in `~/.t3/userdata/server-runtime.json` while running.

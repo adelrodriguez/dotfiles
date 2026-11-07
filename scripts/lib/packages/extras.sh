@@ -63,7 +63,7 @@ install_extra() {
       return ;;
   esac
   case "$name" in
-    node|pnpm)
+    node)
       command -v fnm >/dev/null || install_extra fnm
       use_node ;;
   esac
@@ -92,7 +92,10 @@ install_extra() {
       else
         install_opencode_v2
       fi ;;
-    pnpm) npm install --global pnpm ;;
+    uv) UV_NO_MODIFY_PATH=1 run_installer https://astral.sh/uv/install.sh ;;
+    apm)
+      command_exists uv || install_extra uv
+      uv tool install --upgrade apm-cli ;;
     1password-cli) install_1password ;;
     *) printf 'Unknown extra: %s\n' "$name" >&2; return 1 ;;
   esac

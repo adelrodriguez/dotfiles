@@ -17,9 +17,16 @@ role_paths() {
 prune_links() {
   local rel path target
   while IFS= read -r rel; do
+    # Boot links are repaired after Stow restores each unit's home link.
+    case "$rel" in .config/systemd/user/*.wants/*) continue ;; esac
     path="${HOME}/${rel}"
     [[ -L "$path" ]] || continue
     target="$(resolve_link "$path")"
+    # Removed shared skills leave aliases in older agent integrations.
+    if [[ "$rel" == .config/* && "${path%/*}" == */skills && ! -e "$path" && "$target" == "$HOME/.agents/skills/${rel##*/}" ]]; then
+      rm "$path"
+      continue
+    fi
     [[ "$target" == "$DOTFILES_DIR"/* ]] || continue
     [[ "$target" == "$ROLES_DIR"/*/home/"$rel" && -f "$target" ]] && continue
     rm "$path"
@@ -27,7 +34,15 @@ prune_links() {
       mkdir "$path"
       find "$target" -mindepth 1 -maxdepth 1 -exec mv {} "$path/" \;
     fi
-  done < <(role_paths)
+  done < <(
+    {
+      role_paths
+      find "$HOME" -mindepth 1 -maxdepth 1 -type l -print
+      for path in "$HOME/.config" "$HOME/.local/bin"; do
+        [[ ! -d "$path" ]] || find "$path" -type l -print
+      done
+    } | sed "s|^$HOME/||" | sort -u
+  )
 }
 
 # systemctl enable records a linked unit's resolved path, which is inside the repository and dangles once the
@@ -50,6 +65,7 @@ backup_conflicts() {
 
   while IFS= read -r -d '' file; do
     rel="${file#"${role_home}"/}"
+    case "$rel" in .gitconfig|.config/fish/completions/grok.fish) continue ;; esac
     target="${HOME}/${rel}"
     [[ -e "$target" || -L "$target" ]] || continue
     [[ "$(resolve_link "$target")" == "$file" ]] && continue
@@ -82,7 +98,51 @@ link_home() {
   for role in "${ROLES[@]}"; do
     [[ -d "${ROLES_DIR}/${role}/home" ]] || continue
     backup_conflicts "${ROLES_DIR}/${role}/home"
-    stow -R --no-folding -d "${ROLES_DIR}/${role}" -t "$HOME" home
+    stow -R --no-folding --ignore='(^|/)(\.gitconfig|grok\.fish)$' -d "${ROLES_DIR}/${role}" -t "$HOME" home
   done
+  # Git's credential setup and Grok's updater write these paths. Never let them
+  # write through a symlink into the checkout.
+  local gitconfig="$HOME/.gitconfig" canonical="$ROLES_DIR/base/home/.gitconfig"
+  if [[ -L "$gitconfig" && "$(resolve_link "$gitconfig")" == "$canonical" ]]; then rm "$gitconfig"; fi
+  if ! git config --file "$gitconfig" --get-all include.path 2>/dev/null | grep -qxF "$canonical"; then
+    local temporary
+    temporary="$(mktemp "$HOME/.gitconfig.XXXXXX")"
+    git config --file "$temporary" include.path "$canonical"
+    [[ ! -f "$gitconfig" ]] || cat "$gitconfig" >> "$temporary"
+    mv "$temporary" "$gitconfig"
+  fi
+  local completion="$HOME/.config/fish/completions/grok.fish" source="$ROLES_DIR/base/home/.config/fish/completions/grok.fish"
+  if [[ -L "$completion" ]] || ! cmp -s "$source" "$completion"; then
+    if [[ -e "$completion" && ! -L "$completion" ]]; then
+      local backup="$DOTFILES_DIR/backups/$(date +%Y%m%d_%H%M%S)/.config/fish/completions"
+      mkdir -p "$backup"
+      cp -p "$completion" "$backup/grok.fish"
+    fi
+    rm -f "$completion"
+    cp "$source" "$completion"
+  fi
   point_unit_links_home
+  if [[ "$PLATFORM" == Linux ]]; then
+    # T3 owns its main unit. Both agent services get a managed environment drop-in.
+    local unit runtime
+    local -a updated_units=()
+    for unit in t3code opencode-web; do
+      runtime="$HOME/.config/systemd/user/$unit.service.d/runtime.conf"
+      mkdir -p "$(dirname "$runtime")"
+      printf '[Service]\nEnvironment="PATH=%s"\nUnsetEnvironment=CODEX_HOME\n' "$RUNTIME_PATH" > "$runtime.tmp"
+      if cmp -s "$runtime.tmp" "$runtime"; then
+        rm "$runtime.tmp"
+      else
+        mv "$runtime.tmp" "$runtime"
+        updated_units+=("$unit.service")
+      fi
+    done
+    if [[ ${#updated_units[@]} -gt 0 ]]; then
+      # A fixture or alternate HOME must not reload the real user's manager.
+      if command_exists systemctl && systemctl --user show-environment 2>/dev/null | grep -qxF "HOME=$HOME"; then
+        systemctl --user daemon-reload
+      fi
+      info "Updated service runtimes. Restart ${updated_units[*]} when their sessions can stop."
+    fi
+  fi
 }

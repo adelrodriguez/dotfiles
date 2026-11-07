@@ -11,5 +11,6 @@ libseccomp-dev
 meson
 ninja-build
 pkg-config
+python3
 software-properties-common
 unzip

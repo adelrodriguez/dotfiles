@@ -5,10 +5,25 @@ DOTFILES_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 ROLES_DIR="${DOTFILES_DIR}/roles"
 PROFILES_DIR="${DOTFILES_DIR}/profiles"
 PLATFORM="$(uname -s)"
+# Shells, setup commands, and service drop-ins read the same ordered paths.
+RUNTIME_PATH=""
+USER_RUNTIME_PATH=""
+while IFS= read -r entry || [[ -n "$entry" ]]; do
+  [[ -n "$entry" ]] || continue
+  [[ "$PLATFORM" != Linux || "$entry" != /opt/homebrew/* ]] || continue
+  if [[ "$entry" != /* ]]; then
+    entry="$HOME/$entry"
+    USER_RUNTIME_PATH="${USER_RUNTIME_PATH:+$USER_RUNTIME_PATH:}$entry"
+  fi
+  RUNTIME_PATH="${RUNTIME_PATH:+$RUNTIME_PATH:}$entry"
+done < "$ROLES_DIR/base/home/.config/agents/runtime.path"
+# Linuxbrew must not satisfy an upstream installation check.
 if [[ "$PLATFORM" == Linux ]]; then
-  # Do not let an inherited Linuxbrew PATH satisfy installation checks.
-  export PATH="$HOME/.local/bin:$HOME/.local/share/fnm:$HOME/.bun/bin:$HOME/.atuin/bin:$HOME/.opencode/bin:/usr/local/bin:/usr/bin:/bin"
+  export PATH="$RUNTIME_PATH"
+elif [[ "$PATH" != "$USER_RUNTIME_PATH":* ]]; then
+  export PATH="$USER_RUNTIME_PATH:$PATH"
 fi
+unset CODEX_HOME
 
 info() {
   printf "%s\n" "$1"
