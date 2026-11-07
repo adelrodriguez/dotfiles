@@ -41,7 +41,7 @@ dependencies:
 - repo_url: adelrodriguez/skills
   name: skills
   host: github.com
-  resolved_commit: 0bf0ca08e3cebe5912556c5d837f2874139e3dde
+  resolved_commit: 0d0ad9ee6007ae4fef1ea6f93627e829546c0aab
   version: unknown
   package_type: skill_bundle
   deployed_files:
@@ -559,7 +559,7 @@ dependencies:
     .agents/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
     .agents/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .agents/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .agents/skills/takeover/SKILL.md: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+    .agents/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
     .agents/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .agents/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .agents/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
@@ -620,7 +620,7 @@ dependencies:
     .claude/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
     .claude/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .claude/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .claude/skills/takeover/SKILL.md: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+    .claude/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
     .claude/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .claude/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .claude/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
@@ -681,7 +681,7 @@ dependencies:
     .config/opencode/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
     .config/opencode/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .config/opencode/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .config/opencode/skills/takeover/SKILL.md: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+    .config/opencode/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
     .config/opencode/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .config/opencode/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .config/opencode/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
@@ -742,7 +742,7 @@ dependencies:
     .grok/skills/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
     .grok/skills/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     .grok/skills/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    .grok/skills/takeover/SKILL.md: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+    .grok/skills/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
     .grok/skills/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     .grok/skills/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     .grok/skills/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
@@ -803,7 +803,7 @@ dependencies:
     agent-data/workflows/pr/SKILL.md: sha256:32ad67c8dda53767e6eb1c5c56849560ab29a219a05223dee6c1bd649d9e3241
     agent-data/workflows/refresh/SKILL.md: sha256:af7abf48f2124889854017c8e5c269affa8f07b73bf6b2d7f83c13c4bda95ed6
     agent-data/workflows/restraint/SKILL.md: sha256:c105462ece19251484e1c8eebc09d62fa84e5ef72da7c68e5dfdcd4763245fcd
-    agent-data/workflows/takeover/SKILL.md: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+    agent-data/workflows/takeover/SKILL.md: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
     agent-data/workflows/test-pruning/SKILL.md: sha256:52bc8e1b8b3d9b230d3206efb31e27eb4ee66bbc94e1a1bc36506e556d77e947
     agent-data/workflows/testing/SKILL.md: sha256:9360ab07e6b8e0be7d4ecad80c3f40da9aee6abf028a6352fe7caf6623439419
     agent-data/workflows/unslop/SKILL.md: sha256:d74f4ca4a2abe715ffa2d9de472306e617f8a3c5cbabad2376c3be05488a400d
@@ -826,7 +826,7 @@ dependencies:
     agent-data/workflows/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     agent-data/workflows/writing-for-agents/references/skill-mechanics.md: sha256:97d77ca9f205dcd5a6f32c58eb91537a93e4a13e8a94ae2b00e546a12bde704b
     agent-data/workflows/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-  content_hash: sha256:411f941b67c0c1bb29a892bdd34b19e78efb5bf82b70dea3d8d7957f2b84295d
+  content_hash: sha256:bb5318ce2c72f304f456630ae81b13ef20362e5efca6ff833cd821ac89ae5e43
   skill_subset:
   - code-review
   - codebase-design
@@ -1726,7 +1726,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
 - kind: project-relative
   target: claude
   value: .claude/skills/test-pruning
@@ -2707,7 +2707,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
 - kind: project-relative
   target: codex
   value: .agents/skills/test-pruning
@@ -3688,7 +3688,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/test-pruning
@@ -4732,7 +4732,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
 - kind: project-relative
   target: grok-build
   value: .grok/skills/test-pruning
@@ -5785,7 +5785,7 @@ deployments:
   owners:
   - adelrodriguez/skills
   active_owner: adelrodriguez/skills
-  content_hash: sha256:e1fd254e46f8018d00a3fe709595af05998056d0babb586f55038624ab9d3410
+  content_hash: sha256:5a51231f6de7d7771699367a496642df0c378a15017c6516b7cb8955d5923d18
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/test-pruning
