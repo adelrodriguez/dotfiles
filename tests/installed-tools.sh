@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-# Run from a fresh Fish session so fnm and user-local paths match normal use.
+# Run from a fresh Fish session on either supported profile.
 set -euo pipefail
+repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+bash "$repo/scripts/doctor.sh"
+source "$repo/scripts/lib/profile.sh"
+load_profile
 
 case ":$PATH:" in *linuxbrew*) echo 'Linuxbrew remains on PATH' >&2; exit 1 ;; esac
-if command -v brew >/dev/null; then echo 'brew remains available' >&2; exit 1; fi
+if [[ "$PLATFORM" == Linux ]] && command -v brew >/dev/null; then echo 'brew remains available' >&2; exit 1; fi
 
-for tool in atuin bat btop bwrap bun claude codex delta direnv eza fd fish fnm fzf gh git grok jq nvim node opencode pnpm process-compose rg starship stow t3 op zoxide; do
+tools=(apm atuin bat btop bun claude codex delta direnv eza fd fish fnm fzf gh git grok jq nvim node opencode pnpm rg starship stow op uv zoxide)
+if [[ "$PLATFORM" == Linux ]]; then tools+=(bwrap process-compose t3); fi
+for tool in "${tools[@]}"; do
   binary="$(command -v "$tool")"
   printf '\n%s (%s)\n' "$tool" "$binary"
   case "$tool" in
@@ -17,7 +23,7 @@ done
 while IFS= read -r name; do
   [[ -z "$name" || "$name" == \#* ]] && continue
   npm ls --global "$name" >/dev/null
-done < <(cat "$(dirname "${BASH_SOURCE[0]}")"/../roles/*/packages/npm.txt)
+done < <(manifest_entries npm.txt)
 
 # Exercise the databases and runtime files, without printing shell history.
 atuin history list >/dev/null
