@@ -12,6 +12,21 @@ from mutable import backup
 
 def handoff(home, checkout, targets, fish='fish'):
     home, checkout = home.resolve(), checkout.resolve()
+    # Materialize folded checkout directories before individual file handoff.
+    for relative in targets:
+        path = home / relative
+        for parent in reversed(path.parents):
+            if parent == home or home not in parent.parents or not parent.is_symlink():
+                continue
+            resolved = parent.resolve()
+            if not str(resolved).startswith(str(checkout) + '/'):
+                raise RuntimeError(f'Refusing to write through foreign directory link {parent}')
+            backup(home, parent)
+            parent.unlink()
+            if resolved.is_dir():
+                shutil.copytree(resolved, parent, symlinks=True)
+            else:
+                parent.mkdir(parents=True)
     # Fisher's recorded files can otherwise shadow the pinned Home Manager plugins.
     if (home / '.config/fish/fish_variables').exists():
         # --no-config also disables universal variables in recent fish versions.
@@ -36,21 +51,6 @@ def handoff(home, checkout, targets, fish='fish'):
             if path.is_file() and not str(path.resolve()).startswith('/nix/store/'):
                 backup(home, path)
                 path.unlink()
-    # Materialize folded checkout directories before individual file handoff.
-    for relative in targets:
-        path = home / relative
-        for parent in reversed(path.parents):
-            if parent == home or home not in parent.parents or not parent.is_symlink():
-                continue
-            resolved = parent.resolve()
-            if not str(resolved).startswith(str(checkout) + '/'):
-                raise RuntimeError(f'Refusing to write through foreign directory link {parent}')
-            backup(home, parent)
-            parent.unlink()
-            if resolved.is_dir():
-                shutil.copytree(resolved, parent, symlinks=True)
-            else:
-                parent.mkdir(parents=True)
     for relative in targets:
         path = home / relative
         if path.is_symlink() and str(path.resolve()).startswith('/nix/store/'):
