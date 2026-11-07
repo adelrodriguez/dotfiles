@@ -133,6 +133,19 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
                 assert result.stdout.strip().splitlines()[-1].startswith('v20.'), result.stdout
         result = run(['fish', '-lc', f'cd {project}; node --version; cd {home}; node --version'], stdout=subprocess.PIPE)
         assert 'v22.' in result.stdout and result.stdout.strip().endswith(base_node_version), result.stdout
+        # Populate zsh's command cache before fnm changes the executable at a prompt.
+        for version_file in ('.node-version', '.nvmrc'):
+            (project / '.nvmrc').rename(project / version_file)
+            for directory in (project, nearer_engine):
+                commands = ['node --version', f'cd {shlex.quote(str(directory))}', 'node --version',
+                            f'cd {shlex.quote(str(home))}', 'node --version', 'exit 0', '']
+                result = run(['zsh', '-i'], input='\n'.join(commands), cwd=home,
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
+                versions = [line for line in result.stdout.splitlines() if line.startswith('v')]
+                assert len(versions) == 3, result.stdout + result.stderr
+                assert versions[0] == versions[2] == base_node_version, result.stdout
+                assert versions[1].startswith('v22.' if directory == project else 'v20.'), result.stdout
+            (project / version_file).rename(project / '.nvmrc')
 
     if args.runtime:
         run(['bash', str(repo / 'tools/install.sh')])
