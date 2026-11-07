@@ -4,7 +4,7 @@ This guide shows you how to replace the native installer and Stow links with the
 
 ## Prepare the checkout
 
-1. Use `/Users/adelrodriguez/Developer/dotfiles` on the Mac or `/home/adel/dotfiles` on homelab. For a different account or checkout, update the machine record in `flake.nix` first. The apply command checks the checkout path before changing files.
+1. Use `/Users/adelrodriguez/Developer/dotfiles` on the Mac or `/home/adel/dotfiles` on homelab. For a different account or checkout, update `hosts/<host>/machine.nix` first. The apply command checks the checkout path before changing files.
 2. Commit or save local configuration edits. The handoff backs up conflicting target files under `~/.local/state/dotfiles/backups/`, but private databases and application state still need their normal backups.
 3. On the Mac, install [Homebrew](https://brew.sh) if missing. On Ubuntu, provide `curl`, Git, Python 3, CA certificates, and xz through the distribution before bootstrapping. Ubuntu 24.04 is the tested Linux base.
 
@@ -47,7 +47,7 @@ To populate agent variables, save the host's 1Password service-account token as 
 
 ## Update and roll back
 
-Edit packages in the owning host module. Add shared configuration in `config/` and its Home Manager module. Stage new files before Nix evaluates a Git checkout, because flakes exclude untracked files.
+Edit packages in the owning host module. Add shared configuration and its Home Manager declaration in the owning domain. See the [architecture reference](architecture.md). Stage new files before Nix evaluates a Git checkout, because flakes exclude untracked files.
 
 Update the pinned inputs and rebuild through a PR:
 

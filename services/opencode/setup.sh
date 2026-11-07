@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Home Manager owns the unit. The vendor executable and runtime remain writable.
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/lib/core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../../tools/runtime.sh"
 load_runtime
 [[ $# -le 1 && "${1:-}" =~ ^(--prepare)?$ ]] || die "Usage: services/opencode/setup.sh [--prepare]"
 root="$HOME/services/opencode"
-[[ -x "$HOME/.opencode/bin/opencode" ]] || die 'Run scripts/installers.sh first.'
+[[ -x "$HOME/.opencode/bin/opencode" ]] || die 'Run tools/install.sh first.'
 mkdir -p "$root/bin"
 ln -sfn "$HOME/.opencode/bin/opencode" "$root/bin/opencode"
 for name in data state cache; do

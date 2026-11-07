@@ -80,13 +80,16 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
     manifest = root / 'targets.json'
     result = run(['nix', 'eval', '--impure', '--json', '--expr', f'builtins.attrNames ({expression}).config.home.file'], stdout=subprocess.PIPE)
     manifest.write_text(result.stdout)
-    run(['python3', str(repo / 'scripts/lib/handoff.py'), str(home), str(repo), str(manifest)])
+    run(['python3', str(repo / 'home/handoff.py'), str(home), str(repo), str(manifest)])
     run([str(generation / 'activate')])
     run([str(generation / 'activate')])
     expected = json.loads((home / '.config/dotfiles/expected.json').read_text())
+    services = json.loads((home / '.config/dotfiles/services.json').read_text())
+    units = {path.stem for path in (home / '.config/systemd/user').glob('*.service')}
+    assert set(services) == (units | {'t3code'} if host == 'homelab' else set()), services
     env['PATH'] = ':'.join(expected['runtimePaths'])
     # Catch conflicts with preexisting Homebrew tools before a large Brew install.
-    run(['python3', str(repo / 'checks/installed.py'), '--home-only'])
+    run(['python3', str(repo / 'tools/check.py'), '--home-only'])
     if args.runtime:
         if host == 'mac':
             result = run(['nix', 'eval', '--impure', '--raw', '--expr', f'((builtins.getFlake {json.dumps(str(repo))}).lib.mkMac (builtins.fromJSON {json.dumps(json.dumps(machine))})).config.homebrew.brewfile'], stdout=subprocess.PIPE)
@@ -132,14 +135,14 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
         assert 'v22.' in result.stdout and result.stdout.strip().endswith(base_node_version), result.stdout
 
     if args.runtime:
-        run(['bash', str(repo / 'scripts/installers.sh')])
-    doctor = str(repo / 'checks/installed.py')
+        run(['bash', str(repo / 'tools/install.sh')])
+    doctor = str(repo / 'scripts/doctor.sh')
     for shell in ('fish', 'zsh'):
-        run([shell, '-lc', shlex.join(['python3', doctor, '--no-services' if args.runtime else '--home-only'])])
+        run([shell, '-lc', shlex.join(['bash', doctor, '--no-services' if args.runtime else '--home-only'])])
     if host == 'homelab' or args.runtime:
         for directory in (project, conflicting, nearer_engine):
             for shell in ('fish', 'zsh'):
-                run([shell, '-lc', shlex.join(['python3', doctor, '--home-only'])], cwd=directory)
+                run([shell, '-lc', shlex.join(['bash', doctor, '--home-only'])], cwd=directory)
     # Switching to another generation and back must restore the managed files.
     changed = '(' + expression + ').extendModules { modules = [ { home.file.".config/dotfiles/rollback-probe".text = "new generation"; } ]; }'
     result = run(['nix', 'build', '--impure', '--no-link', '--print-out-paths', '--expr', '(' + changed + ').activationPackage'], stdout=subprocess.PIPE)

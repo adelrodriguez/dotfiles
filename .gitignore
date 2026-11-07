@@ -1,10 +1,9 @@
-# Local migration backups and historical untracked sources.
-/home/
+# Local migration backups and build outputs.
 backups/
 result
 result-*
 __pycache__/
 # Never include runtime credentials in the flake source.
-config/agents/env
-config/agents/1password-token
-config/agents/.env.*
+agents/env
+agents/1password-token
+agents/.env.*

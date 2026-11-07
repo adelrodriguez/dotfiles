@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build first, then hand over legacy files and activate the selected host.
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/lib/core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../hosts/select.sh"
 host="$(host_name "${1:-}")"
 [[ $# -le 2 && "${2:-}" =~ ^(--build)?$ ]] || die 'Usage: scripts/apply.sh [mac|homelab] [--build]'
 command_exists nix || die 'Nix is required. Run scripts/bootstrap.sh first.'
@@ -23,7 +23,7 @@ manifest="$(mktemp)"
 trap 'rm -f "$manifest"' EXIT
 nix eval --json ".#homeConfigurations.$host.config.home.file" --apply 'files: builtins.attrNames files' > "$manifest"
 if [[ "$host" == mac ]]; then fish="$result/sw/bin/fish"; else fish="$result/home-path/bin/fish"; fi
-python3 "$DOTFILES_DIR/scripts/lib/handoff.py" "$HOME" "$DOTFILES_DIR" "$manifest" "$fish"
+python3 "$DOTFILES_DIR/home/handoff.py" "$HOME" "$DOTFILES_DIR" "$manifest" "$fish"
 if [[ "$host" == mac ]]; then
   info 'Activating nix-darwin. macOS may request administrator access.'
   sudo "$result/sw/bin/darwin-rebuild" switch --flake "$DOTFILES_DIR#mac"
@@ -31,5 +31,5 @@ else
   "$result/activate"
 fi
 load_runtime
-"$DOTFILES_DIR/scripts/installers.sh"
+"$DOTFILES_DIR/tools/install.sh"
 info 'Applied the host configuration. Existing agent services keep their running sessions.'

@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
-  imports = [ ../../modules/home ];
+  imports = [ ../../home ../../tools ../../agents ../../services ];
   dotfiles = {
-    brew = import ./packages.nix;
+    brew = import ./homebrew.nix;
     tools = {
       node = pkgs.nodejs_26;
       fish = pkgs.fish;

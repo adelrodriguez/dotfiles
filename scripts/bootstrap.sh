@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Provision a host. Run from the checkout path declared in its Nix configuration.
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/lib/core.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../hosts/select.sh"
 host="$(host_name "${1:-}")"
 [[ $# -le 1 ]] || die 'Usage: scripts/bootstrap.sh mac|homelab'
 if ! command_exists nix; then
@@ -17,9 +17,8 @@ if [[ "$host" == mac ]]; then
 fi
 "$DOTFILES_DIR/scripts/apply.sh" "$host"
 load_runtime
-"$DOTFILES_DIR/scripts/agents.sh" sync
-source "$DOTFILES_DIR/scripts/lib/agents-env.sh"
-setup_agents_env
+"$DOTFILES_DIR/agents/deploy.sh" sync
+"$DOTFILES_DIR/scripts/agents-env.sh" --if-configured
 if [[ "$host" == homelab ]]; then
   fish_shell="$HOME/.nix-profile/bin/fish"
   grep -qxF "$fish_shell" /etc/shells || printf '%s\n' "$fish_shell" | sudo tee -a /etc/shells >/dev/null
