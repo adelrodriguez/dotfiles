@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Exercise the legacy handoff without a real profile or account."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -16,12 +17,18 @@ with tempfile.TemporaryDirectory() as temporary:
     (home / '.config/agents').symlink_to(checkout / 'old/agents')
     (home / '.zshrc').write_text('local shell edits\n')
     (home / '.tmux.conf').symlink_to(checkout / 'removed-tmux')
+    old_plugin = home / '.config/fish/functions/fzf_configure_bindings.fish'
+    old_plugin.parent.mkdir(parents=True)
+    old_plugin.write_text('old fisher function\n')
+    fish_env = {**os.environ, 'HOME': str(home), 'XDG_CONFIG_HOME': str(home / '.config')}
+    subprocess.run(['fish', '-c', 'set -U _fisher_patrickf1_2F_fzf_2E_fish_files $argv[1]', str(old_plugin)], env=fish_env, check=True)
     manifest = root / 'targets.json'
     manifest.write_text(json.dumps(['.zshrc', '.config/agents/env.tpl']))
     def handoff():
         subprocess.run(['python3', str(repo / 'scripts/lib/handoff.py'), str(home), str(checkout), str(manifest)], check=True)
     handoff()
     assert not (home / '.zshrc').exists()
+    assert not old_plugin.exists(), 'Old Fisher functions must not shadow Nix plugins'
     assert not (home / '.config/agents').is_symlink()
     assert (home / '.config/agents/env').read_text() == 'TEST_SECRET=private-fixture\n'
     assert not (home / '.tmux.conf').is_symlink(), 'Removed checkout links must not remain dangling'
