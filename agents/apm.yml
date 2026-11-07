@@ -18,6 +18,7 @@ dependencies:
     # List each skill, so a new skill in the repo stays out of my global setup.
     - git: adelrodriguez/skills
       skills:
+        - boat
         - code-review
         - codebase-design
         - coding-standards
