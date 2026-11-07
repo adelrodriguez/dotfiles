@@ -48,6 +48,7 @@ dependencies:
         - takeover
         - test-pruning
         - testing
+        - triage
         - unslop
         - upload
         - what
