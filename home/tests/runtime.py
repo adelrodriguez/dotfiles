@@ -37,7 +37,8 @@ class Home(unittest.TestCase):
         binaries.mkdir()
         system_ls = shutil.which('ls', path=os.defpath)
         (binaries / 'ls').symlink_to(system_ls)
-        (binaries / 'mv').symlink_to(shutil.which('mv', path=os.defpath))
+        for name in ('mv', 'grep'):
+            (binaries / name).symlink_to(shutil.which(name, path=os.defpath))
         for name in ('fnm', 'starship', 'zoxide'):
             command = binaries / name
             command.write_text('#!/bin/sh\nexit 0\n')
