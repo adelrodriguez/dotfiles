@@ -96,14 +96,26 @@ class Runtime(unittest.TestCase):
         self.expected['brew'] = {'brews': [], 'casks': ['axiomhq/tap/axiom']}
         (self.home / '.config/dotfiles/expected.json').write_text(json.dumps(self.expected))
         original_run, original_which = subprocess.run, shutil.which
-        for casks, accepted in [
-            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': '0.22.0'}], True),
-            ([{'token': 'axiom', 'full_token': 'other/tap/axiom', 'installed': '0.22.0'}], False),
-            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': None}], False),
-            ([], False),
+        for casks, recorded_tap, accepted in [
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': '0.22.0'}], 'axiomhq/tap', True),
+            ([{'token': 'axiom', 'full_token': 'other/tap/axiom', 'installed': '0.22.0'}], 'other/tap', False),
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': None}], 'axiomhq/tap', False),
+            ([{'token': 'axiom', 'full_token': 'axiom', 'tap': None, 'installed': '0.22.0'}], 'axiomhq/tap', True),
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': '0.22.0'}], 'other/tap', False),
+            ([{'token': 'axiom', 'full_token': 'axiomhq/tap/axiom', 'installed': '0.22.0'}], None, False),
+            ([], 'axiomhq/tap', False),
         ]:
-            with self.subTest(casks=casks):
+            with self.subTest(casks=casks, recorded_tap=recorded_tap):
+                caskroom = self.root / 'Caskroom'
+                receipt = caskroom / 'axiom/.metadata/INSTALL_RECEIPT.json'
+                receipt.parent.mkdir(parents=True, exist_ok=True)
+                if recorded_tap is None:
+                    receipt.unlink(missing_ok=True)
+                else:
+                    receipt.write_text(json.dumps({'source': {'tap': recorded_tap}}))
                 def brew(command, **kwargs):
+                    if command == ['/opt/homebrew/bin/brew', '--caskroom']:
+                        return subprocess.CompletedProcess(command, 0, stdout=str(caskroom)+'\n', stderr='')
                     if command == ['/opt/homebrew/bin/brew', 'info', '--cask', '--json=v2', '--installed']:
                         return subprocess.CompletedProcess(command, 0, stdout=json.dumps({'casks': casks}), stderr='')
                     if command[:3] == ['/opt/homebrew/bin/brew', 'list', '--cask']:
@@ -128,7 +140,7 @@ class Runtime(unittest.TestCase):
                         code = error.code
                 self.assertEqual(code == 0, accepted, errors.getvalue())
                 if not accepted:
-                    self.assertIn('Homebrew axiomhq/tap/axiom is missing', errors.getvalue())
+                    self.assertIn('Homebrew axiomhq/tap/axiom', errors.getvalue())
 
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
