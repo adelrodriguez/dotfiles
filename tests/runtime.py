@@ -73,6 +73,19 @@ class Runtime(unittest.TestCase):
                 self.assertNotEqual(result.returncode, 0, f'The doctor accepted shadowed {name}: {result.stdout}')
                 self.assertIn(str(shadow), result.stderr)
 
+    def test_doctor_rejects_a_path_missing_the_declared_tools(self):
+        self.doctor_fixture()
+        for path in ('/usr/bin:/bin', None):
+            with self.subTest(path=path):
+                if path is None:
+                    self.env.pop('PATH')
+                else:
+                    self.env['PATH'] = path
+                result = self.doctor()
+                self.assertNotEqual(result.returncode, 0, 'The doctor replaced a caller PATH that lacks the declared Node')
+                self.assertIn('FAIL node:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
         runtime.write_text('/usr/bin\n/bin\n')

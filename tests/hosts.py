@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shlex
 import subprocess
 import tempfile
 
@@ -84,6 +85,8 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
     run([str(generation / 'activate')])
     expected = json.loads((home / '.config/dotfiles/expected.json').read_text())
     env['PATH'] = ':'.join(expected['runtimePaths'])
+    # Catch conflicts with preexisting Homebrew tools before a large Brew install.
+    run(['python3', str(repo / 'checks/installed.py'), '--home-only'])
     if args.runtime:
         if host == 'mac':
             result = run(['nix', 'eval', '--impure', '--raw', '--expr', f'((builtins.getFlake {json.dumps(str(repo))}).lib.mkMac (builtins.fromJSON {json.dumps(json.dumps(machine))})).config.homebrew.brewfile'], stdout=subprocess.PIPE)
@@ -114,9 +117,12 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
 
     if args.runtime:
         run(['bash', str(repo / 'scripts/installers.sh')])
-        run(['python3', str(repo / 'checks/installed.py'), '--no-services'])
-    else:
-        run(['python3', str(repo / 'checks/installed.py'), '--home-only'])
+    doctor = str(repo / 'checks/installed.py')
+    for shell in ('fish', 'zsh'):
+        run([shell, '-lc', shlex.join(['python3', doctor, '--no-services' if args.runtime else '--home-only'])])
+    if host == 'homelab' or args.runtime:
+        for shell in ('fish', 'zsh'):
+            run([shell, '-lc', shlex.join(['python3', doctor, '--home-only'])], cwd=project)
     # Switching to another generation and back must restore the managed files.
     changed = '(' + expression + ').extendModules { modules = [ { home.file.".config/dotfiles/rollback-probe".text = "new generation"; } ]; }'
     result = run(['nix', 'build', '--impure', '--no-link', '--print-out-paths', '--expr', '(' + changed + ').activationPackage'], stdout=subprocess.PIPE)
