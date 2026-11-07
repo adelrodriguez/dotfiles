@@ -1,26 +1,19 @@
 #!/usr/bin/env bash
+# Home Manager owns the unit. The vendor executable and runtime remain writable.
 set -euo pipefail
-
-repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/lib/core.sh"
+load_runtime
+[[ $# -le 1 && "${1:-}" =~ ^(--prepare)?$ ]] || die "Usage: services/opencode/setup.sh [--prepare]"
 root="$HOME/services/opencode"
-source "$repo/scripts/lib/packages/opencode.sh"
-mkdir -p "$root/bin" "$HOME/.config/systemd/user"
-install_opencode_v2 "$root/bin"
+[[ -x "$HOME/.opencode/bin/opencode" ]] || die 'Run scripts/installers.sh first.'
+mkdir -p "$root/bin"
+ln -sfn "$HOME/.opencode/bin/opencode" "$root/bin/opencode"
 for name in data state cache; do
   mkdir -p "$root/runtime/$name" "$root/runtime/xdg-$name"
   chmod 700 "$root/runtime/$name"
   ln -sfnT "../$name" "$root/runtime/xdg-$name/opencode"
 done
-unit="$HOME/.config/systemd/user/opencode-web.service"
-source="$repo/roles/base/home/.config/systemd/user/opencode-web.service"
-if [[ -e "$unit" && ! -L "$unit" ]]; then
-  cp -p "$unit" "$unit.backup-$(date +%Y%m%d%H%M%S)"
-fi
-ln -sfnT "$source" "$unit"
-for name in verify.py caddy.conf; do
-  ln -sfnT "$repo/services/opencode/$name" "$root/$name"
-done
+[[ "${1:-}" != --prepare ]] || { info "OpenCode runtime prepared."; exit 0; }
 systemctl --user daemon-reload
-systemctl --user enable opencode-web.service
-systemctl --user restart opencode-web.service
-echo 'OpenCode service enabled. Run services/opencode/verify.py to check the homelab deployment.'
+systemctl --user enable --now opencode-web.service
+info 'OpenCode is enabled. An existing process keeps its sessions until a deliberate restart.'

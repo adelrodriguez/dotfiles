@@ -1,133 +1,58 @@
 # dotfiles
 
-Personal shell, tool, and agent configuration. Each machine runs a profile, such as `server` or `mac`. A profile lists roles, and each role brings its own packages and the files that GNU Stow links into `$HOME`.
+Personal shell, tool, and agent configuration for an Apple Silicon Mac and an Ubuntu homelab. Nix and Home Manager own the declared environment. The Mac also uses nix-darwin and Homebrew. Ubuntu remains Ubuntu.
 
-See [Install the dotfiles](docs/install.md) to set up a machine.
-
-See [Deploy the agent setup](docs/agents.md) for the skills, instructions, and MCP servers that APM installs for every coding agent.
-
-See [Host OpenCode and T3 services](docs/agent-services.md) to restore the native
-web servers, their systemd services, and the OpenCode homelab proxy route.
-
-## Scripts
-
-Each task is a script in the repository. Run them from any directory.
-
-| Script | Description |
-| --- | --- |
-| `scripts/install.sh <profile>` | Records the machine's profile in `~/.config/dotfiles/profile`, then installs its packages, links the dotfiles, configures fish, and starts the Process Compose service on Linux. Without a profile name, it uses the recorded profile. Safe to rerun. |
-| `scripts/sync.sh` | Fast-forwards the current branch, then links the dotfiles. |
-| `scripts/agents.sh sync\|update` | Deploys `agents/` with APM. The `agents:sync` and `agents:update` targets below run it. |
-| `scripts/agents-env.sh` | Fills `~/.config/agents/env` from 1Password. Rerun it to pick up rotated keys. |
-| `scripts/link.sh` | Backs up existing target files and links the `home/` folder of each role in the profile into `$HOME` with GNU Stow. |
-| `scripts/doctor.sh` | Reports drift in configuration, agent deployments, profile packages, runtime providers, and running service environments. It writes nothing and never installs packages or restarts services. Exit 0 means no drift, 1 means drift, and 2 means the recorded profile is invalid. Run it from a fresh shell. |
-| `scripts/package.sh install` | Installs every tracked package for the current platform. |
-| `scripts/package.sh add <name> [apt\|brew\|cask\|npm] [--role <role>]` | Installs and records a package in a role of the profile, `base` by default. Defaults to APT on Ubuntu and a Homebrew formula on macOS. `npm` records a global npm tool for both platforms. |
-| `scripts/package.sh remove <name>` | Removes a package from its manifest, then offers to uninstall APT, Homebrew, and npm packages. Upstream tools require manual uninstallation. |
-| `scripts/package.sh update [name]` | Updates one tracked package or all packages for the current platform. |
-| `scripts/package.sh list` | Lists the profile's tracked packages for the current platform by source. |
-
-`scripts/sync.sh` stops before it changes `$HOME` if `git pull --no-rebase --ff-only` fails. Every command except `scripts/install.sh <profile>` stops with an error until the machine has a recorded profile.
-
-Machine tasks live in `roles/base/home/Makefile`, which Stow links to `~/Makefile`. Run `make <target>` from `~`, or `make -C ~ <target>` from any directory.
-
-| Target | Description |
-| --- | --- |
-| `agents:sync` | Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`, then installs, prunes, and compiles the agent setup at user scope with APM. Copies the lock back if APM changed it. Rerun it after each change to a skill or instruction. |
-| `agents:update` | Does the same with `apm update`, which moves every agent package to the latest commit on its branch, then installs once more to restore skill files that APM 0.35.0 deletes during an update. |
-
-## Profiles and roles
-
-A profile in `profiles/<name>.txt` lists roles, one per line, starting with `base`. Today both profiles run only `base`:
-
-| Profile | Machine |
-| --- | --- |
-| `server` | An Ubuntu server or VPS. |
-| `mac` | A macOS workstation. |
-
-A role in `roles/<role>/` may hold these entries, and nothing else:
-
-| Entry | Contents |
-| --- | --- |
-| `home/` | Files that GNU Stow links into `$HOME`. Stow links each file into real directories, so several roles can add files to one directory. Two roles can't link the same file. |
-| `packages/apt.txt` | Ubuntu APT packages, one per line. |
-| `packages/extras.txt` | Upstream tools for Ubuntu, one per line. |
-| `packages/Brewfile` | Homebrew formulae and casks for macOS. |
-| `packages/npm.txt` | Global npm tools for both platforms, one per line. They install into `~/.npm-global`. |
-
-Run `bash tests/roles.sh` to check that the profiles and roles follow these rules.
-
-`scripts/link.sh` removes links into the repository that no longer point at a role's file, and links of roles the profile no longer lists. Machines linked before roles existed record the profile their OS implied, `server` on Linux and `mac` on macOS, on their next sync. It also points each systemd boot link in `~/.config/systemd/user/*.wants/` that targets the repository at the unit's link in `~/.config/systemd/user/`, so a unit stays enabled when its file moves between roles.
+[Install or migrate a machine](docs/install.md). [Deploy the agent setup](docs/agents.md). [Operate the agent services](docs/agent-services.md). The [trial results](docs/nix-trial-results.md) record the earlier installer experiment and its limits.
 
 ## Repository layout
 
-The main paths are:
-
-| Path | Contents |
+| Path | Ownership |
 | --- | --- |
-| `scripts/*.sh` | The commands in the table above. They only load modules and call them. |
-| `scripts/lib/` | Modules: files that define functions and run nothing when loaded. |
-| `scripts/lib/core.sh` | Repository paths, `PATH`, and output helpers. Every module loads it. |
-| `scripts/lib/profile.sh` | Reads the machine's profile and finds its roles' manifests. |
-| `scripts/lib/home.sh` | Backs up conflicts and links each role's `home/` with GNU Stow. |
-| `scripts/lib/fish.sh`, `scripts/lib/process-compose.sh`, `scripts/lib/agents-env.sh`, `scripts/lib/agents.sh` | Machine setup steps. |
-| `scripts/lib/packages/` | `packages.sh` picks `linux.sh` or `macos.sh`, then runs `npm.sh` for global npm tools. `linux.sh` uses `extras.sh` for upstream tools, which uses `github-release.sh`, `opencode.sh`, and `node.sh`. `macos.sh` also uses `node.sh`, which installs Node through fnm. |
-| `tests/` | Checks for the scripts and the installed tools. |
-| `profiles/` | The roles each kind of machine runs. |
-| `roles/` | Each role's linked files and package manifests. |
-| `agents/` | The APM manifest and lock for the global agent setup. The agent sync copies them into `~/.apm`. |
-| `backups/` | Files moved out of the way during a sync. |
-| `docs/` | Setup and maintenance guides. |
+| `flake.nix`, `flake.lock` | Host outputs and pinned Nix inputs. |
+| `hosts/mac/default.nix` | Mac system integration, default shell, and Homebrew activation. |
+| `hosts/mac/packages.nix` | Mac Homebrew formulae and casks. pnpm stays here. |
+| `hosts/mac/home.nix` | Mac Nix packages, npm tools, and runtime order. |
+| `hosts/homelab/home.nix` | Homelab Nix packages, npm tools, and writable vendor CLIs. |
+| `hosts/homelab/services.nix` | OpenCode and Process Compose units, plus T3 environment drop-ins. |
+| `modules/home/` | Shared file, shell, Git, and agent integration. |
+| `config/` | Application configuration sources. |
+| `agents/` | APM manifest, lock, and deployment instructions. |
+| `checks/` | Installed-state checks using the active host's generated expectations. |
+| `scripts/` | Bootstrap, apply, sync, agent deployment, and environment commands. |
 
-Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modules → `scripts/lib/core.sh`. A module loads only `core.sh` and modules below it in the list above; it never loads a command or a module that depends on it. `profile.sh` loads only `core.sh`, and every other module may load it. `profiles/`, `roles/*/packages/`, and `agents/` hold data only.
+Host modules import the shared Home Manager modules. Shared modules never import host modules. Each host declares its own installers and packages. Adding another distribution means adding a host declaration, rather than adding distribution branches to a shared package manager.
 
-## Local configuration
+## Commands
 
-Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and the shared npm manifest installs pnpm into `~/.npm-global` on both platforms. Homebrew may still install Node as another tool's dependency, but shells and agent services select fnm's default. Codex uses OpenAI's standalone installer on Linux. uv and APM are also installed by the Linux profile.
+| Command | Result |
+| --- | --- |
+| `scripts/bootstrap.sh mac` | Install Nix if missing, apply nix-darwin and Home Manager, install the Mac's npm tools, and deploy agents. |
+| `scripts/bootstrap.sh homelab` | Apply Home Manager, install homelab's runtime CLIs, deploy agents, and enable the Linux services. `server` remains an alias. |
+| `scripts/apply.sh [mac\|homelab] --build` | Build the complete host configuration without activating it. |
+| `scripts/apply.sh [mac\|homelab]` | Build, back up legacy file conflicts, and activate the recorded host. |
+| `scripts/sync.sh` | Fast-forward the checkout and apply its pinned configuration. |
+| `scripts/installers.sh` | Install the active host's npm packages and missing writable vendor tools. |
+| `scripts/doctor.sh` | Check installed providers, executable tools, mutable files, private permissions, and Linux service state. |
+| `make -C ~ agents:sync` | Deploy APM's locked agent setup. |
+| `make -C ~ agents:update` | Update the APM lock and deploy it. |
+| `scripts/agents-env.sh` | Inject `op://` references into the private agent environment. |
 
-`scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. On both platforms, Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
+Nix inputs change only when `flake.lock` changes. Homebrew packages follow their host declarations without fixed versions. Each host pins direct npm package versions. npm resolves their transitive dependencies. Vendor CLIs retain their supported self-update mechanisms. Nix generations roll back managed files and Nix packages. They do not roll back Homebrew, npm, credentials, databases, or vendor runtime state.
 
-GitHub release binaries live under `~/.local/share/dot-tools/<tool>/<version>` and are linked into `~/.local/bin`. Neovim's runtime files stay alongside its binary. Bubblewrap is built from its upstream release; GNU Stow is built from its latest published tarball. Updates preserve prior version directories. Run `bash tests/packages.sh` and `bash tests/upstream-packages.sh` to check package-command behavior and upstream updates without changing installed packages, and `bash tests/installed-tools.sh` from a fresh fish session to check the installed tools.
+## Runtime and writable state
 
-To track another upstream tool, add its installer to `scripts/lib/packages/extras.sh` and its name to a role's `packages/extras.txt`. `scripts/package.sh add` on Linux handles APT packages only. The manifests track intended packages, not their transitive dependencies or exact versions.
+Each host generates `~/.config/agents/runtime.path`. Fish, zsh, installers, and Linux services use that order. Nix owns the default Node 26. fnm owns project versions. Each host declares its base package once in `dotfiles.tools.node`, and its runtime path follows that declaration. The Mac Home Manager profile precedes Homebrew for Nix-owned tools. Homebrew pnpm resolves to `/opt/homebrew/bin/pnpm`, ahead of old npm-global installations. Homelab uses Nix pnpm and excludes old Linuxbrew directories.
 
-Fish is the default interactive shell. `scripts/install.sh` installs fish, registers it in `/etc/shells`, and selects it as the account's login shell.
+Home Manager replaces GNU Stow. It links individual files into real directories, leaving private and generated files writable. The migration backs up conflicting files under `~/.local/state/dotfiles/backups/` before activation. `~/.gitconfig` remains a regular local file with a managed include. Grok's completion remains a regular copy because its updater rewrites it.
 
-`roles/base/home/.config/agents/runtime.path` defines the shared tool search order. Fish, zsh, setup commands, and the Linux agent service drop-ins read it. Non-interactive processes use fnm's stable default alias. Project `.node-version` files still take precedence in shells. The managed `.zprofile` restores that precedence after Homebrew initializes a login shell.
+APM owns `~/.apm`, generated agent files, and shared skills. These remain outside the Nix store. Paper remains a Mac integration. Its absence on Linux is accepted. Codex uses `~/.codex`. Shells and Linux service drop-ins remove `CODEX_HOME`, and old authentication is not copied.
 
-Codex uses its default `~/.codex` home. Shell startup and the Linux service drop-ins remove `CODEX_HOME`. Existing data under `~/.config/codex` stays untouched. Reauthenticate in the default home if needed.
+`config/agents/env.tpl` contains only `op://` references. `scripts/agents-env.sh` writes `~/.config/agents/env` with mode 0600 using the machine's private `~/.config/agents/1password-token`. These runtime files never belong in the checkout or the Nix store. Environment refreshes restart OpenCode only when needed and report when T3 needs a deliberate restart.
 
-Git's `~/.gitconfig` is a regular local file that includes the tracked configuration. Credential tools can add local entries without writing into the checkout. Grok's completion is also a regular file. Relinking restores the tracked completion and backs up a changed local copy. The redirect completion regression check protects the customized behavior.
+## Verification
 
-Run `bash tests/check.sh` for the isolated fixture suite on macOS or Ubuntu. Linux package and release fixtures run on Linux. `tests/packages-macos.sh` exercises Homebrew behavior with local stand-ins on either platform. CI runs the suite on both platforms. Run `bash tests/installed-tools.sh` from a fresh Fish session after provisioning either profile to check the real tools and runtime data.
+`bash tests/check.sh` checks migration behavior, observed executable providers, Fish variable scopes, APM workflows, environment loaders, fish limits, and Grok completion. `python3 tests/hosts.py --runtime` activates the complete host Home Manager configuration in a temporary home, installs that host's declared runtime packages, and checks executable providers. The Mac run also builds the full nix-darwin system and installs its generated Brewfile. CI runs both Ubuntu 24.04 x86_64 and macOS 15 arm64.
 
-Codex completions are generated from the installed CLI when fish loads them, so
-they follow CLI updates automatically.
+The harness isolates `HOME`, XDG directories, `NIX_STATE_DIR`, and `NIX_STATE_HOME`, and checks that account profiles remain unchanged. Temporary homes have no login user manager, so CI checks package state and generated service definitions. Run `scripts/doctor.sh` on a deployed host to check the caller's executable providers and active services. The doctor accepts the fnm Node selected by a project version file. The Mac CI build does not activate root-level nix-darwin integration.
 
-Relinking also removes dangling aliases in agent `skills` folders under `~/.config`
-when they point directly to a removed entry in `~/.agents/skills`. Working aliases
-and links to other locations stay in place. The doctor reports these stale aliases.
-
-Tmux and its plugins are no longer configured by this repository. After syncing
-an existing installation, remove dangling `~/.tmux.conf` and
-`~/.config/tmux/tmux.conf` symlinks left by the previous configuration.
-
-`roles/base/home/.config/fish/conf.d/99-local.fish` loads `~/.config/fish/conf.d/99-local.private.fish` when the file exists. The repository does not track `99-local.private.fish`.
-
-## Agent environment
-
-Agents don't load interactive shell config, so variables they need, such as the `upload` skill's `FILE_UPLOAD_*` settings, live in `~/.config/agents/env`. Every reader loads that file:
-
-- `~/.zshenv` loads it for every zsh, including the non-interactive shells that agents run on macOS.
-- `roles/base/home/.config/fish/conf.d/00-env.fish` loads it for fish.
-- Drop-ins in `roles/base/home/.config/systemd/user/` load it into `t3code.service` and `opencode-web.service` on Linux.
-
-`roles/base/home/.config/agents/env.tpl` holds only `op://` references. `scripts/agents-env.sh` fills it with the machine's read-only 1Password service account, whose token lives at `~/.config/agents/1password-token` with mode `600`. The script passes the token to that one `op` call, never exports it, and writes the env file with mode `600`. If 1Password fails or a value contains characters that systemd and the shells would read differently, the script keeps the existing file. `scripts/install.sh` runs this step when the token file exists.
-
-To add a variable, add a line to the template and its value to the `Agents` vault, then rerun `scripts/agents-env.sh`. The script restarts `opencode-web.service` when its running process lacks a current value. It only reports when `t3code.service` needs a restart, because restarting T3 ends the sessions it runs. After that restart, start new agent sessions. `scripts/link.sh` creates `~/.config/agents` as a real directory so Stow never links it into the repository, and the script refuses to write if an older link already does. Run `bash tests/agents-env.sh` to check the setup and loaders without 1Password.
-
-## Scheduled sync
-
-Process Compose reads `roles/base/home/.config/process-compose/process-compose.yaml`. The `dotfiles-sync` process runs `scripts/sync.sh` every 15 minutes and permits one run at a time.
-
-On Linux, `scripts/install.sh` enables `roles/base/home/.config/systemd/user/process-compose.service` on port `10080`. The `pc` shell alias attaches to the Process Compose TUI. In the TUI, `F9` pauses the process and `F7` resumes it.
+Process Compose runs `scripts/sync.sh` every 15 minutes on homelab. The Mac has no scheduled sync. A sync fast-forwards and applies pinned Nix configuration. Apply also installs missing runtime tools and changed direct npm versions. Existing agent sessions are not restarted during an apply.

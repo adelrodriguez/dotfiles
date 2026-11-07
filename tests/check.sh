@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-# Fixture tests only. installed-tools.sh separately checks a provisioned host.
 set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-for test in roles link sync packages packages-macos upstream-packages github-release agents-env agents fish-limits grok-completions runtime doctor; do
-  printf '\nRunning %s\n' "$test"
+python3 - "$repo" <<'PYTHON'
+from pathlib import Path
+import re, sys
+for path in (Path(sys.argv[1]) / 'modules/home').glob('*.nix'):
+    assert not re.search(r'(hosts|roles|profiles)/', path.read_text()), f'{path} imports a host or retired layout'
+PYTHON
+python3 "$repo/tests/migration.py"
+python3 "$repo/tests/runtime.py"
+for test in agents-env agents fish-limits grok-completions; do
   bash "$repo/tests/$test.sh"
 done

@@ -81,8 +81,8 @@ pid = int(subprocess.check_output(
 ))
 assert info["pid"] == pid, (info, pid)
 process = Path(f"/proc/{pid}")
-assert process.stat().st_uid == os.getuid() == 1000
-assert process.joinpath("exe").resolve() == ROOT / "bin/opencode"
+assert process.stat().st_uid == os.getuid()
+assert process.joinpath("exe").resolve() == (ROOT / "bin/opencode").resolve()
 assert process.joinpath("root/etc/os-release").read_text() == Path("/etc/os-release").read_text()
 environment = dict(
     entry.split("=", 1)
@@ -94,7 +94,7 @@ for variable, directory in [
     ("XDG_CACHE_HOME", "cache"),
 ]:
     assert (Path(environment[variable]) / "opencode").resolve() == ROOT / "runtime" / directory
-assert environment["DBUS_SESSION_BUS_ADDRESS"] == "unix:path=/run/user/1000/bus"
+assert environment["DBUS_SESSION_BUS_ADDRESS"] == f"unix:path=/run/user/{os.getuid()}/bus"
 subprocess.run(["systemctl", "--user", "show", "t3code.service", "--property=ActiveState"],
                env=environment, check=True)
 listeners = subprocess.check_output(["ss", "-ltnp"], text=True)

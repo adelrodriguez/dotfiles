@@ -10,7 +10,7 @@ AGENTS_TOKEN="${AGENTS_DIR}/1password-token"
 AGENTS_ENV_LINE='^(#.*|[A-Za-z_][A-Za-z0-9_]*=[A-Za-z0-9_./:@+,=%-]*)?$'
 
 write_agents_env() {
-  command_exists op || die "The 1Password CLI is not installed. Run: scripts/install.sh"
+  command_exists op || die "The 1Password CLI is not installed. Run: scripts/bootstrap.sh"
   [[ -r "$AGENTS_TOKEN" ]] || die "Save this machine's 1Password service account token to ${AGENTS_TOKEN}"
 
   mkdir -p "$AGENTS_DIR"

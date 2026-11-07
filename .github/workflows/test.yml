@@ -1,32 +1,38 @@
 name: test
-
 on:
   pull_request:
   push:
     branches: [main]
-
 permissions:
   contents: read
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
-  test:
+  host:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
-      - name: Install fixture-test tools on Ubuntu
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y fish stow jq zsh
-      - name: Install fixture-test tools on macOS
-        if: runner.os == 'macOS'
-        run: brew install fish stow jq
-      - name: Run fixture checks
+      - uses: cachix/install-nix-action@v31
+        with:
+          install_url: https://releases.nixos.org/nix/nix-2.34.1/install
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Install fixture shell dependencies
+        run: |
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            sudo apt-get update
+            sudo apt-get install -y fish zsh jq
+          else
+            brew install fish jq
+          fi
+      - name: Verify migration and agent behavior
         run: bash tests/check.sh
+      - name: Activate full host and verify installed packages and providers
+        run: python3 tests/hosts.py --runtime

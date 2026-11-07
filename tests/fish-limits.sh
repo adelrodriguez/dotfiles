@@ -3,7 +3,7 @@
 # A child cannot raise its inherited hard limit, so cases above it are skipped.
 set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-snippet="$repo/roles/base/home/.config/fish/conf.d/05-limits.fish"
+snippet="$repo/config/fish/conf.d/05-limits.fish"
 inherited="$(ulimit -Hn)"
 
 check() {

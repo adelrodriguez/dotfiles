@@ -1,102 +1,47 @@
-# Host OpenCode and T3 services
+# How to operate the homelab agent services
 
-Both web servers run as user systemd services on Ubuntu. Run the commands below
-as the account that owns the services. This setup is opt-in, separate from `scripts/install.sh`.
+This guide shows you how to run the declared OpenCode and T3 services on Ubuntu. Use the account that owns their data. Home Manager owns the OpenCode and Process Compose units. T3 owns its generated main unit. Home Manager supplies environment drop-ins for both agent services.
 
-## OpenCode
+## Prepare and start the services
+
+Run `scripts/bootstrap.sh homelab` for a new host. On an existing host after applying the configuration:
 
 ```sh
+scripts/installers.sh
 bash services/opencode/setup.sh
-python3 services/opencode/verify.py
-```
-
-The setup script installs the latest stable OpenCode V2 published in the official
-Homebrew formula, verifies its checksum, links the tracked systemd unit, prepares
-the runtime directories, and enables and restarts `opencode-web.service`. Stop any
-Docker deployment using port 4096 or this database before running it.
-
-Rerun the setup script to update the service. `scripts/package.sh update opencode`
-updates the host CLI separately. After updating the CLI, rerun the service setup
-to align its binary, then run the verifier. `scripts/doctor.sh` reports a release
-difference between the two binaries. The verifier checks that the running service
-matches its installed binary rather than requiring a fixed release.
-
-The service binds to `127.0.0.1:4096`. Its executable lives in
-`~/services/opencode/bin`, with data, state, and cache in `~/services/opencode/runtime`.
-These directories preserve the former container's sessions and remain separate
-from the host CLI's database. Configuration comes from `~/.config/opencode`.
-
-`services/opencode/caddy.conf` records the homelab route for
-`https://opencode.homelab.adel.wtf`. Caddy supplies the Authorization header from
-`/etc/caddy/secrets/opencode-authorization`. On a restored host, restore this file
-and the matching `~/.config/opencode/service.json` credentials privately, then
-include the route in the host Caddy configuration. The setup script does not
-configure Caddy. The verifier expects this homelab route and existing sessions.
-
-## T3 Code
-
-```sh
 bash services/t3/setup.sh
+systemctl --user enable --now process-compose.service
 ```
 
-The Ubuntu dotfiles installer installs the self-contained T3 CLI with the
-[official binary installer](https://github.com/pingdotgg/t3code#command-line).
-To install it separately, run:
+`services/opencode/setup.sh --prepare` prepares the runtime without contacting systemd, which CI uses to verify generated units.
 
-```sh
-curl -fsSL https://t3.codes/install.sh | sh
-```
+OpenCode setup links `~/services/opencode/bin/opencode` to the writable host CLI at `~/.opencode/bin/opencode`, prepares its existing runtime directories, and enables the Home Manager unit. The service binds to `127.0.0.1:4096`. Its data, state, and cache stay under `~/services/opencode/runtime`, separate from the host CLI database. Existing sessions are preserved.
 
-The installer puts `t3` in `~/.local/bin` and the versioned runtime in `~/.t3`.
-It requires no Node, npm, or npx. To update the CLI through dotfiles, run
-`scripts/package.sh update t3`. For a custom installation with no `t3` on PATH,
-pass `T3_BIN=/absolute/path/to/t3` to the setup script.
-The script reads the active version from `~/.t3/runtime/service-state.json` on an
-existing installation, then uses `t3 service install` to generate the user unit.
+T3 setup reads the active version from `~/.t3/runtime/service-state.json` when present and calls `t3 service install`. T3 keeps its versioned runtime and settings under `~/.t3`. Use `t3 update` for supported updates. Do not replace its main `t3code.service` with a Nix-managed file.
 
-T3 owns `~/.config/systemd/user/t3code.service` and rewrites it during supported
-updates. It is deliberately not a Stow symlink. The reference unit in
-`services/t3/t3code.service.reference` records the stable 0.0.45 setup as of
-2026-10-03. The live launcher selects the version recorded in T3's runtime state.
-Use `t3 update` to change versions rather than editing the unit or runtime state.
+Restore the existing private `~/.config/opencode/service.json` and `/etc/caddy/secrets/opencode-authorization` before testing the homelab web route. Include `services/opencode/caddy.conf` in the host Caddy configuration. Nix does not own those credentials or change the system Caddy installation.
 
-Because T3 owns its unit, the agent environment reaches it through the Stow drop-in
-`roles/base/home/.config/systemd/user/t3code.service.d/agents-env.conf`. See "Agent environment"
-in the README.
+## Refresh the runtime
 
-`scripts/link.sh` also generates `runtime.conf` drop-ins for both agent services
-from the shared `roles/base/home/.config/agents/runtime.path`. These select fnm's
-default Node and the same npm and agent tools as a shell. The drop-ins remove
-`CODEX_HOME` so Codex uses `~/.codex`. Relinking does not restart either service.
-Reload the user units and restart each service when its sessions can stop:
+Both agent drop-ins use the host's declared PATH, load `~/.config/agents/env` when present, and remove `CODEX_HOME`. Applying Home Manager updates the saved definitions without restarting running sessions. After a runtime or CLI update, restart services when their sessions can stop:
 
 ```sh
 systemctl --user daemon-reload
 systemctl --user restart opencode-web.service
 systemctl --user restart t3code.service
+scripts/doctor.sh
 ```
 
-Run `scripts/doctor.sh` from a fresh Fish session afterward. It checks the running
-process environments as well as the saved drop-ins. It prints variable names and
-repair instructions, never secret values.
+Use `opencode upgrade --method curl` for a vendor-supported CLI update. The service and interactive command share the executable, so restart the service afterward. `scripts/agents-env.sh` restarts OpenCode only if its running environment is stale. It reports when T3 needs a restart, because restarting T3 ends its sessions.
 
-T3 stores its settings and databases under `~/.t3/userdata`. Its observed web port
-is 3773, also recorded in `~/.t3/userdata/server-runtime.json` while running.
-
-## Boot and maintenance
-
-Enable lingering once so user services start at boot without an interactive login:
+## Verify the deployed services
 
 ```sh
-sudo loginctl enable-linger "$USER"
-systemctl --user status opencode-web.service t3code.service
-systemctl --user restart opencode-web.service
-systemctl --user restart t3code.service
+systemctl --user status opencode-web.service t3code.service process-compose.service
+python3 services/opencode/verify.py
 journalctl --user -u opencode-web.service -n 100
-tail -n 100 ~/.t3/userdata/logs/boot-service.log
 ```
 
-Back up `~/services/opencode/runtime`, `~/.config/opencode`, and `~/.t3` privately.
-Stop the services before copying live databases, or use database-aware backups.
-Dotfiles contains the setup scripts and configuration, not credentials, binaries,
-session databases, or logs.
+The OpenCode verifier expects homelab's private route, authentication, and copied session history. A fresh disposable CI host cannot prove those private integrations. The doctor checks active and enabled services plus their running PATH and Codex home policy without printing secret values.
+
+Process Compose listens on port 10080 and runs `dotfiles-sync` every 15 minutes. The `pc` alias attaches to its TUI. Use F9 to pause sync and F7 to resume. Linux bootstrap enables lingering so these user services start at boot without an interactive login.
