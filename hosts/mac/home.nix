@@ -18,7 +18,7 @@
       "vercel" = "65.12.1";
     };
     runtimePaths = [
-      "${pkgs.nodejs_26}/bin"
+      "${config.dotfiles.tools.node}/bin"
       "${config.home.profileDirectory}/bin"
       "/opt/homebrew/bin" "/opt/homebrew/sbin"
       "${config.home.homeDirectory}/.npm-global/bin"

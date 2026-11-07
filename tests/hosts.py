@@ -93,11 +93,13 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
             brewfile = root / 'Brewfile'
             brewfile.write_text(result.stdout)
             run(['/opt/homebrew/bin/brew', 'bundle', '--file', str(brewfile), '--no-upgrade'])
+    base_node_version = run([expected['tools']['node'], '--version'], stdout=subprocess.PIPE).stdout.strip()
     # Fresh shells must select this host's packages even after inheriting a stale Codex home.
     env['CODEX_HOME'] = str(root / 'old-codex-home')
     for shell, flags in [('fish', ['-lc']), ('zsh', ['-lc'])]:
         command = 'node --version; test -z "$CODEX_HOME"' if shell == 'zsh' else 'node --version; not set -q CODEX_HOME'
-        run([shell, *flags, command])
+        result = run([shell, *flags, command], stdout=subprocess.PIPE)
+        assert result.stdout.strip().splitlines()[-1] == base_node_version, result.stdout
     env.pop('CODEX_HOME')
     if host == 'homelab' or args.runtime:
         # Project versions must override Nix and return to Nix outside a project.
@@ -127,7 +129,7 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
                 result = run([shell, '-lc', 'node --version'], cwd=directory, stdout=subprocess.PIPE)
                 assert result.stdout.strip().splitlines()[-1].startswith('v20.'), result.stdout
         result = run(['fish', '-lc', f'cd {project}; node --version; cd {home}; node --version'], stdout=subprocess.PIPE)
-        assert 'v22.' in result.stdout and result.stdout.strip().endswith(subprocess.check_output([str(expected['tools']['node']), '--version'], env=env, text=True).strip()), result.stdout
+        assert 'v22.' in result.stdout and result.stdout.strip().endswith(base_node_version), result.stdout
 
     if args.runtime:
         run(['bash', str(repo / 'scripts/installers.sh')])

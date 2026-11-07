@@ -57,6 +57,16 @@ scripts/apply.sh mac --build
 # Or scripts/apply.sh homelab --build
 ```
 
+Both hosts currently declare `pkgs.nodejs_26` as their base Node. To pick up newer Node 26 releases from the pinned channels, update those inputs and rebuild:
+
+```sh
+nix flake update nixpkgs-linux nixpkgs-darwin
+scripts/apply.sh mac --build
+# Or scripts/apply.sh homelab --build
+```
+
+For a future major upgrade, change `dotfiles.tools.node` in each host's `home.nix` and update the lockfile. The runtime paths derive from those package declarations. CI checks the selected base binary and confirms that leaving a project returns to that base.
+
 After merging, `scripts/sync.sh` fast-forwards and activates the new generation. Apply installs missing vendor tools and changed npm versions. Use each vendor's supported update command for an installed self-updating CLI. Homebrew updates are deliberate, for example `brew upgrade pnpm`.
 
 On homelab, list previous configurations with `home-manager generations` and run the selected generation's `activate` script. On the Mac, use `sudo darwin-rebuild switch --rollback`. Restore mutable runtime data separately if an application update changed it. To return to native dotfiles, remove Home Manager's managed links and restore the backup files before running the previous repository revision. Nix uninstall is a separate system operation, including its macOS volume. Do not delete `/nix` by hand.

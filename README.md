@@ -41,7 +41,7 @@ Nix inputs change only when `flake.lock` changes. Homebrew packages follow their
 
 ## Runtime and writable state
 
-Each host generates `~/.config/agents/runtime.path`. Fish, zsh, installers, and Linux services use that order. Nix owns the default Node. fnm owns project versions. The Mac Home Manager profile precedes Homebrew for Nix-owned tools. Homebrew pnpm resolves to `/opt/homebrew/bin/pnpm`, ahead of old npm-global installations. Homelab uses Nix pnpm and excludes old Linuxbrew directories.
+Each host generates `~/.config/agents/runtime.path`. Fish, zsh, installers, and Linux services use that order. Nix owns the default Node 26. fnm owns project versions. Each host declares its base package once in `dotfiles.tools.node`, and its runtime path follows that declaration. The Mac Home Manager profile precedes Homebrew for Nix-owned tools. Homebrew pnpm resolves to `/opt/homebrew/bin/pnpm`, ahead of old npm-global installations. Homelab uses Nix pnpm and excludes old Linuxbrew directories.
 
 Home Manager replaces GNU Stow. It links individual files into real directories, leaving private and generated files writable. The migration backs up conflicting files under `~/.local/state/dotfiles/backups/` before activation. `~/.gitconfig` remains a regular local file with a managed include. Grok's completion remains a regular copy because its updater rewrites it.
 

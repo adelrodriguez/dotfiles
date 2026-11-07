@@ -53,7 +53,7 @@
     };
     vendorTools = [ "claude" "codex" "grok" "opencode" "t3" "apm" ];
     runtimePaths = [
-      "${pkgs.nodejs_26}/bin"
+      "${config.dotfiles.tools.node}/bin"
       "${config.home.profileDirectory}/bin"
       "${config.home.homeDirectory}/.npm-global/bin"
       "${config.home.homeDirectory}/.local/bin"
