@@ -41,12 +41,12 @@ dependencies:
         - monitor
         - next-task
         - pr
+        - prune
         - refresh
         - restraint
         - retro
         - sessions
         - takeover
-        - test-pruning
         - testing
         - triage
         - unslop
