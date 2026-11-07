@@ -66,6 +66,13 @@ def main():
             if not valid:
                 fail(rel, 'managed configuration differs or is missing', 'Run scripts/link.sh')
 
+    for link in (home / '.config').rglob('*'):
+        if not link.is_symlink() or link.exists() or link.parent.name != 'skills':
+            continue
+        target = Path(os.path.abspath(link.parent / os.readlink(link)))
+        if target == home / '.agents/skills' / link.name:
+            fail(link.relative_to(home), 'alias points to a removed shared skill', 'Run scripts/link.sh')
+
     for name in ('apm.yml', 'apm.lock.yaml'):
         source, target = repo / 'agents' / name, home / '.apm' / name
         if digest(source) != digest(target) or not target.is_file():

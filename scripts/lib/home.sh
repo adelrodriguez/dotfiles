@@ -22,6 +22,11 @@ prune_links() {
     path="${HOME}/${rel}"
     [[ -L "$path" ]] || continue
     target="$(resolve_link "$path")"
+    # Removed shared skills leave aliases in older agent integrations.
+    if [[ "$rel" == .config/*/skills/* && ! -e "$path" && "$target" == "$HOME/.agents/skills/$(basename "$path")" ]]; then
+      rm "$path"
+      continue
+    fi
     [[ "$target" == "$DOTFILES_DIR"/* ]] || continue
     [[ "$target" == "$ROLES_DIR"/*/home/"$rel" && -f "$target" ]] && continue
     rm "$path"

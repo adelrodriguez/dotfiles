@@ -104,6 +104,10 @@ Run `bash tests/check.sh` for the isolated fixture suite on macOS or Ubuntu. Lin
 Codex completions are generated from the installed CLI when fish loads them, so
 they follow CLI updates automatically.
 
+Relinking also removes dangling aliases in agent `skills` folders under `~/.config`
+when they point directly to a removed entry in `~/.agents/skills`. Working aliases
+and links to other locations stay in place. The doctor reports these stale aliases.
+
 Tmux and its plugins are no longer configured by this repository. After syncing
 an existing installation, remove dangling `~/.tmux.conf` and
 `~/.config/tmux/tmux.conf` symlinks left by the previous configuration.

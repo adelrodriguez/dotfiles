@@ -24,6 +24,10 @@ ln -s ../../../dotfiles/home/.local/bin/dotfiles-sync "$HOME/.local/bin/dotfiles
 ln -s "$tmp" "$HOME/.config/elsewhere"
 mkdir -p "$HOME/.config/retired"
 ln -s "$base/.config/retired/config" "$HOME/.config/retired/config"
+mkdir -p "$HOME/.config/other/skills" "$HOME/.agents/skills/current"
+ln -s "$HOME/.agents/skills/removed" "$HOME/.config/other/skills/removed"
+ln -s "$HOME/.agents/skills/current" "$HOME/.config/other/skills/current"
+ln -s "$tmp/unmanaged/missing" "$HOME/.config/other/skills/unmanaged"
 # systemctl enable recorded the unit's resolved path in the repository, so the move left the boot link dangling.
 wants="$HOME/.config/systemd/user/default.target.wants"
 mkdir -p "$wants"
@@ -31,6 +35,8 @@ ln -s "$repo/home/.config/systemd/user/process-compose.service" "$wants/process-
 ln -s "$HOME/.config/systemd/user/t3code.service" "$wants/t3code.service"
 link >/dev/null
 [[ ! -L "$HOME/.config/retired/config" ]]
+[[ ! -L "$HOME/.config/other/skills/removed" ]]
+[[ -L "$HOME/.config/other/skills/current" && -L "$HOME/.config/other/skills/unmanaged" ]]
 
 case "$(uname -s)" in Linux) expected=server ;; Darwin) expected=mac ;; esac
 [[ "$(cat "$HOME/.config/dotfiles/profile")" == "$expected" ]]
