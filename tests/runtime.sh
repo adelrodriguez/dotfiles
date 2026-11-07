@@ -23,6 +23,13 @@ if command -v zsh >/dev/null; then
     [[ "$result" == 'default fixture-node' ]] || { echo "zsh $mode selected $result" >&2; exit 1; }
   done
 fi
+fish --no-config -c '
+  set -gx CODEX_HOME "$HOME/.config/codex"
+  source "$HOME/.config/fish/conf.d/10-paths.fish"
+  source "$HOME/.config/fish/config.fish"
+  not set -q CODEX_HOME; or exit 1
+  test (node --version) = fixture-node
+'
 [[ "$(cat "$HOME/.config/codex/auth.json")" == 'private auth' ]]
 bash "$tmp/scripts/link.sh" >/dev/null
 if [[ "$(uname -s)" == Linux ]]; then

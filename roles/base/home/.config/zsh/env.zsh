@@ -1,10 +1,20 @@
 [[ -r "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
-# npm global installs (prefix in ~/.npmrc), shared by every Node version
-export PATH="$HOME/.npm-global/bin:$PATH"
+unset CODEX_HOME
+typeset -U path
+typeset -a runtime_paths
+runtime_paths=()
+while IFS= read -r entry || [[ -n "$entry" ]]; do
+  [[ -n "$entry" ]] || continue
+  [[ "$OSTYPE" != linux* || "$entry" != /opt/homebrew/* ]] || continue
+  [[ "$entry" == /* ]] || entry="$HOME/$entry"
+  runtime_paths+=("$entry")
+done < "$HOME/.config/agents/runtime.path"
+path=("${runtime_paths[@]}" "${path[@]}")
+export PATH
 
 # Put the Node from the nearest .node-version first on PATH, so agent shells
-# get the project's Node and its corepack pnpm without `fnm exec`.
+# get the project's Node without `fnm exec`.
 # ~/.zprofile calls this again, because `brew shellenv` there puts Homebrew's
 # Node back in front for login shells (`zsh -lc`).
 use_node_version() {

@@ -3,4 +3,5 @@
 agent-browser
 agent-desktop
 packref
+pnpm
 vercel

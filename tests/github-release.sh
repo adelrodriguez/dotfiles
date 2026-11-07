@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Install a fake GitHub release twice and check the version layout and links.
 set -euo pipefail
+if [[ "$(uname -s)" != Linux ]]; then
+  echo 'Ubuntu release checks run on Linux. macOS ownership is checked by packages-macos.sh.'
+  exit 0
+fi
 source "$(dirname "${BASH_SOURCE[0]}")/../scripts/lib/packages/github-release.sh"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT

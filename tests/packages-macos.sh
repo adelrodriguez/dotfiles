@@ -42,4 +42,10 @@ if grep -q '^brew upgrade pnpm' "$CALLS"; then exit 1; fi
 bash "$tmp/scripts/package.sh" add example
 grep -qx 'brew install example' "$CALLS"
 grep -qx 'brew "example"' "$tmp/roles/base/packages/Brewfile"
+bash "$tmp/scripts/package.sh" update
+grep -q '^brew bundle --upgrade --file ' "$CALLS"
+if grep -qx 'brew upgrade' "$CALLS"; then
+  echo 'Updating tracked packages upgraded unrelated Homebrew packages' >&2
+  exit 1
+fi
 printf 'macOS uses fnm for Node, npm for pnpm, and Homebrew for formulae\n'

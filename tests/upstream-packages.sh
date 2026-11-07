@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Exercise updates with upstream fixtures and an isolated installation directory.
 set -euo pipefail
+if [[ "$(uname -s)" != Linux ]]; then
+  echo 'Ubuntu release checks run on Linux. macOS ownership is checked by packages-macos.sh.'
+  exit 0
+fi
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
@@ -143,7 +147,29 @@ SH
 chmod +x "$tmp/home/.local/bin/"{curl,uname,brew}
 : > "$tmp/node-calls"
 env HOME="$tmp/home" PATH="$tmp/home/.local/bin:$PATH" CALLS="$tmp/node-calls" bash "$repo/scripts/package.sh" update node
-for expected in 'brew upgrade node' 'install v28.0.1' 'default v28.0.1'; do
+for expected in 'install v28.0.1' 'default v28.0.1'; do
   grep -qxF "$expected" "$tmp/node-calls"
 done
 printf 'macOS Node update moves the fnm default\n'
+
+# Linux bootstrap uses the managed uv installer without changing shell startup.
+rm "$tmp/home/.local/bin/uname"
+cat > "$tmp/home/.local/bin/curl" <<'SH'
+#!/usr/bin/env bash
+while [[ $# -gt 0 ]]; do
+  case "$1" in -o) output="$2"; shift 2 ;; *) shift ;; esac
+done
+cat > "$output" <<'INSTALLER'
+printf 'uv installer modify-path=%s\n' "$UV_NO_MODIFY_PATH" >> "$CALLS"
+INSTALLER
+SH
+cat > "$tmp/home/.local/bin/uv" <<'SH'
+#!/bin/sh
+printf 'uv %s\n' "$*" >> "$CALLS"
+SH
+chmod +x "$tmp/home/.local/bin/uv"
+env HOME="$tmp/home" CALLS="$tmp/bootstrap-calls" bash "$repo/scripts/package.sh" update uv
+env HOME="$tmp/home" CALLS="$tmp/bootstrap-calls" bash "$repo/scripts/package.sh" update apm
+grep -qx 'uv installer modify-path=1' "$tmp/bootstrap-calls"
+grep -qx 'uv tool install --upgrade apm-cli' "$tmp/bootstrap-calls"
+printf 'Linux bootstrap tracks uv and APM without modifying shell profiles\n'

@@ -1,31 +1,17 @@
-if test -d "$HOME/.local/share/fnm"
-    fish_add_path "$HOME/.local/share/fnm"
-end
-
-if test -d "$HOME/.opencode/bin"
-    fish_add_path "$HOME/.opencode/bin"
-end
-
-if test -d "$HOME/.npm-global/bin"
-    fish_add_path "$HOME/.npm-global/bin"
-end
-
-if test -d "$HOME/.bun/bin"
-    fish_add_path "$HOME/.bun/bin"
-end
-
-if test -d "$HOME/.cargo/bin"
-    fish_add_path "$HOME/.cargo/bin"
-end
-
-if test -d "$HOME/.local/bin"
-    fish_add_path "$HOME/.local/bin"
-end
+# Shells and services read the same ordered tool paths.
+set -l runtime_paths
+while read -l entry
+    test -n "$entry"; or continue
+    if test (uname) = Linux; and string match -q '/opt/homebrew/*' -- $entry
+        continue
+    end
+    if not string match -q '/*' -- $entry
+        set entry "$HOME/$entry"
+    end
+    set -a runtime_paths $entry
+end < "$HOME/.config/agents/runtime.path"
+fish_add_path --path --move $runtime_paths
 
 if test -d /Applications/Obsidian.app/Contents/MacOS
-    fish_add_path /Applications/Obsidian.app/Contents/MacOS
-end
-
-if test -d "$HOME/.atuin/bin"
-    fish_add_path "$HOME/.atuin/bin"
+    fish_add_path --path /Applications/Obsidian.app/Contents/MacOS
 end

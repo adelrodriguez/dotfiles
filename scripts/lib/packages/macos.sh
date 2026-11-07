@@ -33,6 +33,7 @@ ensure_homebrew() {
 }
 
 parse_brewfile() {
+  local line
   TAPS=()
   BREWS=()
   CASKS=()
@@ -127,6 +128,7 @@ macos_package_add() {
 
 macos_package_remove() {
   local name="${1:-}"
+  local line
   [[ -z "$name" ]] && die "Usage: scripts/package.sh remove <name>"
 
   local brew_line="brew \"${name}\""
@@ -176,16 +178,19 @@ macos_package_update() {
 
   if [[ -z "$name" ]]; then
     brew update
-    brew upgrade
+    local file
+    while IFS= read -r file; do
+      brew bundle --upgrade --file "$file"
+    done < <(role_manifests Brewfile)
     install_node
     return 0
   fi
 
-  brew upgrade "$name" || brew install "$name"
-  # Shells use fnm's default Node, not Homebrew's.
   if [[ "$name" == node ]]; then
     install_node
+    return
   fi
+  brew upgrade "$name" || brew install "$name"
 }
 
 macos_package_list() {

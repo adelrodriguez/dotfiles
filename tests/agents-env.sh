@@ -3,7 +3,7 @@
 set -euo pipefail
 source_repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
-trap 'kill $(jobs -p) 2>/dev/null; rm -rf "$tmp"' EXIT
+trap 'for pid in $(jobs -p); do kill "$pid" 2>/dev/null || true; done; rm -rf "$tmp"' EXIT
 repo="$tmp/repo"
 mkdir -p "$repo"
 cp -R "$source_repo/scripts" "$source_repo/roles" "$source_repo/profiles" "$repo/"
@@ -11,6 +11,7 @@ export HOME="$tmp/home"
 export CALLS="$tmp/calls"
 env_file="$HOME/.config/agents/env"
 mkdir -p "$HOME/.local/bin" "$HOME/.config/dotfiles"
+export PATH="$HOME/.local/bin:$PATH"
 printf "server\n" > "$HOME/.config/dotfiles/profile"
 # Linking a fresh home, then linking it again, keeps ~/.config/agents a real directory.
 bash "$repo/scripts/link.sh"
@@ -46,7 +47,7 @@ if write 2>/dev/null; then exit 1; fi
 
 printf 'test-token\n' > "$HOME/.config/agents/1password-token"
 setup
-[[ "$(stat -c %a "$env_file")" == 600 ]]
+[[ "$(python3 -c 'import os,sys; print(oct(os.stat(sys.argv[1]).st_mode & 0o777)[2:])' "$env_file")" == 600 ]]
 grep -qx 'FILE_UPLOAD_BUCKET=value-bucket' "$env_file"
 grep -qx 'op inject token=test-token' "$CALLS"
 grep -qx 'systemctl --user daemon-reload' "$CALLS"
@@ -54,22 +55,25 @@ if grep -q 'restart' "$CALLS"; then exit 1; fi
 [[ -z "$(find "$HOME/.config/agents" -name '.env.*')" ]]
 
 # A second run leaves the file untouched.
-before="$(stat -c %Y:%i "$env_file")"
+file_state() { python3 -c 'import os,sys; s=os.stat(sys.argv[1]); print(s.st_mtime_ns,s.st_ino)' "$env_file"; }
+before="$(file_state)"
 write | grep -q 'is up to date'
-[[ "$(stat -c %Y:%i "$env_file")" == "$before" ]]
+[[ "$(file_state)" == "$before" ]]
 
-# Services restart only when their running process lacks the values, even when the file is unchanged.
-sleep 60 & echo $! > "$PIDS/opencode-web.service"
-sleep 60 & echo $! > "$PIDS/t3code.service"
-: > "$CALLS"
-write | grep -q '^Restart t3code.service'
-grep -qx 'systemctl --user restart opencode-web.service' "$CALLS"
-mapfile -t values < <(grep -v '^#' "$env_file" | grep .)
-env "${values[@]}" sleep 60 & echo $! > "$PIDS/opencode-web.service"
-env "${values[@]}" sleep 60 & echo $! > "$PIDS/t3code.service"
-: > "$CALLS"
-if write | grep -q '^Restart'; then exit 1; fi
-if grep -q restart "$CALLS"; then exit 1; fi
+# /proc process environments are a Linux service contract.
+if [[ "$(uname -s)" == Linux ]]; then
+  sleep 60 & echo $! > "$PIDS/opencode-web.service"
+  sleep 60 & echo $! > "$PIDS/t3code.service"
+  : > "$CALLS"
+  write | grep -q '^Restart t3code.service'
+  grep -qx 'systemctl --user restart opencode-web.service' "$CALLS"
+  mapfile -t values < <(grep -v '^#' "$env_file" | grep .)
+  env "${values[@]}" sleep 60 & echo $! > "$PIDS/opencode-web.service"
+  env "${values[@]}" sleep 60 & echo $! > "$PIDS/t3code.service"
+  : > "$CALLS"
+  if write | grep -q '^Restart'; then exit 1; fi
+  if grep -q restart "$CALLS"; then exit 1; fi
+fi
 
 # Failed or unsafe output keeps the existing file and never prints a value.
 expected="$(cat "$env_file")"
