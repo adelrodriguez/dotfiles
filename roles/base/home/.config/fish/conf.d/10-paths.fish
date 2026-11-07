@@ -1,8 +1,9 @@
 # Shells and services read the same ordered tool paths.
 set -l runtime_paths
+set -l platform (uname)
 while read -l entry
     test -n "$entry"; or continue
-    if test (uname) = Linux; and string match -q '/opt/homebrew/*' -- $entry
+    if test $platform = Linux; and string match -q '/opt/homebrew/*' -- $entry
         continue
     end
     if not string match -q '/*' -- $entry

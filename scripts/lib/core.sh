@@ -18,7 +18,11 @@ while IFS= read -r entry || [[ -n "$entry" ]]; do
   RUNTIME_PATH="${RUNTIME_PATH:+$RUNTIME_PATH:}$entry"
 done < "$ROLES_DIR/base/home/.config/agents/runtime.path"
 # Linuxbrew must not satisfy an upstream installation check.
-if [[ "$PLATFORM" == Linux ]]; then export PATH="$RUNTIME_PATH"; else export PATH="$USER_RUNTIME_PATH:$PATH"; fi
+if [[ "$PLATFORM" == Linux ]]; then
+  export PATH="$RUNTIME_PATH"
+elif [[ "$PATH" != "$USER_RUNTIME_PATH":* ]]; then
+  export PATH="$USER_RUNTIME_PATH:$PATH"
+fi
 unset CODEX_HOME
 
 info() {
