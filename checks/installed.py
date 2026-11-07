@@ -63,15 +63,28 @@ if expected['host'] == 'mac' and not args.home_only:
     for package in expected['brew']['brews']:
         result = run(['/opt/homebrew/bin/brew', 'list', '--formula', '--versions', package])
         require(result.returncode == 0 and bool(result.stdout.strip()), f'Homebrew {package} is missing.')
-    # Casks expose their tap-qualified identity as full_token. brew list filters
-    # by the short token, so use installed metadata to retain the tap check.
+    # Definition metadata can omit the tap under an isolated HOME. Check the
+    # installed token and use its install receipt for the recorded source.
     result = subprocess.run(['/opt/homebrew/bin/brew', 'info', '--cask', '--json=v2', '--installed'],
                             env=env, text=True, capture_output=True, timeout=60)
     require(result.returncode == 0, f'Could not inspect installed Homebrew casks: {result.stderr[:300]}')
     casks = json.loads(result.stdout)['casks'] if result.returncode == 0 else []
-    installed_casks = {name for cask in casks if cask['installed'] for name in (cask['token'], cask['full_token'])}
+    installed_casks = {cask['token'] for cask in casks if cask['installed']}
+    room = subprocess.run(['/opt/homebrew/bin/brew', '--caskroom'], env=env,
+                          text=True, capture_output=True, timeout=60)
+    require(room.returncode == 0, f'Could not locate the Homebrew Caskroom: {room.stderr[:300]}')
+    caskroom = Path(room.stdout.strip()) if room.returncode == 0 else None
     for package in expected['brew']['casks']:
-        require(package in installed_casks, f'Homebrew {package} is missing.')
+        token = package.rsplit('/', 1)[-1]
+        require(token in installed_casks, f'Homebrew {package} is missing.')
+        if '/' in package and token in installed_casks:
+            tap = package.rsplit('/', 1)[0]
+            receipt = caskroom / token / '.metadata/INSTALL_RECEIPT.json' if caskroom else None
+            recorded_tap = None
+            if receipt and receipt.is_file():
+                recorded_tap = json.loads(receipt.read_text())['source']['tap']
+            require(recorded_tap == tap,
+                    f'Homebrew {package}: expected installed tap {tap}, found {recorded_tap or "no install receipt"}.')
     actual = shutil.which('pnpm', path=observed_path)
     require(actual == '/opt/homebrew/bin/pnpm', f'Mac pnpm must come from Homebrew, found {actual}')
     if actual:
