@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }:
 {
-  imports = [ ../../modules/home ./services.nix ];
+  imports = [ ../../home ../../tools ../../agents ../../services/opencode ../../services/t3 ../../services/sync ];
   dotfiles = {
     tools = {
       node = pkgs.nodejs_26;

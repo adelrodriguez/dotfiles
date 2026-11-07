@@ -9,7 +9,7 @@ My own skills and instructions live in their own repos:
 
 ## Install APM
 
-`scripts/bootstrap.sh` installs APM on both hosts. macOS declares APM in `hosts/mac/packages.nix`. Homelab declares uv through Nix and installs `apm-cli` in its writable uv tool environment.
+`scripts/bootstrap.sh` installs APM on both hosts. macOS declares APM in `hosts/mac/homebrew.nix`. Homelab declares uv through Nix and installs `apm-cli` in its writable uv tool environment.
 
 Then sync. APM fetches the packages with your git credentials:
 
@@ -42,7 +42,7 @@ The setup used to live in [adelrodriguez/dotagents](https://github.com/adelrodri
 
 ## What a sync does
 
-`make -C ~ agents:sync` runs `scripts/agents.sh sync`, which does these steps:
+`make -C ~ agents:sync` runs `agents/deploy.sh sync`, which does these steps:
 
 1. Copies `agents/apm.yml` and `agents/apm.lock.yaml` into `~/.apm`. APM reads its user-scope manifest only from `~/.apm`, and it refuses a symlinked `apm.yml`, so Home Manager must not link them. If `agents/apm.lock.yaml` differs from the lock in `~/.apm`, which happens after a pull changes it, the sync stops before it copies anything. The deployed lock is the only record of the files to remove, so follow "Update after a pull" in `agents/AGENTS.md` first.
 2. `apm install --global` installs everything in the lock, at the commits it records. If `apm.yml` and the lock disagree, it updates the lock to match.
@@ -55,7 +55,7 @@ After each APM step, even one that fails, the sync copies `apm.yml` and `apm.loc
 
 Never run `apm install` or `apm update` without `--global`. Inside `~/.apm`, a plain `apm install` installs at project scope, which writes `.claude/`, `.agents/`, `.cursor/`, `.grok/`, and `agent-data/` there and adds project-scope entries to the lock.
 
-Run `bash tests/agents.sh` to check the sync with APM replaced by a stub.
+Run `bash agents/tests/deploy.sh` to check the sync with APM replaced by a stub.
 
 ## Where each agent reads them
 
@@ -89,5 +89,5 @@ The merged `AGENTS.md` files drop `applyTo` scoping, so every instruction applie
 | `agents/apm.yml` | The targets, the packages and skills to install, and the MCP servers |
 | `agents/apm.lock.yaml` | The resolved commits and deployed files. APM writes it, so don't edit it by hand. |
 | `agents/AGENTS.md` | Steps for agents that sync, including the cleanup after a pull changes the lock |
-| `scripts/agents.sh`, `scripts/lib/agents.sh` | The `sync` and `update` commands |
-| `config/Makefile` | The `agents:sync` and `agents:update` targets |
+| `agents/deploy.sh` | The `sync` and `update` commands |
+| `agents/Makefile` | The `agents:sync` and `agents:update` targets |

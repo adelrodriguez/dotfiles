@@ -3,7 +3,9 @@ let
   home = config.home.homeDirectory;
   runtime = lib.concatStringsSep ":" config.dotfiles.runtimePaths;
 in {
+  imports = [ ../default.nix ];
   home.file = {
+    ".config/systemd/user/opencode-web.service.d/runtime.conf".text = import ../environment.nix { inherit config lib; };
     "services/opencode/verify.py".source = ./verify.py;
     "services/opencode/caddy.conf".source = ./caddy.conf;
   };

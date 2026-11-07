@@ -5,7 +5,7 @@ This folder is the user's global agent setup. `make -C ~ agents:sync` deploys it
 ## Sync
 
 - Commit and push updates that change only `agents/apm.lock.yaml` directly to `main` without a PR. Use a PR if the update also changes any other repository file.
-- Sync only from `main` in the checkout recorded in `~/.config/dotfiles/checkout`. `~/Makefile` reads that path. On a feature branch or in a worktree, check changes by reading the files and the diff, and report them as landing on the next sync after merge. Don't run `make agents:sync`, `make agents:update`, `scripts/agents.sh`, or `apm` until the PR merges.
+- Sync only from `main` in the checkout recorded in `~/.config/dotfiles/checkout`. `~/Makefile` reads that path. On a feature branch or in a worktree, check changes by reading the files and the diff, and report them as landing on the next sync after merge. Don't run `make agents:sync`, `make agents:update`, `agents/deploy.sh`, or `apm` until the PR merges.
 - Run `make -C ~ agents:sync` for a sync and `make -C ~ agents:update` to move the lock to the latest commits. Never run `apm install` or `apm update` yourself. APM reads only `~/.apm/apm.yml`, and the sync copies `apm.yml` and `apm.lock.yaml` from this folder into `~/.apm`, then copies them back if APM changed them.
 
 ## Update after a pull

@@ -7,7 +7,7 @@ This guide shows you how to run the declared OpenCode and T3 services on Ubuntu.
 Run `scripts/bootstrap.sh homelab` for a new host. On an existing host after applying the configuration:
 
 ```sh
-scripts/installers.sh
+tools/install.sh
 bash services/opencode/setup.sh
 bash services/t3/setup.sh
 systemctl --user enable --now process-compose.service

@@ -13,20 +13,8 @@
   outputs = inputs@{ home-manager, nix-darwin, nixpkgs-linux, nixpkgs-darwin, ... }:
     let
       machines = {
-        mac = {
-          host = "mac";
-          username = "adelrodriguez";
-          homeDirectory = "/Users/adelrodriguez";
-          checkout = "/Users/adelrodriguez/Developer/dotfiles";
-          system = "aarch64-darwin";
-        };
-        homelab = {
-          host = "homelab";
-          username = "adel";
-          homeDirectory = "/home/adel";
-          checkout = "/home/adel/dotfiles";
-          system = "x86_64-linux";
-        };
+        mac = import ./hosts/mac/machine.nix;
+        homelab = import ./hosts/homelab/machine.nix;
       };
       mkHome = host: overrides:
         let machine = machines.${host} // overrides;
@@ -43,7 +31,7 @@
         in nix-darwin.lib.darwinSystem {
           specialArgs = { inherit machine; };
           modules = [
-            ./hosts/mac
+            ./hosts/mac/system.nix
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
