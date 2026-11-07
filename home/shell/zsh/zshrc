@@ -56,7 +56,8 @@ use_project_node() {
     fi
     directory=${directory:h}
   done
-  fnm use --silent-if-unchanged system && rehash
+  # A version file avoids interpreting system as a path in the current directory.
+  fnm use --silent-if-unchanged =(printf 'system\n') && rehash
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook chpwd use_project_node

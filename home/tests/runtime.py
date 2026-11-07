@@ -111,8 +111,10 @@ case "$1" in
         ;;
     use)
         if [ -n "${FNM_TEST_STATUS:-}" ]; then exit "$FNM_TEST_STATUS"; fi
-        case "$*" in
-            *system) /bin/rm -f "$FNM_MULTISHELL_PATH/bin/node" ;;
+        for selection do :; done
+        if [ -f "$selection" ]; then selection=$(cat "$selection"); fi
+        case "$selection" in
+            system) /bin/rm -f "$FNM_MULTISHELL_PATH/bin/node" ;;
             *) /bin/ln -sf "$FNM_DIR/project/bin/node" "$FNM_MULTISHELL_PATH/bin/node" ;;
         esac
         ;;
@@ -168,9 +170,12 @@ esac
         before = [path.read_bytes() for path in installations]
         runtime = self.root / 'runtime'
         runtime.mkdir(mode=0o700)
-        self.env.update({'FNM_DIR': str(fnm), 'XDG_RUNTIME_DIR': str(runtime), 'TMPDIR': str(runtime),
+        for name in list(self.env):
+            if name.startswith('FNM_'):
+                self.env.pop(name)
+        self.env.update({'FNM_DIR': str(fnm), 'ZDOTDIR': str(self.home),
+                         'XDG_RUNTIME_DIR': str(runtime), 'TMPDIR': str(runtime),
                          'PATH': os.pathsep.join([str(base.parent), str(Path(FNM).parent), '/usr/bin', '/bin'])})
-        self.env.pop('FNM_MULTISHELL_PATH', None)
         projects = []
         for filename in ('.node-version', '.nvmrc'):
             project = self.root / filename.removeprefix('.') / 'nested'
@@ -211,7 +216,7 @@ esac
                 probe = 'rehash; node --version'
             for project, selected in projects:
                 for destination in destinations:
-                    with self.subTest(shell=shell, project=project.name, destination=str(destination)):
+                    with self.subTest(shell=shell, project=str(project.relative_to(self.root)), destination=str(destination)):
                         script = f'source {shlex.quote(str(startup))}; {probe}; '
                         for directory in (project, destination, project, destination):
                             script += f'cd {shlex.quote(str(directory))}; {probe}; '
