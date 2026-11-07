@@ -36,13 +36,12 @@ for name, executable in expected['tools'].items():
     if name == 'node' and actual and not matches:
         # fnm owns an installed project version. Ask fnm to resolve the nearest
         # version file, without changing this shell or a persistent default alias.
-        version_file = next((directory / filename
-                             for directory in [Path.cwd(), *Path.cwd().parents]
-                             for filename in ('.node-version', '.nvmrc')
-                             if (directory / filename).is_file()), None)
+        has_version_file = any((directory / filename).is_file()
+                               for directory in [Path.cwd(), *Path.cwd().parents]
+                               for filename in ('.nvmrc', '.node-version'))
         fnm = expected['tools'].get('fnm') or shutil.which('fnm', path=runtime_path)
-        if version_file is not None and fnm and os.access(fnm, os.X_OK):
-            selected = run([fnm, 'exec', '--using', str(version_file), '--', 'node', '-p', 'process.execPath'])
+        if has_version_file and fnm and os.access(fnm, os.X_OK):
+            selected = run([fnm, 'exec', '--version-file-strategy', 'recursive', '--', 'node', '-p', 'process.execPath'])
             lines = selected.stdout.strip().splitlines()
             matches = selected.returncode == 0 and bool(lines) and Path(actual).resolve() == Path(lines[-1]).resolve()
     require(matches, f'{name}: expected {executable} or the fnm project version, found {actual}'
