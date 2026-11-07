@@ -4,12 +4,38 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import sys
+import tempfile
 from mutable import backup
 
 
 def handoff(home, checkout, targets, fish='fish'):
     home, checkout = home.resolve(), checkout.resolve()
+    # Fisher's recorded files can otherwise shadow the pinned Home Manager plugins.
+    if (home / '.config/fish/fish_variables').exists():
+        # --no-config also disables universal variables in recent fish versions.
+        # Read a private copy with no user startup files, never execute the old config.
+        with tempfile.TemporaryDirectory(prefix='dotfiles-fisher-') as directory:
+            clean = Path(directory)
+            (clean / 'fish').mkdir()
+            shutil.copyfile(home / '.config/fish/fish_variables', clean / 'fish/fish_variables')
+            (clean / 'fish/fish_variables').chmod(0o600)
+            environment = {**os.environ, 'HOME': str(home), 'XDG_CONFIG_HOME': str(clean)}
+            script = Path(__file__).with_name('fisher.fish')
+            result = subprocess.run([fish, str(script)], env=environment, capture_output=True, check=True)
+        for value in result.stdout.decode().split('\0'):
+            if not value:
+                continue
+            path = Path(value.replace('~/', str(home) + '/', 1))
+            if not path.is_absolute() or '..' in path.parts:
+                raise RuntimeError(f'Invalid Fisher path {path}')
+            path = path.parent.resolve() / path.name
+            if not path.is_relative_to(home / '.config/fish'):
+                raise RuntimeError(f'Invalid Fisher path {path}')
+            if path.is_file() and not str(path.resolve()).startswith('/nix/store/'):
+                backup(home, path)
+                path.unlink()
     # Materialize folded checkout directories before individual file handoff.
     for relative in targets:
         path = home / relative
