@@ -20,6 +20,7 @@ Each task is a script in the repository. Run them from any directory.
 | `scripts/agents.sh sync\|update` | Deploys `agents/` with APM. The `agents:sync` and `agents:update` targets below run it. |
 | `scripts/agents-env.sh` | Fills `~/.config/agents/env` from 1Password. Rerun it to pick up rotated keys. |
 | `scripts/link.sh` | Backs up existing target files and links the `home/` folder of each role in the profile into `$HOME` with GNU Stow. |
+| `scripts/doctor.sh` | Reports drift in configuration, agent deployments, profile packages, runtime providers, and running service environments. It writes nothing and never installs packages or restarts services. Exit 0 means no drift, 1 means drift, and 2 means the recorded profile is invalid. Run it from a fresh shell. |
 | `scripts/package.sh install` | Installs every tracked package for the current platform. |
 | `scripts/package.sh add <name> [apt\|brew\|cask\|npm] [--role <role>]` | Installs and records a package in a role of the profile, `base` by default. Defaults to APT on Ubuntu and a Homebrew formula on macOS. `npm` records a global npm tool for both platforms. |
 | `scripts/package.sh remove <name>` | Removes a package from its manifest, then offers to uninstall APT, Homebrew, and npm packages. Upstream tools require manual uninstallation. |
@@ -82,7 +83,7 @@ Dependencies point one way: `tests/` → `scripts/*.sh` → `scripts/lib/` modul
 
 ## Local configuration
 
-Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and npm installs pnpm. Codex uses OpenAI's standalone installer. Ghostty remains macOS-only in the manifests.
+Linux installation currently supports Ubuntu. APT manages OS dependencies and build tools. Git uses the Git maintainers' PPA; the 1Password CLI uses its official APT repository. Developer tools use the latest stable upstream releases, rather than Ubuntu's older versions. fnm manages Node, and the shared npm manifest installs pnpm into `~/.npm-global` on both platforms. Homebrew may still install Node as another tool's dependency, but shells and agent services select fnm's default. Codex uses OpenAI's standalone installer on Linux. uv and APM are also installed by the Linux profile.
 
 `scripts/package.sh update` updates every tracked tool to the latest stable release from its configured source. On both platforms, Node selects the newest stable release, excludes prereleases, and becomes the fnm default. Existing Node versions and project-specific version files remain available. `scripts/install.sh` resolves the latest GitHub releases and skips other upstream installers when their tools are already present. Atuin must be at least 18.23.0 to read the history database migrated by the previous Linuxbrew installation.
 
@@ -91,6 +92,14 @@ GitHub release binaries live under `~/.local/share/dot-tools/<tool>/<version>` a
 To track another upstream tool, add its installer to `scripts/lib/packages/extras.sh` and its name to a role's `packages/extras.txt`. `scripts/package.sh add` on Linux handles APT packages only. The manifests track intended packages, not their transitive dependencies or exact versions.
 
 Fish is the default interactive shell. `scripts/install.sh` installs fish, registers it in `/etc/shells`, and selects it as the account's login shell.
+
+`roles/base/home/.config/agents/runtime.path` defines the shared tool search order. Fish, zsh, setup commands, and the Linux agent service drop-ins read it. Non-interactive processes use fnm's stable default alias. Project `.node-version` files still take precedence in shells. The managed `.zprofile` restores that precedence after Homebrew initializes a login shell.
+
+Codex uses its default `~/.codex` home. Shell startup and the Linux service drop-ins remove `CODEX_HOME`. Existing data under `~/.config/codex` stays untouched. Reauthenticate in the default home if needed.
+
+Git's `~/.gitconfig` is a regular local file that includes the tracked configuration. Credential tools can add local entries without writing into the checkout. Grok's completion is also a regular file. Relinking restores the tracked completion and backs up a changed local copy. The redirect completion regression check protects the customized behavior.
+
+Run `bash tests/check.sh` for the isolated fixture suite on macOS or Ubuntu. Linux package and release fixtures run on Linux. `tests/packages-macos.sh` exercises Homebrew behavior with local stand-ins on either platform. CI runs the suite on both platforms. Run `bash tests/installed-tools.sh` from a fresh Fish session after provisioning either profile to check the real tools and runtime data.
 
 Codex completions are generated from the installed CLI when fish loads them, so
 they follow CLI updates automatically.
