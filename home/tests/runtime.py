@@ -12,6 +12,7 @@ import unittest
 
 REPO = Path(__file__).resolve().parents[2]
 FISH = shutil.which('fish')
+ZSH = shutil.which('zsh')
 
 class Home(unittest.TestCase):
     def setUp(self):
@@ -30,6 +31,68 @@ class Home(unittest.TestCase):
         path.write_text('#!/bin/sh\nprintf "%s\\n" ' + shlex.quote(str(output)) + '\n')
         path.chmod(0o755)
         return path
+
+    def check_zsh_listings(self, eza):
+        binaries = self.root / 'bin'
+        binaries.mkdir()
+        system_ls = shutil.which('ls', path=os.defpath)
+        (binaries / 'ls').symlink_to(system_ls)
+        (binaries / 'mv').symlink_to(shutil.which('mv', path=os.defpath))
+        for name in ('fnm', 'starship', 'zoxide'):
+            command = binaries / name
+            command.write_text('#!/bin/sh\nexit 0\n')
+            command.chmod(0o755)
+        if eza:
+            command = binaries / 'eza'
+            command.write_text('#!/bin/sh\nprintf "%s\\n" "$@"\n')
+            command.chmod(0o755)
+        config = self.home / '.config/zsh'
+        config.mkdir()
+        (config / 'bindings.zsh').symlink_to(REPO / 'home/shell/zsh/bindings.zsh')
+        fixture = self.root / 'fixture'
+        fixture.mkdir()
+        for name, modified in (('fixture-file', 100), ('newer-file', 200), ('.hidden', 300)):
+            path = fixture / name
+            path.write_text(name + '\n')
+            os.utime(path, (modified, modified))
+        (fixture / 'directory').mkdir()
+        env = {**self.env, 'PATH': str(binaries), 'ZDOTDIR': str(self.home), 'LC_ALL': 'C',
+               'FNM_DIR': str(self.home / '.local/share/fnm'),
+               'FNM_MULTISHELL_PATH': str(self.root / 'fnm-shell')}
+
+        commands = {'whence -w ls': 'ls: command\n'}
+        for flags in ('-t fixture-file', '-t .', '-la .'):
+            expected = subprocess.run([system_ls, *shlex.split(flags)], cwd=fixture, env=env,
+                                      capture_output=True, text=True, check=True)
+            commands['ls ' + flags] = expected.stdout
+        if eza:
+            shortcuts = {
+                'l': '-lh --group-directories-first --icons=auto',
+                'la': '-a --group-directories-first --icons=auto',
+                'll': '-lha --group-directories-first --icons=auto',
+                'lsa': '-a --group-directories-first --icons=auto',
+                'lt': '--tree --level=2 --long --icons --git',
+                'lta': '--tree --level=2 --long --icons --git -a',
+            }
+            for name, flags in shortcuts.items():
+                commands[name + ' .'] = '\n'.join([*shlex.split(flags), '.']) + '\n'
+        else:
+            for name, flags in (('l', '-l'), ('la', '-a'), ('ll', '-la')):
+                expected = subprocess.run([system_ls, flags, '.'], cwd=fixture, env=env,
+                                          capture_output=True, text=True, check=True)
+                commands[name + ' .'] = expected.stdout
+        for command, expected in commands.items():
+            with self.subTest(command=command):
+                result = subprocess.run([ZSH, '-fic', 'source "$1"\neval "$2"', '_',
+                                         str(REPO / 'home/shell/zsh/zshrc'), command],
+                                        cwd=fixture, env=env, capture_output=True, text=True)
+                self.assertEqual((result.returncode, result.stdout, result.stderr), (0, expected, ''))
+
+    def test_zsh_keeps_system_ls_with_eza(self):
+        self.check_zsh_listings(eza=True)
+
+    def test_zsh_keeps_system_ls_without_eza(self):
+        self.check_zsh_listings(eza=False)
 
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
