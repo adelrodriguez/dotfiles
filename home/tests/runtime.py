@@ -230,6 +230,49 @@ esac
         self.assertEqual([path.read_bytes() for path in installations], before)
         self.assertEqual((aliases / 'default').readlink(), installations[0].parent.parent)
 
+    @unittest.skipUnless(FNM and ZSH, 'Node selection requires fnm and zsh')
+    def test_zsh_started_in_a_project_returns_to_base_node_after_leaving(self):
+        base = self.executable(self.root / 'bin/node', 'v26.0.0')
+        for name in ('starship', 'zoxide'):
+            self.executable(base.parent / name, '')
+        fnm = self.root / 'fnm'
+        installation = fnm / 'node-versions/v22.0.0/installation/bin'
+        installation.mkdir(parents=True)
+        # Startup asks the selected Node for its own path, as real Node answers.
+        (installation / 'node').write_text('#!/bin/sh\n[ "$1" = -p ] && printf "%s\\n" "$0" || printf "v22.0.0\\n"\n')
+        (installation / 'node').chmod(0o755)
+        (installation / 'project-tool').write_text('#!/bin/sh\n')
+        (installation / 'project-tool').chmod(0o755)
+        project = self.root / 'project'
+        project.mkdir()
+        (project / '.node-version').write_text('22\n')
+        (self.home / '.config/agents/runtime.path').write_text(
+            '\n'.join([str(base.parent), str(Path(FNM).parent), '/usr/bin', '/bin', '']))
+        (self.home / '.zshenv').symlink_to(REPO / 'home/shell/zsh/zshenv')
+        (self.home / '.zshrc').symlink_to(REPO / 'home/shell/zsh/zshrc')
+        (self.home / '.config/zsh').mkdir()
+        (self.home / '.config/zsh/env.zsh').symlink_to(REPO / 'home/shell/zsh/env.zsh')
+        (self.home / '.config/zsh/bindings.zsh').write_text('')
+        runtime = self.root / 'runtime'
+        runtime.mkdir(mode=0o700)
+        env = {name: value for name, value in self.env.items() if not name.startswith('FNM_')}
+        env.update({'FNM_DIR': str(fnm), 'ZDOTDIR': str(self.home), 'XDG_RUNTIME_DIR': str(runtime),
+                    'TMPDIR': str(runtime), 'PATH': '/usr/bin:/bin', 'FNM_LOGLEVEL': 'quiet'})
+        report = 'node --version; (( $+commands[project-tool] )) && print project-tool || print no-project-tool'
+        # Read separate input lines so each command runs at its own prompt.
+        lines = [report, 'cd "$HOME"', report, f'cd {shlex.quote(str(project))}', report, 'cd "$HOME"', report]
+        result = subprocess.run([ZSH, '-i'], input='\n'.join([*lines, 'exit 0', '']), cwd=project, env=env,
+                                capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        # Tools that only the project's Node provides, such as corepack, must leave with it.
+        self.assertEqual(result.stdout.split(), ['v22.0.0', 'project-tool', 'v26.0.0', 'no-project-tool',
+                                                 'v22.0.0', 'project-tool', 'v26.0.0', 'no-project-tool'], result.stderr)
+        for directory, expected in ((project, 'v22.0.0'), (self.home, 'v26.0.0')):
+            with self.subTest(noninteractive=str(directory)):
+                result = subprocess.run([ZSH, '-c', 'node --version'], cwd=directory, env=env,
+                                        capture_output=True, text=True)
+                self.assertEqual((result.returncode, result.stdout), (0, expected + '\n'), result.stderr)
+
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
         runtime.write_text('/usr/bin\n/bin\n')
