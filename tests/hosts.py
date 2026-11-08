@@ -88,6 +88,8 @@ with tempfile.TemporaryDirectory(prefix='.dotfiles-host-', dir=original_home, de
     units = {path.stem for path in (home / '.config/systemd/user').glob('*.service')}
     assert set(services) == (units | {'t3code'} if host == 'homelab' else set()), services
     env['PATH'] = ':'.join(expected['runtimePaths'])
+    # The host provides real fnm, including when the lightweight checks skip it.
+    run(['python3', str(repo / 'home/tests/runtime.py'), 'Home.test_fnm_returns_to_system_outside_projects'])
     # Catch conflicts with preexisting Homebrew tools before a large Brew install.
     run(['python3', str(repo / 'tools/check.py'), '--home-only'])
     if args.runtime:

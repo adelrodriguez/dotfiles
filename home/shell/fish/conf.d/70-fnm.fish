@@ -10,7 +10,8 @@ if type -q fnm
             end
             set directory (path dirname $directory)
         end
-        fnm use --silent-if-unchanged system
+        # A version file avoids interpreting system as a path in the current directory.
+        fnm use --silent-if-unchanged (printf 'system\n' | psub)
     end
     __dotfiles_node
 end
