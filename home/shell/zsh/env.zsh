@@ -15,7 +15,10 @@ export PATH
 
 # Use the same fnm resolver as interactive shells. The version-file gate keeps
 # Nix's default outside projects, even when fnm has a different default alias.
+# Interactive shells select Node through the fnm hook in zshrc instead. A
+# directory added here would stay on PATH after the shell leaves the project.
 use_node_version() {
+  [[ ! -o interactive ]] || return 0
   command -v fnm >/dev/null 2>&1 || return 0
   local dir=$PWD
   while [[ $dir != / && ! -f $dir/.node-version && ! -f $dir/.nvmrc ]]; do dir=${dir:h}; done
