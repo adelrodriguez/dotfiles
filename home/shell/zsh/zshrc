@@ -51,12 +51,12 @@ use_project_node() {
   local directory=$PWD
   while [[ $directory != / ]]; do
     if [[ -f $directory/.node-version || -f $directory/.nvmrc ]]; then
-      fnm use --silent-if-unchanged --version-file-strategy recursive
+      fnm use --silent-if-unchanged --version-file-strategy recursive && rehash
       return $?
     fi
     directory=${directory:h}
   done
-  fnm use --silent-if-unchanged system
+  fnm use --silent-if-unchanged system && rehash
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook chpwd use_project_node

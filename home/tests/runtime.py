@@ -95,6 +95,60 @@ class Home(unittest.TestCase):
     def test_zsh_keeps_system_ls_without_eza(self):
         self.check_zsh_listings(eza=False)
 
+    def zsh(self, commands):
+        binaries = self.root / 'bin'
+        self.executable(binaries / 'node', 'v26.13.0')
+        self.executable(self.root / 'fnm/project/bin/node', 'v24.22.2')
+        (self.root / 'fnm/multishell/bin').mkdir(parents=True)
+        # fnm changes the available executable without changing the shell's PATH.
+        fnm = binaries / 'fnm'
+        fnm.write_text('''#!/bin/sh
+case "$1" in
+    env)
+        printf '%s\\n' 'export FNM_MULTISHELL_PATH="$FNM_DIR/multishell"' \
+            'export PATH="$FNM_MULTISHELL_PATH/bin:$PATH"'
+        ;;
+    use)
+        if [ -n "${FNM_TEST_STATUS:-}" ]; then exit "$FNM_TEST_STATUS"; fi
+        case "$*" in
+            *system) /bin/rm -f "$FNM_MULTISHELL_PATH/bin/node" ;;
+            *) /bin/ln -sf "$FNM_DIR/project/bin/node" "$FNM_MULTISHELL_PATH/bin/node" ;;
+        esac
+        ;;
+esac
+''')
+        fnm.chmod(0o755)
+        for name in ('starship', 'zoxide'):
+            self.executable(binaries / name, '')
+        (self.home / '.zshrc').symlink_to(REPO / 'home/shell/zsh/zshrc')
+        (self.home / '.config/zsh').mkdir()
+        (self.home / '.config/zsh/bindings.zsh').write_text('')
+        env = {**self.env, 'PATH': f'{binaries}:/usr/bin:/bin', 'ZDOTDIR': str(self.home),
+               'FNM_DIR': str(self.root / 'fnm'), 'FNM_TEST_STATUS': ''}
+        env.pop('FNM_MULTISHELL_PATH', None)
+        # Read separate input lines so node runs in the parent shell at each prompt.
+        result = subprocess.run([ZSH, '-d', '-i'], input='\n'.join([*commands, 'exit 0', '']),
+                                cwd=self.home, env=env, capture_output=True, text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return result.stdout.strip().splitlines()
+
+    def test_zsh_refreshes_cached_node_when_entering_and_leaving_a_project(self):
+        project = self.root / 'project'
+        project.mkdir()
+        (project / '.node-version').write_text('24.22.2\n')
+        result = self.zsh(['node --version', f'cd {shlex.quote(str(project))}', 'node --version',
+                           'cd "$HOME"', 'node --version'])
+        self.assertEqual(result, ['v26.13.0', 'v24.22.2', 'v26.13.0'])
+
+    def test_zsh_preserves_fnm_failure_status_in_and_outside_a_project(self):
+        project = self.root / 'project'
+        project.mkdir()
+        (project / '.node-version').write_text('24.22.2\n')
+        result = self.zsh([f'cd {shlex.quote(str(project))}', 'export FNM_TEST_STATUS=17',
+                           'use_project_node', 'print -r -- "project:$?"', 'cd "$HOME"',
+                           'use_project_node', 'print -r -- "system:$?"'])
+        self.assertEqual(result, ['project:17', 'system:17'])
+
     def test_fish_removes_global_and_universal_codex_home(self):
         runtime = self.home / '.config/agents/runtime.path'
         runtime.write_text('/usr/bin\n/bin\n')
