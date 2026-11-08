@@ -18,6 +18,8 @@ These historical manual runs used small standalone configurations. The repositor
 
 The passing Home Manager checks did not prove that system installation and removal were complete.
 
+The dotfiles use upstream Nix, not Lix, so these Lix installer findings were closed as not planned. They remain here as a record of the pilot.
+
 | Finding | Observed recovery | Tracking |
 | --- | --- | --- |
 | The Ubuntu uninstaller removed the store and unit files but left a systemd socket listening in memory. | Stop the socket and reload systemd. The trial VM was then deleted. | [#54](https://github.com/adelrodriguez/dotfiles/issues/54) |
