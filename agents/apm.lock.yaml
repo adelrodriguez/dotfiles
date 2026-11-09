@@ -41,7 +41,7 @@ dependencies:
 - repo_url: adelrodriguez/skills
   name: skills
   host: github.com
-  resolved_commit: 529bdfbf1f2eb29c59c82bae26112525762663d8
+  resolved_commit: 989c3553857d118478c3667b7299690ff2380a6c
   version: unknown
   package_type: skill_bundle
   deployed_files:
@@ -81,6 +81,19 @@ dependencies:
   - .agents/skills/design-ui/references/craft.md
   - .agents/skills/design-ui/references/motion.md
   - .agents/skills/design-ui/references/tells.md
+  - .agents/skills/footguns
+  - .agents/skills/footguns/SKILL.md
+  - .agents/skills/footguns/references/boundaries.md
+  - .agents/skills/footguns/references/call-order.md
+  - .agents/skills/footguns/references/conditionals.md
+  - .agents/skills/footguns/references/duplicate-truth.md
+  - .agents/skills/footguns/references/errors.md
+  - .agents/skills/footguns/references/idempotency.md
+  - .agents/skills/footguns/references/invariants.md
+  - .agents/skills/footguns/references/primitives.md
+  - .agents/skills/footguns/references/races.md
+  - .agents/skills/footguns/references/state-machines.md
+  - .agents/skills/footguns/references/string-contracts.md
   - .agents/skills/full-send
   - .agents/skills/full-send/SKILL.md
   - .agents/skills/full-stop
@@ -203,6 +216,19 @@ dependencies:
   - .claude/skills/design-ui/references/craft.md
   - .claude/skills/design-ui/references/motion.md
   - .claude/skills/design-ui/references/tells.md
+  - .claude/skills/footguns
+  - .claude/skills/footguns/SKILL.md
+  - .claude/skills/footguns/references/boundaries.md
+  - .claude/skills/footguns/references/call-order.md
+  - .claude/skills/footguns/references/conditionals.md
+  - .claude/skills/footguns/references/duplicate-truth.md
+  - .claude/skills/footguns/references/errors.md
+  - .claude/skills/footguns/references/idempotency.md
+  - .claude/skills/footguns/references/invariants.md
+  - .claude/skills/footguns/references/primitives.md
+  - .claude/skills/footguns/references/races.md
+  - .claude/skills/footguns/references/state-machines.md
+  - .claude/skills/footguns/references/string-contracts.md
   - .claude/skills/full-send
   - .claude/skills/full-send/SKILL.md
   - .claude/skills/full-stop
@@ -325,6 +351,19 @@ dependencies:
   - .config/opencode/skills/design-ui/references/craft.md
   - .config/opencode/skills/design-ui/references/motion.md
   - .config/opencode/skills/design-ui/references/tells.md
+  - .config/opencode/skills/footguns
+  - .config/opencode/skills/footguns/SKILL.md
+  - .config/opencode/skills/footguns/references/boundaries.md
+  - .config/opencode/skills/footguns/references/call-order.md
+  - .config/opencode/skills/footguns/references/conditionals.md
+  - .config/opencode/skills/footguns/references/duplicate-truth.md
+  - .config/opencode/skills/footguns/references/errors.md
+  - .config/opencode/skills/footguns/references/idempotency.md
+  - .config/opencode/skills/footguns/references/invariants.md
+  - .config/opencode/skills/footguns/references/primitives.md
+  - .config/opencode/skills/footguns/references/races.md
+  - .config/opencode/skills/footguns/references/state-machines.md
+  - .config/opencode/skills/footguns/references/string-contracts.md
   - .config/opencode/skills/full-send
   - .config/opencode/skills/full-send/SKILL.md
   - .config/opencode/skills/full-stop
@@ -447,6 +486,19 @@ dependencies:
   - .grok/skills/design-ui/references/craft.md
   - .grok/skills/design-ui/references/motion.md
   - .grok/skills/design-ui/references/tells.md
+  - .grok/skills/footguns
+  - .grok/skills/footguns/SKILL.md
+  - .grok/skills/footguns/references/boundaries.md
+  - .grok/skills/footguns/references/call-order.md
+  - .grok/skills/footguns/references/conditionals.md
+  - .grok/skills/footguns/references/duplicate-truth.md
+  - .grok/skills/footguns/references/errors.md
+  - .grok/skills/footguns/references/idempotency.md
+  - .grok/skills/footguns/references/invariants.md
+  - .grok/skills/footguns/references/primitives.md
+  - .grok/skills/footguns/references/races.md
+  - .grok/skills/footguns/references/state-machines.md
+  - .grok/skills/footguns/references/string-contracts.md
   - .grok/skills/full-send
   - .grok/skills/full-send/SKILL.md
   - .grok/skills/full-stop
@@ -569,6 +621,19 @@ dependencies:
   - agent-data/workflows/design-ui/references/craft.md
   - agent-data/workflows/design-ui/references/motion.md
   - agent-data/workflows/design-ui/references/tells.md
+  - agent-data/workflows/footguns
+  - agent-data/workflows/footguns/SKILL.md
+  - agent-data/workflows/footguns/references/boundaries.md
+  - agent-data/workflows/footguns/references/call-order.md
+  - agent-data/workflows/footguns/references/conditionals.md
+  - agent-data/workflows/footguns/references/duplicate-truth.md
+  - agent-data/workflows/footguns/references/errors.md
+  - agent-data/workflows/footguns/references/idempotency.md
+  - agent-data/workflows/footguns/references/invariants.md
+  - agent-data/workflows/footguns/references/primitives.md
+  - agent-data/workflows/footguns/references/races.md
+  - agent-data/workflows/footguns/references/state-machines.md
+  - agent-data/workflows/footguns/references/string-contracts.md
   - agent-data/workflows/full-send
   - agent-data/workflows/full-send/SKILL.md
   - agent-data/workflows/full-stop
@@ -682,6 +747,18 @@ dependencies:
     .agents/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
     .agents/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
     .agents/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
+    .agents/skills/footguns/SKILL.md: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+    .agents/skills/footguns/references/boundaries.md: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+    .agents/skills/footguns/references/call-order.md: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+    .agents/skills/footguns/references/conditionals.md: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+    .agents/skills/footguns/references/duplicate-truth.md: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+    .agents/skills/footguns/references/errors.md: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+    .agents/skills/footguns/references/idempotency.md: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+    .agents/skills/footguns/references/invariants.md: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+    .agents/skills/footguns/references/primitives.md: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+    .agents/skills/footguns/references/races.md: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+    .agents/skills/footguns/references/state-machines.md: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+    .agents/skills/footguns/references/string-contracts.md: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
     .agents/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .agents/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .agents/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -765,6 +842,18 @@ dependencies:
     .claude/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
     .claude/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
     .claude/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
+    .claude/skills/footguns/SKILL.md: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+    .claude/skills/footguns/references/boundaries.md: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+    .claude/skills/footguns/references/call-order.md: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+    .claude/skills/footguns/references/conditionals.md: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+    .claude/skills/footguns/references/duplicate-truth.md: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+    .claude/skills/footguns/references/errors.md: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+    .claude/skills/footguns/references/idempotency.md: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+    .claude/skills/footguns/references/invariants.md: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+    .claude/skills/footguns/references/primitives.md: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+    .claude/skills/footguns/references/races.md: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+    .claude/skills/footguns/references/state-machines.md: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+    .claude/skills/footguns/references/string-contracts.md: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
     .claude/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .claude/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .claude/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -848,6 +937,18 @@ dependencies:
     .config/opencode/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
     .config/opencode/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
     .config/opencode/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
+    .config/opencode/skills/footguns/SKILL.md: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+    .config/opencode/skills/footguns/references/boundaries.md: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+    .config/opencode/skills/footguns/references/call-order.md: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+    .config/opencode/skills/footguns/references/conditionals.md: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+    .config/opencode/skills/footguns/references/duplicate-truth.md: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+    .config/opencode/skills/footguns/references/errors.md: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+    .config/opencode/skills/footguns/references/idempotency.md: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+    .config/opencode/skills/footguns/references/invariants.md: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+    .config/opencode/skills/footguns/references/primitives.md: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+    .config/opencode/skills/footguns/references/races.md: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+    .config/opencode/skills/footguns/references/state-machines.md: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+    .config/opencode/skills/footguns/references/string-contracts.md: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
     .config/opencode/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .config/opencode/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .config/opencode/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -931,6 +1032,18 @@ dependencies:
     .grok/skills/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
     .grok/skills/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
     .grok/skills/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
+    .grok/skills/footguns/SKILL.md: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+    .grok/skills/footguns/references/boundaries.md: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+    .grok/skills/footguns/references/call-order.md: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+    .grok/skills/footguns/references/conditionals.md: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+    .grok/skills/footguns/references/duplicate-truth.md: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+    .grok/skills/footguns/references/errors.md: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+    .grok/skills/footguns/references/idempotency.md: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+    .grok/skills/footguns/references/invariants.md: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+    .grok/skills/footguns/references/primitives.md: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+    .grok/skills/footguns/references/races.md: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+    .grok/skills/footguns/references/state-machines.md: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+    .grok/skills/footguns/references/string-contracts.md: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
     .grok/skills/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     .grok/skills/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     .grok/skills/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -1014,6 +1127,18 @@ dependencies:
     agent-data/workflows/design-ui/references/craft.md: sha256:f17edbe594c2f83e235059b56110a524f41a5e68bf29da103de779b046a72364
     agent-data/workflows/design-ui/references/motion.md: sha256:10f11e1fb099757ea225ee9e21be4054849d3563aaf32caf13a4956bc2547cea
     agent-data/workflows/design-ui/references/tells.md: sha256:19c29fb53c875a19b730b3b1c5c9eb5569fbbac6b4c6cd3cd103996b9efeae1b
+    agent-data/workflows/footguns/SKILL.md: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+    agent-data/workflows/footguns/references/boundaries.md: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+    agent-data/workflows/footguns/references/call-order.md: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+    agent-data/workflows/footguns/references/conditionals.md: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+    agent-data/workflows/footguns/references/duplicate-truth.md: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+    agent-data/workflows/footguns/references/errors.md: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+    agent-data/workflows/footguns/references/idempotency.md: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+    agent-data/workflows/footguns/references/invariants.md: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+    agent-data/workflows/footguns/references/primitives.md: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+    agent-data/workflows/footguns/references/races.md: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+    agent-data/workflows/footguns/references/state-machines.md: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+    agent-data/workflows/footguns/references/string-contracts.md: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
     agent-data/workflows/full-send/SKILL.md: sha256:bc21ce67bfbe7a2a12d0586dfe3a798f599ca965522d10d3c5cfa4899ee42b8c
     agent-data/workflows/full-stop/SKILL.md: sha256:e849ed1dc985477a538713545386a8a0e9eb9676a23a2b7da9f8cb9cc9bb9f2c
     agent-data/workflows/harden-ui/SKILL.md: sha256:cc0da428fedeec5be8417b17c94742eb2f37921255bb070d28697671deebb7e3
@@ -1071,7 +1196,7 @@ dependencies:
     agent-data/workflows/writing-for-agents/SKILL.md: sha256:2e1c7291824488b0ab200066abd4b5a34e47adbf1c01f0e536d0fc57b6a85ecd
     agent-data/workflows/writing-for-agents/references/skill-mechanics.md: sha256:21664edbd11f38c73eaff4ec40359af8a8c6c2f96c829690690f77da5165eea0
     agent-data/workflows/writing-for-humans/SKILL.md: sha256:a280ec9c32a4de87ddc27fd41d56893f1f6241865fa1ee14f19ca80347cc1201
-  content_hash: sha256:d048911e8354489c7f2a0cbd6f91287facd4b9f2e4c3ada42a1043f8a1c9eef8
+  content_hash: sha256:70ea28ed82a5fba7d07336fc8bee526edafd1ff916357201df4d088eca48ea92
   skill_subset:
   - boat
   - code-review
@@ -1083,6 +1208,7 @@ dependencies:
   - design-context
   - design-review
   - design-ui
+  - footguns
   - full-send
   - full-stop
   - harden-ui
@@ -1680,6 +1806,123 @@ deployments:
   - mattpocock/skills
   active_owner: mattpocock/skills
   content_hash: sha256:f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/boundaries.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/call-order.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/conditionals.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/duplicate-truth.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/errors.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/idempotency.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/invariants.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/primitives.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/races.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/state-machines.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+- kind: project-relative
+  target: claude
+  value: .claude/skills/footguns/references/string-contracts.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
 - kind: project-relative
   target: claude
   value: .claude/skills/full-send
@@ -2906,6 +3149,123 @@ deployments:
   content_hash: sha256:f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b
 - kind: project-relative
   target: codex
+  value: .agents/skills/footguns
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/boundaries.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/call-order.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/conditionals.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/duplicate-truth.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/errors.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/idempotency.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/invariants.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/primitives.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/races.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/state-machines.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+- kind: project-relative
+  target: codex
+  value: .agents/skills/footguns/references/string-contracts.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
+- kind: project-relative
+  target: codex
   value: .agents/skills/full-send
   runtime: null
   scope: project
@@ -4128,6 +4488,123 @@ deployments:
   - mattpocock/skills
   active_owner: mattpocock/skills
   content_hash: sha256:f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/boundaries.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/call-order.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/conditionals.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/duplicate-truth.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/errors.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/idempotency.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/invariants.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/primitives.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/races.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/state-machines.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+- kind: project-relative
+  target: grok-bot
+  value: agent-data/workflows/footguns/references/string-contracts.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
 - kind: project-relative
   target: grok-bot
   value: agent-data/workflows/full-send
@@ -5415,6 +5892,123 @@ deployments:
   - mattpocock/skills
   active_owner: mattpocock/skills
   content_hash: sha256:f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/boundaries.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/call-order.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/conditionals.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/duplicate-truth.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/errors.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/idempotency.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/invariants.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/primitives.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/races.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/state-machines.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+- kind: project-relative
+  target: grok-build
+  value: .grok/skills/footguns/references/string-contracts.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
 - kind: project-relative
   target: grok-build
   value: .grok/skills/full-send
@@ -6711,6 +7305,123 @@ deployments:
   - mattpocock/skills
   active_owner: mattpocock/skills
   content_hash: sha256:f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: null
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bfd07b07b424b45efd1cd1aa7db4c82477d01c10e5b1245ac555de671bb6bd3a
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/boundaries.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:bd480e1b135fd2bc22b9fb74d23d205ca10edbedd502908399f7a162f294cbfd
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/call-order.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:fd6696a131a31c304f3f110d857876b7b229e2100a3cc8ae93a97a047d7c6563
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/conditionals.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5e7462578214b671fd1f18113b5dff32e0e6b1de61865c7930e1d41acff9b3a2
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/duplicate-truth.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:e2048a36bec5627040545477017829b42571698e80b78557b0237336f6f798b8
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/errors.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:a888e36d461a714e09f3da4f5e486ef0ace24684d0b2897c352e781f54d3024b
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/idempotency.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:264d7c11a5c17c4bfdfe8d7644d4853995bfe02a72bac68ac66b7db2e188ecce
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/invariants.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:5606df22f97394cedf6737e83a60e98a55443312bd6f5e61a3fd11a5adb6b12f
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/primitives.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:8fdd3b8e464461cba82dfc32a41c29d8120c1a623479de23e96312e6e9f6bdda
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/races.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:1fab46a5d834b4ee995202e0b26d2afd8b3e27d4afee251cdfacadde6ef8aa7a
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/state-machines.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:093ae202a42bf4eaf9b0084bb8a1fa944613c56e7104970ff8f28ee3a365f869
+- kind: project-relative
+  target: opencode
+  value: .config/opencode/skills/footguns/references/string-contracts.md
+  runtime: null
+  scope: project
+  owners:
+  - adelrodriguez/skills
+  active_owner: adelrodriguez/skills
+  content_hash: sha256:793f576b2f29e5e9e8d044065b2813d1cc867e05f50e29378517734e72c56cc1
 - kind: project-relative
   target: opencode
   value: .config/opencode/skills/full-send
