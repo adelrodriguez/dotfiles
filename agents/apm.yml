@@ -28,6 +28,7 @@ dependencies:
         - design-context
         - design-review
         - design-ui
+        - footguns
         - full-send
         - full-stop
         - harden-ui
