@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   files = dir: prefix: lib.listToAttrs (map (file: {
     name = prefix + lib.removePrefix (toString dir + "/") (toString file);
@@ -13,7 +13,10 @@ in {
     {
       ".config/starship.toml".source = ./starship.toml;
       ".ripgreprc".source = ./ripgreprc;
-      ".npmrc".source = ./npm/npmrc;
     }
   ];
+  # npm login writes registry tokens to ~/.npmrc. Only its global prefix belongs to Nix.
+  home.activation.npmrc = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" ] ''
+    run ${pkgs.python3}/bin/python3 ${../mutable.py} npm ${lib.escapeShellArg config.home.homeDirectory}
+  '';
 }

@@ -12,7 +12,7 @@ Each host owns its package and installer choices. Node 26 is declared once per h
 
 | Domain | Public interface | Owned state |
 | --- | --- | --- |
-| `home/` | `default.nix`, `handoff.py`, `check.py` | Managed home files, local Git includes, writable Grok completion, and migration backups. |
+| `home/` | `default.nix`, `handoff.py`, `check.py` | Managed home files, local Git includes, writable npm and Grok configuration, and migration backups. |
 | `tools/` | `default.nix`, `install.sh`, `runtime.sh`, `check.py` | Package expectations, runtime paths, and writable CLI installation. |
 | `agents/` | `default.nix`, `deploy.sh`, `env.sh`, `check.py` | APM deployment and lock reconciliation, private environment generation and permission checks. |
 | `services/` | Each service's `default.nix` and `setup.sh`, plus `default.nix`, `environment.sh`, and `check.py` | Unit definitions, runtime preparation, service expectations, and restart policy. OpenCode's `verify.py` checks the private integration on the deployed host. |

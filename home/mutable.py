@@ -50,6 +50,20 @@ def git_include(home, checkout, git):
         temporary.replace(path)
 
 
+def npmrc(home):
+    path = home / '.npmrc'
+    if path.is_symlink():
+        backup(home, path)
+        contents = path.read_text() if path.exists() else ''
+        path.unlink()
+        path.write_text(contents)
+    path.touch(mode=0o600, exist_ok=True)
+    lines = [line for line in path.read_text().splitlines() if not line.replace(' ', '').startswith('prefix=')]
+    contents = '\n'.join([*lines, 'prefix=${HOME}/.npm-global']) + '\n'
+    if path.read_text() != contents:
+        path.write_text(contents)
+
+
 def completion(home, source):
     target = home / '.config/fish/completions/grok.fish'
     if target.is_file() and not target.is_symlink() and target.read_bytes() == source.read_bytes():
@@ -66,6 +80,8 @@ if __name__ == '__main__':
     home = Path(directory)
     if operation == 'git':
         git_include(home, args[0], args[1])
+    elif operation == 'npm':
+        npmrc(home)
     elif operation == 'completion':
         completion(home, Path(args[0]))
     else:
