@@ -9,6 +9,7 @@ python3 "$repo/services/tests/setup.py"
 python3 "$repo/services/tests/opencode.py"
 python3 "$repo/home/tests/migration.py"
 python3 "$repo/home/tests/runtime.py"
+python3 "$repo/home/tests/writable-files.py"
 python3 "$repo/tools/tests/providers.py"
 for test in agents/tests/environment.sh agents/tests/deploy.sh home/tests/fish-limits.sh home/tests/grok-completions.sh; do
   bash "$repo/$test"
