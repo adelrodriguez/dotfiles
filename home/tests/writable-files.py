@@ -6,15 +6,24 @@ from pathlib import Path
 import subprocess
 
 repo = Path(__file__).resolve().parents[2]
-# npm login writes ~/.npmrc. A read-only store link made it fail with EACCES.
-expression = f'''
-  ((builtins.getFlake {json.dumps(str(repo))}).homeConfigurations.homelab.extendModules {{
-    modules = [ {{ home.file.".npmrc".text = ""; }} ];
-  }}).activationPackage.drvPath
-'''
 env = {**os.environ, 'NIX_CONFIG': os.environ.get('NIX_CONFIG', '') + '\nexperimental-features = nix-command flakes\n'}
-result = subprocess.run(['nix', 'eval', '--impure', '--raw', '--expr', expression],
-                        env=env, text=True, capture_output=True)
-assert result.returncode != 0, 'Linking ~/.npmrc from the Nix store must fail the build'
-assert '~/.npmrc must stay writable' in result.stderr, result.stderr
+
+
+def evaluate(module):
+    expression = f'''
+      ((builtins.getFlake {json.dumps(str(repo))}).homeConfigurations.homelab.extendModules {{
+        modules = [ {module} ];
+      }}).activationPackage.drvPath
+    '''
+    return subprocess.run(['nix', 'eval', '--impure', '--raw', '--expr', expression],
+                          env=env, text=True, capture_output=True)
+
+
+# npm login writes ~/.npmrc. A read-only store link made it fail with EACCES.
+# Linking a parent directory puts its files in the store too.
+for module, path in (('{ home.file.".npmrc".text = ""; }', '.npmrc'),
+                     ('{ home.file.".docker".text = ""; }', '.docker/config.json')):
+    result = evaluate(module)
+    assert result.returncode != 0, f'Linking ~/{path} from the Nix store must fail the build'
+    assert f'~/{path} must stay writable' in result.stderr, result.stderr
 print('PASS tool-written home files cannot be linked from the Nix store')
