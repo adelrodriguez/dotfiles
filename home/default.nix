@@ -14,7 +14,8 @@ in {
     sessionVariables.EDITOR = "nvim";
   };
   assertions = map (path: {
-    assertion = !(lib.elem path linked);
+    # A linked parent directory also puts the file in the store.
+    assertion = !(lib.any (target: path == target || lib.hasPrefix "${target}/" path) linked);
     message = "~/${path} must stay writable because its tool writes it. Manage it in home/mutable.py, not home.file.";
   }) writable;
   programs.home-manager.enable = true;
