@@ -11,6 +11,7 @@ def require(condition, message):
         failures.append(message)
 
 require(not (home / '.gitconfig').is_symlink(), '~/.gitconfig must stay writable.')
+require(not (home / '.npmrc').is_symlink(), '~/.npmrc must stay writable.')
 require(not (home / '.config/fish/completions/grok.fish').is_symlink(), 'Grok completion must stay writable.')
 if failures:
     print('\n'.join('FAIL ' + message for message in failures), file=sys.stderr)
