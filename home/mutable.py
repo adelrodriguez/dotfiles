@@ -52,13 +52,14 @@ def git_include(home, checkout, git):
 
 def npmrc(home):
     path = home / '.npmrc'
+    current = path.read_text() if path.exists() else ''
     if path.is_symlink():
         backup(home, path)
-        contents = path.read_text() if path.exists() else ''
         path.unlink()
-        path.write_text(contents)
+    # Restrict the file before writing, because it holds registry tokens.
     path.touch(mode=0o600, exist_ok=True)
-    lines = [line for line in path.read_text().splitlines() if not line.replace(' ', '').startswith('prefix=')]
+    path.chmod(0o600)
+    lines = [line for line in current.splitlines() if not line.replace(' ', '').startswith('prefix=')]
     contents = '\n'.join([*lines, 'prefix=${HOME}/.npm-global']) + '\n'
     if path.read_text() != contents:
         path.write_text(contents)
