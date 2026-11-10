@@ -4,7 +4,7 @@
   dotfiles = {
     tools = {
       node = pkgs.nodejs_26;
-      pnpm = pkgs.pnpm;
+      pnpm = pkgs.pnpm_12;
       fish = pkgs.fish;
       zsh = pkgs.zsh;
       bash = pkgs.bash;
