@@ -47,4 +47,18 @@ with tempfile.TemporaryDirectory() as temporary:
     assert 'local-credential' in gitconfig.read_text()
     assert 'roles/base' not in gitconfig.read_text()
     assert gitconfig.read_text().count(str(home / '.config/git/managed')) == 1
+    # npm login writes tokens to ~/.npmrc, so a read-only store link must become a local file.
+    store = root / 'store-npmrc'
+    store.write_text('prefix=${HOME}/.npm-global\n')
+    store.chmod(0o444)
+    npmrc = home / '.npmrc'
+    npmrc.symlink_to(store)
+    command = ['python3', str(repo / 'home/mutable.py'), 'npm', str(home)]
+    subprocess.run(command, check=True)
+    assert not npmrc.is_symlink()
+    assert os.access(npmrc, os.W_OK), '~/.npmrc must accept npm login tokens'
+    npmrc.write_text('//registry.npmjs.org/:_authToken=local-token\nprefix=/old/prefix\n')
+    subprocess.run(command, check=True)
+    subprocess.run(command, check=True)
+    assert npmrc.read_text() == '//registry.npmjs.org/:_authToken=local-token\nprefix=${HOME}/.npm-global\n'
 print('PASS legacy handoff, private files, local credentials, backups, and repeat migration')
