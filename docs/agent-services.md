@@ -15,7 +15,7 @@ systemctl --user enable --now process-compose.service
 
 `services/opencode/setup.sh --prepare` prepares the runtime without contacting systemd, which CI uses to verify generated units.
 
-OpenCode setup links `~/services/opencode/bin/opencode` to the writable host CLI at `~/.opencode/bin/opencode`, prepares its existing runtime directories, and enables the Home Manager unit. The service binds to `127.0.0.1:4096`. Its data, state, and cache stay under `~/services/opencode/runtime`, separate from the host CLI database. Existing sessions are preserved.
+OpenCode setup links `~/services/opencode/bin/opencode` to the writable host CLI at `~/.opencode/bin/opencode` and enables the Home Manager unit. The service binds to `127.0.0.1:4096` and uses OpenCode's standard data, state, and cache locations, so it registers as the machine's shared background service and the CLI, the TUI, and the web app see one set of sessions. A deployment from before this sharing kept a separate database under `~/services/opencode/runtime`; import its `project`, `session_v2`, and `session_message` rows into `~/.local/share/opencode/opencode.db` with sqlite3 before discarding that directory.
 
 T3 setup reads the active version from `~/.t3/runtime/service-state.json` when present and calls `t3 service install`. T3 keeps its versioned runtime and settings under `~/.t3`. Use `t3 update` for supported updates. Do not replace its main `t3code.service` with a Nix-managed file.
 
@@ -34,6 +34,8 @@ scripts/doctor.sh
 
 Use `opencode upgrade --method curl` for a vendor-supported CLI update. The service and interactive command share the executable, so restart the service afterward. `scripts/agents-env.sh` restarts OpenCode only if its running environment is stale. It reports when T3 needs a restart, because restarting T3 ends its sessions.
 
+The OpenCode unit is the machine's shared background service. Restart it with `systemctl --user restart opencode-web.service`. Do not use `opencode service restart`: it would replace the shared service with a private one on a random port and leave the web route without a listener.
+
 ## Verify the deployed services
 
 ```sh
@@ -42,6 +44,6 @@ python3 services/opencode/verify.py
 journalctl --user -u opencode-web.service -n 100
 ```
 
-The OpenCode verifier expects homelab's private route, authentication, and copied session history. A fresh disposable CI host cannot prove those private integrations. The doctor checks active and enabled services plus their running PATH and Codex home policy without printing secret values.
+The OpenCode verifier expects homelab's private route, authentication, and the shared session history. A fresh disposable CI host cannot prove those private integrations. The doctor checks active and enabled services plus their running PATH and Codex home policy without printing secret values.
 
 Process Compose listens on port 10080 and runs `dotfiles-sync` every 15 minutes. The `pc` alias attaches to its TUI. Use F9 to pause sync and F7 to resume. Linux bootstrap enables lingering so these user services start at boot without an interactive login.
