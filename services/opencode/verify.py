@@ -94,8 +94,8 @@ for action, resource in [
 print("PASS loaded global configuration allows file inspection and external directories")
 
 sessions = json.loads(get(URLS[0], "/api/session?limit=1"))
-assert sessions["data"], "Expected copied session history"
-print("PASS copied session history is available through the API")
+assert sessions["data"], "Expected shared session history"
+print("PASS shared session history is available through the API")
 
 unit = "opencode-web.service"
 for operation in ["is-active", "is-enabled"]:
@@ -112,13 +112,17 @@ environment = dict(
     entry.split("=", 1)
     for entry in process.joinpath("environ").read_text().split("\0") if entry
 )
-for variable, directory in [
-    ("XDG_DATA_HOME", "data"),
-    ("XDG_STATE_HOME", "state"),
-    ("XDG_CACHE_HOME", "cache"),
-]:
-    assert (Path(environment[variable]) / "opencode").resolve() == ROOT / "runtime" / directory
+for variable in ("XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
+    assert variable not in environment, f"{variable} override would isolate the shared database"
 assert environment["DBUS_SESSION_BUS_ADDRESS"] == f"unix:path=/run/user/{os.getuid()}/bus"
+database = Path.home() / ".local/share/opencode/opencode.db"
+descriptors = {descriptor.resolve() for descriptor in (process / "fd").iterdir()}
+assert database.resolve() in descriptors, "The service does not hold the shared session database open"
+registration = Path.home() / ".local/state/opencode/service.json"
+assert registration.is_file(), "The service did not register for client discovery"
+discovered = json.loads(registration.read_text())
+assert discovered.get("url") == URLS[0], discovered.get("url")
+assert discovered.get("pid") == pid, discovered.get("pid")
 subprocess.run(["systemctl", "--user", "show", "t3code.service", "--property=ActiveState"],
                env=environment, check=True)
 listeners = subprocess.check_output(["ss", "-ltnp"], text=True)
@@ -127,4 +131,4 @@ assert any(f"127.0.0.1:{PORT} " in line and f"pid={pid}," in line
 assert not subprocess.check_output(
     ["docker", "compose", "ps", "-q", "opencode"], cwd=ROOT, text=True
 ).strip(), "Docker web server is still running"
-print("PASS native service, boot startup, host user, persistent data, loopback binding, and host service access")
+print("PASS native service, boot startup, host user, shared database, client discovery, loopback binding, and host service access")

@@ -18,11 +18,11 @@ in {
     Service = {
       Type = "simple";
       WorkingDirectory = "%h";
+      # The unit keeps OpenCode's standard data, state, and cache locations, so
+      # it registers as the machine's shared background service and the CLI and
+      # the web app see one set of sessions.
       Environment = [
         "HOME=%h" "SHELL=${pkgs.bash}/bin/bash" "PATH=${runtime}"
-        "XDG_DATA_HOME=%h/services/opencode/runtime/xdg-data"
-        "XDG_STATE_HOME=%h/services/opencode/runtime/xdg-state"
-        "XDG_CACHE_HOME=%h/services/opencode/runtime/xdg-cache"
         "XDG_RUNTIME_DIR=%t" "DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus"
       ];
       ExecStart = "${home}/services/opencode/bin/opencode serve --service --hostname 127.0.0.1 --port 4096";

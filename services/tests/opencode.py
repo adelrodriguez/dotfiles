@@ -44,17 +44,22 @@ class OpenCode(unittest.TestCase):
         release = process / 'root/etc/os-release'
         release.write_text('ID=ubuntu\n')
         environment = {'DBUS_SESSION_BUS_ADDRESS': f'unix:path=/run/user/{os.getuid()}/bus'}
-        for variable, directory in [('XDG_DATA_HOME', 'data'), ('XDG_STATE_HOME', 'state'), ('XDG_CACHE_HOME', 'cache')]:
-            target = service / 'runtime' / directory
-            target.mkdir(parents=True)
-            xdg = service / 'runtime' / f'xdg-{directory}'
-            xdg.mkdir()
-            (xdg / 'opencode').symlink_to(target)
-            environment[variable] = str(xdg)
         (process / 'environ').write_text('\0'.join(f'{key}={value}' for key, value in environment.items()))
+        database = home / '.local/share/opencode/opencode.db'
+        database.parent.mkdir(parents=True)
+        database.touch()
+        (process / 'fd').mkdir()
+        (process / 'fd/3').symlink_to(database)
+        (process / 'fd/4').symlink_to(home / '.cache/opencode')
+        registration = home / '.local/state/opencode/service.json'
+        registration.parent.mkdir(parents=True)
+        registration.write_text(json.dumps({'id': 'fixture-service', 'version': '2.2.6',
+                                            'url': LOCAL, 'pid': pid, 'password': 'fixture-password'}))
         self.paths = {f'/proc/{pid}': process, '/etc/os-release': release}
-        self.paths.update({str(path): path for path in service.glob('runtime/xdg-*')})
         self.home = home
+        self.process = process
+        self.database = database
+        self.registration = registration
         self.pages = {base: b'<html><head><title>OpenCode</title></head></html>' for base in (LOCAL, PUBLIC)}
         self.api = {
             (base, path): value
@@ -119,7 +124,7 @@ class OpenCode(unittest.TestCase):
                     self.pages[base] = b'<!doctype html><html><head>' + title + b'</head></html>'
                     output = self.verify()
                     for message in (f'PASS {LOCAL}:', f'PASS {PUBLIC}:', 'PASS loaded global configuration',
-                                    'PASS copied session history', 'PASS native service, boot startup'):
+                                    'PASS shared session history', 'PASS native service, boot startup'):
                         self.assertIn(message, output)
             self.pages[base] = b'<title>OpenCode</title>'
 
@@ -164,6 +169,44 @@ class OpenCode(unittest.TestCase):
                 with self.assertRaises(subprocess.CalledProcessError):
                     self.verify()
                 self.statuses[command] = 0
+
+    def test_rejects_an_isolated_service_environment(self):
+        environ = self.process / 'environ'
+        original = environ.read_text()
+        for variable in ('XDG_DATA_HOME', 'XDG_STATE_HOME', 'XDG_CACHE_HOME'):
+            environ.write_text(original + f'\0{variable}={self.root}/xdg-{variable.lower()}')
+            with self.subTest(variable=variable):
+                with self.assertRaisesRegex(AssertionError, f'{variable} override'):
+                    self.verify()
+        environ.write_text(original)
+
+    def test_rejects_a_service_without_the_shared_database(self):
+        descriptor = self.process / 'fd' / '3'
+        descriptor.unlink()
+        descriptor.symlink_to(self.home / '.local/share/opencode/other.db')
+        try:
+            with self.assertRaisesRegex(AssertionError, 'shared session database'):
+                self.verify()
+        finally:
+            descriptor.unlink()
+            descriptor.symlink_to(self.database)
+
+    def test_rejects_missing_or_mismatched_registration(self):
+        original = self.registration.read_text()
+        for content, message in [
+            (None, 'client discovery'),
+            (json.dumps({'url': 'http://127.0.0.1:9999', 'pid': 12345}), '9999'),
+            (json.dumps({'url': LOCAL, 'pid': 999}), '999'),
+            (json.dumps({'pid': 12345}), 'None'),
+        ]:
+            with self.subTest(message=message):
+                if content is None:
+                    self.registration.unlink()
+                else:
+                    self.registration.write_text(content)
+                with self.assertRaisesRegex(AssertionError, message):
+                    self.verify()
+        self.registration.write_text(original)
 
 
 if __name__ == '__main__':
