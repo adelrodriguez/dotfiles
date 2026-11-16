@@ -77,5 +77,14 @@ dependencies:
       args:
         - -c
         - 'p="$HOME/.paper/bin/paper"; [ -x "$p" ] || exit 0; exec "$p" mcp'
+    - name: tableplus
+      registry: false
+      transport: stdio
+      # TablePlus runs only on macOS, so elsewhere the wrapper exits instead of failing on a missing binary.
+      # The bridge reads its port and token from the running TablePlus app.
+      command: sh
+      args:
+        - -c
+        - 'p="/Applications/TablePlus.app/Contents/MacOS/tableplus-mcp"; [ -x "$p" ] || exit 0; exec "$p"'
 includes: auto
 scripts: {}
