@@ -6885,6 +6885,15 @@ deployments:
   content_hash: sha256:599f8d37290e3945620401a357b546884887ae740dbd3721dae1933ba1d822c9
 - kind: uri
   target: mcp
+  value: tableplus
+  runtime: claude
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:90a848b3889f425205f08d69753f89302c7814193742cfc1523166bf22662863
+- kind: uri
+  target: mcp
   value: executor
   runtime: codex
   scope: project
@@ -6903,6 +6912,15 @@ deployments:
   content_hash: sha256:54f4b818731576c011fe7db6fc879a56d97900dccf19b38c0f293ca6f18ece4e
 - kind: uri
   target: mcp
+  value: tableplus
+  runtime: codex
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:86f1783038c6468c8900cbc9cde0bbd5ac05883c23975dbdf6282211d0167e0a
+- kind: uri
+  target: mcp
   value: executor
   runtime: cursor
   scope: project
@@ -6913,6 +6931,15 @@ deployments:
 - kind: uri
   target: mcp
   value: paper
+  runtime: cursor
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: tableplus
   runtime: cursor
   scope: project
   owners:
@@ -6931,6 +6958,15 @@ deployments:
 - kind: uri
   target: mcp
   value: paper
+  runtime: opencode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: tableplus
   runtime: opencode
   scope: project
   owners:
@@ -8281,6 +8317,7 @@ deployments:
 mcp_servers:
 - executor
 - paper
+- tableplus
 mcp_configs:
   executor:
     name: executor
@@ -8295,16 +8332,29 @@ mcp_configs:
     - p="$HOME/.paper/bin/paper"; [ -x "$p" ] || exit 0; exec "$p" mcp
     registry: false
     command: sh
+  tableplus:
+    name: tableplus
+    transport: stdio
+    args:
+    - -c
+    - p="/Applications/TablePlus.app/Contents/MacOS/tableplus-mcp"; [ -x "$p" ] ||
+      exit 0; exec "$p"
+    registry: false
+    command: sh
 mcp_target_servers:
   claude:
   - executor
   - paper
+  - tableplus
   codex:
   - executor
   - paper
+  - tableplus
   cursor:
   - executor
   - paper
+  - tableplus
   opencode:
   - executor
   - paper
+  - tableplus
