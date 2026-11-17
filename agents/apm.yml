@@ -41,6 +41,7 @@ dependencies:
         - modernize
         - monitor
         - next-task
+        - no-mistakes
         - pr
         - prune
         - refresh
